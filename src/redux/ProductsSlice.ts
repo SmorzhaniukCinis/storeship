@@ -1,14 +1,13 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from './store';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {RootState} from './store';
+import {productType} from "../API/productAPI";
 
 export interface CounterState {
-  value: number;
-  status: 'idle' | 'loading' | 'failed';
+  products: productType[]
 }
 
 const initialState: CounterState = {
-  value: 0,
-  status: 'idle',
+  products: []
 };
 
 
@@ -16,14 +15,14 @@ export const productsSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    setProducts: (state, action: PayloadAction<productType[]>) => {
+      state.products = action.payload;
     },
   },
 });
 
-export const { incrementByAmount } = productsSlice.actions;
+export const { setProducts } = productsSlice.actions;
 
-export const selectCount = (state: RootState) => state.counter.value;
+export const selectProducts = (state: RootState) => state.productsData.products;
 
 export default productsSlice.reducer;

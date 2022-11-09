@@ -1,13 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {productType} from "../../API/types/productsType";
+import {initialStateType} from "./types";
 
-export interface CounterState {
-    products: productType[]
-    currentProduct: productType | null
-    categories: string[]
-}
 
-const initialState: CounterState = {
+
+const initialState: initialStateType = {
     products: [],
     currentProduct: null,
     categories: []

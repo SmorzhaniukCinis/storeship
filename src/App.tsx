@@ -8,7 +8,7 @@ function App() {
 
   return (
       <div>
-          <button onClick={()=>dispatch(productsSagaActions.fetchProductById(1))}>test</button>
+          <button onClick={()=>dispatch(productsSagaActions.fetchCategories())}>test</button>
       </div>
   );
 }

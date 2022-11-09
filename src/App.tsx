@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAppDispatch} from "./redux/hooks";
-import {productsActions} from "./redux/productSaga";
+import {productsSagaActions} from "./redux/products/productSaga";
 
 function App() {
 
@@ -8,7 +8,7 @@ function App() {
 
   return (
       <div>
-          <button onClick={()=>dispatch(productsActions.fetchProducts())}>test</button>
+          <button onClick={()=>dispatch(productsSagaActions.fetchProductById(1))}>test</button>
       </div>
   );
 }

@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import productReducer from './ProductsSlice';
-import {productsSaga} from "./productSaga";
+import productReducer from './products/ProductsSlice';
+import {productsSaga} from "./products/productSaga";
 import { all } from 'redux-saga/effects';
 
 const sagaMiddleware = createSagaMiddleware()

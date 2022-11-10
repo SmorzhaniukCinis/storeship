@@ -1,5 +1,3 @@
-import {sortType} from "../../API/types/productsType";
-
 export const FETCH_PRODUCTS = "products/FETCH_PRODUCTS";
 export const FETCH_PRODUCT_BY_ID = 'products/FETCH_PRODUCT_BY_ID'
 export const FETCH_CATEGORIES = 'products/FETCH_CATEGORIES'

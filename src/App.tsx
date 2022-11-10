@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useAppDispatch} from "./redux/hooks";
 import {productsSagaActions} from "./redux/products/productSaga";
 import {cartAPI} from "./API/cartsAPI";
-import {userAPI} from "./API/UserAPI";
+import {userAPI} from "./API/userAPI";
 import {authAPI} from "./API/authAPI";
 
 function App() {

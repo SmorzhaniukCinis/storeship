@@ -16,7 +16,7 @@ export interface initialStateType {
 
 export type fetchProductsType = {
     type: typeof FETCH_PRODUCTS
-    params: {portion: number, sort: sortType}
+    params: {portion: number | undefined, sort: sortType | undefined}
 }
 export type fetchProductByIdType = {
     type: typeof FETCH_PRODUCT_BY_ID
@@ -27,7 +27,7 @@ export type fetchCategoriesType = {
 }
 export type fetchCategoryProductsType = {
     type: typeof FETCH_CATEGORY_PRODUCT
-    params: {category:string, portion:number, sort:sortType}
+    params: {category:string, portion:number | undefined, sort:sortType | undefined}
 }
 export type postNewProductType = {
     type: typeof POST_NEW_PRODUCT

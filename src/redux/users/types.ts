@@ -9,7 +9,7 @@ export type initialStateType = {
 
 export type fetchUsersType = {
     type: typeof FETCH_USERS
-    params: { portion: number, sort: sortType }
+    params: { portion: number | undefined, sort: sortType | undefined }
 }
 export type fetchUserByIdType = {
     type: typeof FETCH_USER_BY_ID

@@ -56,16 +56,16 @@ function* deleteUser(action: deleteUserType) {
 
 
 export const productsSagaActions = {
-    fetchUsers: (portion?: number, sort?: sortType) => ({type: FETCH_USERS, params: {portion, sort}}),
-    fetchUserById: (userId: number) => ({type: FETCH_USER_BY_ID, userId}),
-    postNewUser: (newUser: newUserType) => ({type: POST_NEW_USER, newUser}),
-    updateUser: (userId: number, updatedUser: newUserType) => ({
+    fetchUsers: (portion?: number, sort?: sortType):fetchUsersType => ({type: FETCH_USERS, params: {portion, sort}}),
+    fetchUserById: (userId: number):fetchUserByIdType => ({type: FETCH_USER_BY_ID, userId}),
+    postNewUser: (newUser: newUserType):addNewUserType => ({type: POST_NEW_USER, newUser}),
+    updateUser: (userId: number, updatedUser: newUserType):updateUserType => ({
         type: UPDATE_USER, userData: {
             userId,
             updatedUser
         }
     }),
-    deleteUser: (userId: number) => ({type: DELETE_USER, userId})
+    deleteUser: (userId: number):deleteUserType => ({type: DELETE_USER, userId})
 }
 
 export function* productsSaga() {

@@ -34,7 +34,7 @@ function* fetchProducts(action: fetchProductsType) {
 
 function* fetchProductById(action: fetchProductByIdType) {
     try {
-        const product:productType = yield call(productAPI.getProductById, action.productId);
+        const product: productType = yield call(productAPI.getProductById, action.productId);
         yield put(setCurrentProduct(product));
     } catch (e: any) {
         yield put({type: "USER_FETCH_FAILED", message: e.message});
@@ -43,7 +43,7 @@ function* fetchProductById(action: fetchProductByIdType) {
 
 function* fetchCategories(action: fetchCategoriesType) {
     try {
-        const categories:string[] = yield call(productAPI.getAllCategories);
+        const categories: string[] = yield call(productAPI.getAllCategories);
         yield put(setCategories(categories));
     } catch (e: any) {
         yield put({type: "USER_FETCH_FAILED", message: e.message});
@@ -53,7 +53,7 @@ function* fetchCategories(action: fetchCategoriesType) {
 function* fetchCategoryProducts(action: fetchCategoryProductsType) {
     const {category, portion, sort} = action.params
     try {
-        const products:productType[] = yield call(productAPI.getCategoryProducts, category, portion, sort);
+        const products: productType[] = yield call(productAPI.getCategoryProducts, category, portion, sort);
         yield put(setProducts(products));
     } catch (e: any) {
         yield put({type: "USER_FETCH_FAILED", message: e.message});
@@ -62,7 +62,7 @@ function* fetchCategoryProducts(action: fetchCategoryProductsType) {
 
 function* postNewProduct(action: postNewProductType) {
     try {
-        const product:productType = yield call(productAPI.addNewProduct, action.newProduct);
+        const product: productType = yield call(productAPI.addNewProduct, action.newProduct);
         yield put(setCurrentProduct(product));
     } catch (e: any) {
         yield put({type: "USER_FETCH_FAILED", message: e.message});
@@ -72,7 +72,7 @@ function* postNewProduct(action: postNewProductType) {
 function* updateProduct(action: updateProductType) {
     const {updatedProduct, productId} = action.productData
     try {
-        const product:productType = yield call(() => productAPI.updateProduct(productId, updatedProduct));
+        const product: productType = yield call(() => productAPI.updateProduct(productId, updatedProduct));
         yield put(setCurrentProduct(product));
     } catch (e: any) {
         yield put({type: "USER_FETCH_FAILED", message: e.message});
@@ -81,7 +81,7 @@ function* updateProduct(action: updateProductType) {
 
 function* deleteProduct(action: deleteProductType) {
     try {
-        const product:productType = yield call(productAPI.deleteProduct, action.productId);
+        const product: productType = yield call(productAPI.deleteProduct, action.productId);
         yield put(setCurrentProduct(product));
     } catch (e: any) {
         yield put({type: "USER_FETCH_FAILED", message: e.message});
@@ -90,21 +90,24 @@ function* deleteProduct(action: deleteProductType) {
 
 
 export const productsSagaActions = {
-    fetchProducts: (portion?: number, sort?: sortType) => ({type: FETCH_PRODUCTS, params: {portion, sort}}),
-    fetchProductById: (productId: number) => ({type: FETCH_PRODUCT_BY_ID, productId}),
-    fetchCategories: () => ({type: FETCH_CATEGORIES}),
-    fetchCategoryProducts: (category: string, portion?: number, sort?: sortType) => ({
+    fetchProducts: (portion?: number, sort?: sortType): fetchProductsType => ({
+        type: FETCH_PRODUCTS,
+        params: {portion, sort}
+    }),
+    fetchProductById: (productId: number): fetchProductByIdType => ({type: FETCH_PRODUCT_BY_ID, productId}),
+    fetchCategories: (): fetchCategoriesType => ({type: FETCH_CATEGORIES}),
+    fetchCategoryProducts: (category: string, portion?: number, sort?: sortType): fetchCategoryProductsType => ({
         type: FETCH_CATEGORY_PRODUCT,
         params: {category, portion, sort}
     }),
-    postNewProduct: (newProduct: newProduct) => ({type: POST_NEW_PRODUCT, newProduct}),
-    updateProduct: (productId: number, newProduct: newProduct) => ({
+    postNewProduct: (newProduct: newProduct): postNewProductType => ({type: POST_NEW_PRODUCT, newProduct}),
+    updateProduct: (productId: number, updatedProduct: newProduct): updateProductType => ({
         type: UPDATE_PRODUCT, productData: {
             productId,
-            newProduct
+            updatedProduct
         }
     }),
-    deleteProduct: (productId: number) => ({type: DELETE_PRODUCT, productId})
+    deleteProduct: (productId: number): deleteProductType => ({type: DELETE_PRODUCT, productId})
 }
 
 export function* productsSaga() {

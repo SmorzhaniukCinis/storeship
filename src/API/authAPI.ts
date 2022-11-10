@@ -1,8 +1,8 @@
 import {instance} from "./index";
-import {authData} from "./types/authTypes";
+import {authDataType} from "./types/authTypes";
 
 export const authAPI = {
-    authUser: async (authData: authData): Promise<string> => {
+    authUser: async (authData: authDataType): Promise<string> => {
         const {data} = await instance.post<{token:string}>(`auth/login`, authData)
         return data.token
     }

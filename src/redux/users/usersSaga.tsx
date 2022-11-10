@@ -68,7 +68,7 @@ export const productsSagaActions = {
     deleteUser: (userId: number):deleteUserType => ({type: DELETE_USER, userId})
 }
 
-export function* productsSaga() {
+export function* UsersSaga() {
     yield takeEvery(FETCH_USERS, fetchUsers);
     yield takeEvery(FETCH_USER_BY_ID, fetchUserById)
     yield takeEvery(POST_NEW_USER, addNewUser)

@@ -92,7 +92,7 @@ export const productsSagaActions = {
     deleteCart: (cartId: number): deleteCartType => ({type: DELETE_CART, cartId})
 }
 
-export function* productsSaga() {
+export function* CartsSaga() {
     yield takeEvery(FETCH_CARTS, fetchCarts);
     yield takeEvery(FETCH_CART_BY_ID, fetchCartById)
     yield takeEvery(FETCH_CART_BY_USER, fetchCartByUser)

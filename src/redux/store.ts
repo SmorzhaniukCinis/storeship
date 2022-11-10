@@ -6,6 +6,9 @@ import { all } from 'redux-saga/effects';
 import usersReducer from "./users/usersSlise";
 import cartReducer from "./carts/cartSlise";
 import authReducer from "./auth/authSlise";
+import {authSaga} from "./auth/authSaga";
+import {UsersSaga} from "./users/usersSaga";
+import {CartsSaga} from "./carts/cartsSaga";
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -22,6 +25,9 @@ export const store = configureStore({
 export default function* rootSaga() {
   yield all([
     productsSaga(),
+    authSaga(),
+    UsersSaga(),
+    CartsSaga()
   ])
 }
 

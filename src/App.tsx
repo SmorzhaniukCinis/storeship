@@ -3,7 +3,7 @@ import {useAppDispatch} from "./redux/hooks";
 import {productsSagaActions} from "./redux/products/productSaga";
 import {cartAPI} from "./API/cartsAPI";
 import {userAPI} from "./API/UserAPI";
-import {authAPI} from "./API/types/authAPI";
+import {authAPI} from "./API/authAPI";
 
 function App() {
 

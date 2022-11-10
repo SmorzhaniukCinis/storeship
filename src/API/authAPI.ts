@@ -1,5 +1,5 @@
-import {instance} from "../index";
-import {authData} from "./authTypes";
+import {instance} from "./index";
+import {authData} from "./types/authTypes";
 
 export const authAPI = {
     authUser: async (authData: authData): Promise<string> => {

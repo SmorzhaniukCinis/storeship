@@ -17,7 +17,7 @@ export const store = configureStore({
     productsData: productReducer,
     usersData: usersReducer,
     cartsData: cartReducer,
-    authData: authReducer,
+    appData: authReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({thunk: false}).concat(sagaMiddleware)
 });

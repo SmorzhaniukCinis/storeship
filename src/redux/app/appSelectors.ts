@@ -1,6 +1,7 @@
 import {RootState} from "../store";
 
 export const appSelectors = {
-    selectToken: (state: RootState) => state.authData.token,
-    selectErrorMessage: (state: RootState) => state.authData.errorMessage
+    selectToken: (state: RootState) => state.appData.token,
+    selectErrorMessage: (state: RootState) => state.appData.errorMessage,
+    selectTheme: (state: RootState) => state.appData.theme
 }

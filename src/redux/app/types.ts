@@ -4,7 +4,10 @@ import {authDataType} from "../../API/types/authTypes";
 export type initialStateType = {
     token: string
     errorMessage:string
+    theme: themeType
 }
+export type themeType = 'light' | 'dark'
+
 export type authUserType = {
     type: typeof AUTH_USER
     authData:authDataType

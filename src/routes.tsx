@@ -15,16 +15,18 @@ export const publicRoutes = createBrowserRouter([
         errorElement: <ErrorPage/>,
         children: [
             {
-                path: "/admin",
-                element: <AdminPanel/>,
-            },
-            {
-                path: "/products",
+                index: true,
                 element: <ProductsPage/>,
 
             },
             {
-                path: "/profile",
+                path: "/admin",
+                element: <AdminPanel/>,
+
+            },
+
+            {
+                path: "/profile/:userId",
                 element: <UserPage/>,
 
             },

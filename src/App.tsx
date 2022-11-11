@@ -1,24 +1,21 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch} from "./redux/hooks";
+import {useAppDispatch, useAppSelector} from "./redux/hooks";
 import {authAPI} from "./API/authAPI";
 import {RouterProvider} from "react-router-dom";
 import {publicRoutes} from "./routes";
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {brown, deepOrange, teal} from "@mui/material/colors";
+import {darkTheme, lightTheme} from "./theme";
+import {appSelectors} from "./redux/app/appSelectors";
 
 function App() {
-
-    const dispatch = useAppDispatch()
-    useEffect(() => {
-        authAPI.authUser({
-            username: "mor_2314",
-            password: "83r5^_"
-        }).then(res => console.log(res))
-    }, [])
-
+    const theme = useAppSelector(appSelectors.selectTheme)
 
     return (
-        <div>
+        <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+            <CssBaseline />
             <RouterProvider router={publicRoutes}/>
-        </div>
+        </ThemeProvider>
     );
 }
 

@@ -1,11 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {initialStateType, throwSomeErrorType} from "./types";
+import {initialStateType, themeType, throwSomeErrorType} from "./types";
 import {THROW_SOME_ERROR} from "./appActionTypes";
 
 
 const initialState: initialStateType = {
     token: '',
-    errorMessage: ''
+    errorMessage: '',
+    theme: 'light'
 };
 
 
@@ -18,6 +19,9 @@ export const authSlice = createSlice({
         },
         throwSomeError: (state, action: PayloadAction<string>) => {
             state.errorMessage = action.payload
+        },
+        setTheme: (state, action: PayloadAction<themeType>) => {
+            state.theme = action.payload
         },
 
     },

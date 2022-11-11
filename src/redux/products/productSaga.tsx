@@ -20,6 +20,7 @@ import {
     postNewProductType,
     updateProductType
 } from "./types";
+import {throwSomeError} from "../app/appSlise";
 
 
 function* fetchProducts(action: fetchProductsType) {
@@ -28,7 +29,7 @@ function* fetchProducts(action: fetchProductsType) {
         const products: productType[] = yield call(() => productAPI.getProducts(portion, sort));
         yield put(setProducts(products));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -37,7 +38,7 @@ function* fetchProductById(action: fetchProductByIdType) {
         const product: productType = yield call(productAPI.getProductById, action.productId);
         yield put(setCurrentProduct(product));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -46,7 +47,7 @@ function* fetchCategories(action: fetchCategoriesType) {
         const categories: string[] = yield call(productAPI.getAllCategories);
         yield put(setCategories(categories));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -56,7 +57,7 @@ function* fetchCategoryProducts(action: fetchCategoryProductsType) {
         const products: productType[] = yield call(productAPI.getCategoryProducts, category, portion, sort);
         yield put(setProducts(products));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -65,7 +66,7 @@ function* postNewProduct(action: postNewProductType) {
         const product: productType = yield call(productAPI.addNewProduct, action.newProduct);
         yield put(setCurrentProduct(product));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -75,7 +76,7 @@ function* updateProduct(action: updateProductType) {
         const product: productType = yield call(() => productAPI.updateProduct(productId, updatedProduct));
         yield put(setCurrentProduct(product));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -84,7 +85,7 @@ function* deleteProduct(action: deleteProductType) {
         const product: productType = yield call(productAPI.deleteProduct, action.productId);
         yield put(setCurrentProduct(product));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 

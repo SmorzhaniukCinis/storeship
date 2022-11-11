@@ -19,6 +19,7 @@ import {
     POST_NEW_CART,
     UPDATE_CART
 } from "./cartActionTypes";
+import {throwSomeError} from "../app/appSlise";
 
 
 function* fetchCarts(action: fetchCartsType) {
@@ -27,7 +28,7 @@ function* fetchCarts(action: fetchCartsType) {
         const carts: cartType[] = yield call(() => cartAPI.getCarts(portion, sort));
         yield put(setCarts(carts));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -36,7 +37,7 @@ function* fetchCartById(action: fetchCartByIdType) {
         const cart: cartType = yield call(cartAPI.getCartById, action.cartId);
         yield put(setCurrentCart(cart));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -45,7 +46,7 @@ function* fetchCartByUser(action: fetchCartByUserType) {
         const cart: cartType = yield call(cartAPI.getCartsByUser, action.userId);
         yield put(setCurrentCart(cart));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -54,7 +55,7 @@ function* addNewCart(action: addNewCartType) {
         const cart: cartType = yield call(cartAPI.addNewCart, action.newCart);
         yield put(setCurrentCart(cart));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -64,7 +65,7 @@ function* updateCart(action: updateCartType) {
         const cart: cartType = yield call(() => cartAPI.updateCart(cartId, updatedCart));
         yield put(setCurrentCart(cart));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
@@ -73,12 +74,12 @@ function* deleteCart(action: deleteCartType) {
         const cart: cartType = yield call(cartAPI.deleteCart, action.cartId);
         yield put(setCurrentCart(cart));
     } catch (e: any) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put(throwSomeError(e.message));
     }
 }
 
 
-export const productsSagaActions = {
+export const cartSagaActions = {
     fetchCarts: (portion?: number, sort?: sortType): fetchCartsType => ({type: FETCH_CARTS, params: {portion, sort}}),
     fetchCartById: (cartId: number): fetchCartByIdType => ({type: FETCH_CART_BY_ID, cartId}),
     fetchCartByUser: (userId: number): fetchCartByUserType => ({type: FETCH_CART_BY_USER, userId}),

@@ -5,8 +5,8 @@ import {productsSaga} from "./products/productSaga";
 import { all } from 'redux-saga/effects';
 import usersReducer from "./users/usersSlise";
 import cartReducer from "./carts/cartSlise";
-import authReducer from "./auth/authSlise";
-import {authSaga} from "./auth/authSaga";
+import authReducer from "./app/appSlise";
+import {appSaga} from "./app/appSaga";
 import {UsersSaga} from "./users/usersSaga";
 import {CartsSaga} from "./carts/cartsSaga";
 
@@ -25,7 +25,7 @@ export const store = configureStore({
 export default function* rootSaga() {
   yield all([
     productsSaga(),
-    authSaga(),
+    appSaga(),
     UsersSaga(),
     CartsSaga()
   ])

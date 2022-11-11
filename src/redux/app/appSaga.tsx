@@ -8,7 +8,7 @@ import {setToken, throwSomeError} from "./appSlise";
 
 function* authUser(action: authUserType) {
     try {
-        const token: string = yield call(() => authAPI.authUser(action.appData));
+        const token: string = yield call(() => authAPI.authUser(action.authData));
         yield put(setToken(token));
     } catch (e: any) {
         yield put(throwSomeError(e.message));
@@ -17,7 +17,7 @@ function* authUser(action: authUserType) {
 
 
 export const appSagaActions = {
-    fetchProducts: (authData: authDataType): authUserType => ({type: AUTH_USER, authData: appData}),
+    fetchProducts: (authData: authDataType): authUserType => ({type: AUTH_USER, authData}),
 }
 
 export function* appSaga() {

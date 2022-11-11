@@ -8,7 +8,7 @@ export const AppRoot = () => {
     return (
         <div>
             <Header/>
-            <Container sx={{minHeight: '85vh'}}>
+            <Container sx={{minHeight: '75vh'}}>
                 <Outlet/>
             </Container>
             <Footer/>

@@ -5,7 +5,8 @@ import {initialStateType} from "./types";
 const initialState: initialStateType = {
     token: '',
     errorMessage: '',
-    isLightTheme: true
+    isLightTheme: true,
+    isLoading: true
 };
 
 
@@ -22,10 +23,14 @@ export const authSlice = createSlice({
         setTheme: (state, action: PayloadAction<boolean>) => {
             state.isLightTheme = action.payload
         },
+        setIsLoading: (state, action: PayloadAction<boolean>) => {
+
+            state.isLoading = action.payload
+        },
 
     },
 });
 
-export const {setToken, throwSomeError, setTheme} = authSlice.actions;
+export const {setToken, throwSomeError, setTheme, setIsLoading} = authSlice.actions;
 
 export default authSlice.reducer;

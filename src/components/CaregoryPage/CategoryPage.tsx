@@ -7,15 +7,18 @@ import manClothingBG from '../../assets/manClothingBG.jpg'
 import jewelryBG from '../../assets/jewelryBG.jpg'
 import womanClothingBG from '../../assets/womanClothingBG.jpg'
 import Typography from "@mui/material/Typography";
+import {useNavigate} from "react-router-dom";
 
 const categories = [
-    {name: 'Electronics', url: devicesBG},
-    {name: 'Jewelry', url: jewelryBG},
-    {name: "Man's Clothing", url: manClothingBG},
-    {name: "Woman's Clothing", url: womanClothingBG}
+    {name: 'Electronics', url: devicesBG, pageLink: 'products/electronics'},
+    {name: 'Jewelry', url: jewelryBG, pageLink: 'products/jewelery'},
+    {name: "Man's Clothing", url: manClothingBG, pageLink: 'products/men-clothing'},
+    {name: "Woman's Clothing", url: womanClothingBG, pageLink: 'products/women-clothing'}
 ]
 
 export const CategoryPage = () => {
+
+    const navigate = useNavigate()
 
     const Category = styled(Paper)(({theme}) => ({
         color: 'black',
@@ -45,7 +48,7 @@ export const CategoryPage = () => {
                 {
                     categories.map(category =>
                         <Grid key={category.name}  xs={12} sm={6}>
-                            <Category elevation={20} sx={{backgroundImage: `url(${category.url})`}}>
+                            <Category onClick={()=>navigate(category.pageLink)} elevation={20} sx={{backgroundImage: `url(${category.url})`}}>
                                 <Typography sx={{fontSize: 45, backgroundColor: 'rgba(252,248,248,0.5)'}}>
                                     {category.name}
                                 </Typography>

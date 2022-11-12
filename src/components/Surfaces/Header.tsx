@@ -19,14 +19,14 @@ import {setTheme} from "../../redux/app/appSlise";
 
 const pages = [
     {name: "Electronics", href: 'products/electronics'},
-    {name: "jewelry", href: 'products/jewelery'},
-    {name: "men's clothing", href: 'products/men-clothing'},
-    {name: "women's clothing", href: 'products/women-clothing'}
+    {name: "Jewelry", href: 'products/jewelery'},
+    {name: "Men's clothing", href: 'products/men-clothing'},
+    {name: "Women's clothing", href: 'products/women-clothing'}
 ];
 
 export const Header = () => {
 
-    const isLightTheme = useAppSelector(appSelectors.selectTheme)
+    const isLightTheme = useAppSelector(appSelectors.selectIsLigthTheme)
     const dispatch = useAppDispatch()
 
     const changeTheme = () => {

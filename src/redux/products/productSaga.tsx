@@ -1,10 +1,9 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {productAPI} from "../../API/productAPI";
-import {setCategories, setCurrentProduct, setProducts} from "./ProductsSlice";
+import {setCurrentProduct, setProducts} from "./ProductsSlice";
 import {newProduct, productType, sortType} from "../../API/types/productsType";
 import {
     DELETE_PRODUCT,
-    FETCH_CATEGORIES,
     FETCH_CATEGORY_PRODUCT,
     FETCH_PRODUCT_BY_ID,
     FETCH_PRODUCTS,
@@ -13,14 +12,13 @@ import {
 } from "./productsActionTypes";
 import {
     deleteProductType,
-    fetchCategoriesType,
     fetchCategoryProductsType,
     fetchProductByIdType,
     fetchProductsType,
     postNewProductType,
     updateProductType
 } from "./types";
-import {throwSomeError} from "../app/appSlise";
+import {setIsLoading, throwSomeError} from "../app/appSlise";
 
 
 function* fetchProducts(action: fetchProductsType) {
@@ -42,20 +40,13 @@ function* fetchProductById(action: fetchProductByIdType) {
     }
 }
 
-function* fetchCategories(action: fetchCategoriesType) {
-    try {
-        const categories: string[] = yield call(productAPI.getAllCategories);
-        yield put(setCategories(categories));
-    } catch (e: any) {
-        yield put(throwSomeError(e.message));
-    }
-}
-
 function* fetchCategoryProducts(action: fetchCategoryProductsType) {
     const {category, portion, sort} = action.params
     try {
+        yield put(setIsLoading(true))
         const products: productType[] = yield call(productAPI.getCategoryProducts, category, portion, sort);
         yield put(setProducts(products));
+        yield put(setIsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }
@@ -96,7 +87,6 @@ export const productsSagaActions = {
         params: {portion, sort}
     }),
     fetchProductById: (productId: number): fetchProductByIdType => ({type: FETCH_PRODUCT_BY_ID, productId}),
-    fetchCategories: (): fetchCategoriesType => ({type: FETCH_CATEGORIES}),
     fetchCategoryProducts: (category: string, portion?: number, sort?: sortType): fetchCategoryProductsType => ({
         type: FETCH_CATEGORY_PRODUCT,
         params: {category, portion, sort}
@@ -114,7 +104,6 @@ export const productsSagaActions = {
 export function* productsSaga() {
     yield takeEvery(FETCH_PRODUCTS, fetchProductById);
     yield takeEvery(FETCH_PRODUCT_BY_ID, fetchProducts)
-    yield takeEvery(FETCH_CATEGORIES, fetchCategories)
     yield takeEvery(FETCH_CATEGORY_PRODUCT, fetchCategoryProducts)
     yield takeEvery(POST_NEW_PRODUCT, postNewProduct)
     yield takeEvery(UPDATE_PRODUCT, updateProduct)

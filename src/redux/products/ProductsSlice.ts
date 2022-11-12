@@ -1,13 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {productType} from "../../API/types/productsType";
-import {initialStateType} from "./types";
+import {currentCategory, initialStateType} from "./types";
 
 
 
 const initialState: initialStateType = {
     products: [],
     currentProduct: null,
-    categories: []
+    currentCategory: 'electronics'
 };
 
 
@@ -21,8 +21,8 @@ export const productsSlice = createSlice({
         setCurrentProduct: (state, action: PayloadAction<productType>) => {
             state.currentProduct = action.payload;
         },
-        setCategories: (state, action: PayloadAction<string[]>) => {
-            state.categories = action.payload;
+        setCategories: (state, action: PayloadAction<currentCategory>) => {
+            state.currentCategory = action.payload;
         },
     },
 });

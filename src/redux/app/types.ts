@@ -5,6 +5,7 @@ export type initialStateType = {
     token: string
     errorMessage:string
     isLightTheme: boolean
+    isLoading: boolean
 }
 
 export type authUserType = {

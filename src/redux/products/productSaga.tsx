@@ -1,6 +1,6 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {productAPI} from "../../API/productAPI";
-import {setCurrentProduct, setProducts} from "./ProductsSlice";
+import {setCurrentProduct, setIsProductsLoading, setProducts} from "./ProductsSlice";
 import {newProduct, productType, sortType} from "../../API/types/productsType";
 import {
     DELETE_PRODUCT,
@@ -43,10 +43,10 @@ function* fetchProductById(action: fetchProductByIdType) {
 function* fetchCategoryProducts(action: fetchCategoryProductsType) {
     const {category, portion, sort} = action.params
     try {
-        yield put(setIsLoading(true))
+        yield put(setIsProductsLoading(true))
         const products: productType[] = yield call(productAPI.getCategoryProducts, category, portion, sort);
         yield put(setProducts(products));
-        yield put(setIsLoading(false))
+        yield put(setIsProductsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }

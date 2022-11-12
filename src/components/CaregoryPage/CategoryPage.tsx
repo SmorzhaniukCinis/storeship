@@ -31,9 +31,9 @@ export const CategoryPage = () => {
         backgroundRepeat: 'no-repeat',
         transition: `${theme.transitions.create(['background-color', 'transform', 'opacity'], {
             duration: theme.transitions.duration.standard,
-          })}`,
+        })}`,
         opacity: 0.6,
-        '&:hover':{
+        '&:hover': {
             transitions: '0.5 s',
             opacity: 0.8,
             backgroundColor: 'rgb(26,32,39, 0.8)',
@@ -47,8 +47,9 @@ export const CategoryPage = () => {
             <Grid container rowSpacing={4} columnSpacing={{xs: 2, sm: 4, md: 6}}>
                 {
                     categories.map(category =>
-                        <Grid key={category.name}  xs={12} sm={6}>
-                            <Category onClick={()=>navigate(category.pageLink)} elevation={20} sx={{backgroundImage: `url(${category.url})`}}>
+                        <Grid key={category.name} xs={12} sm={6}>
+                            <Category onClick={() => navigate(category.pageLink)} elevation={20}
+                                      sx={{backgroundImage: `url(${category.url})`}}>
                                 <Typography sx={{fontSize: 45, backgroundColor: 'rgba(252,248,248,0.5)'}}>
                                     {category.name}
                                 </Typography>

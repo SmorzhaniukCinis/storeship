@@ -7,7 +7,8 @@ import {currentCategory, initialStateType} from "./types";
 const initialState: initialStateType = {
     products: [],
     currentProduct: null,
-    currentCategory: 'electronics'
+    currentCategory: 'electronics',
+    isProductsLoading: false
 };
 
 
@@ -21,12 +22,12 @@ export const productsSlice = createSlice({
         setCurrentProduct: (state, action: PayloadAction<productType>) => {
             state.currentProduct = action.payload;
         },
-        setCategories: (state, action: PayloadAction<currentCategory>) => {
-            state.currentCategory = action.payload;
+        setIsProductsLoading: (state, action: PayloadAction<boolean>) => {
+            state.isProductsLoading = action.payload;
         },
     },
 });
 
-export const {setProducts, setCurrentProduct, setCategories} = productsSlice.actions;
+export const {setProducts, setCurrentProduct, setIsProductsLoading} = productsSlice.actions;
 
 export default productsSlice.reducer;

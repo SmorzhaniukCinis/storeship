@@ -6,7 +6,7 @@ const initialState: initialStateType = {
     token: '',
     errorMessage: '',
     isLightTheme: true,
-    isLoading: true
+    isLoading: false
 };
 
 

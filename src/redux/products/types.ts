@@ -11,6 +11,7 @@ export interface initialStateType {
     products: productType[]
     currentProduct: productType | null
     currentCategory: currentCategory
+    isProductsLoading: boolean
 }
 
 export type currentCategory =  "electronics" | "jewelery" | "men's clothing" | "women's clothing"

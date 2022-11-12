@@ -102,8 +102,8 @@ export const productsSagaActions = {
 }
 
 export function* productsSaga() {
-    yield takeEvery(FETCH_PRODUCTS, fetchProductById);
-    yield takeEvery(FETCH_PRODUCT_BY_ID, fetchProducts)
+    yield takeEvery(FETCH_PRODUCTS, fetchProducts);
+    yield takeEvery(FETCH_PRODUCT_BY_ID, fetchProductById)
     yield takeEvery(FETCH_CATEGORY_PRODUCT, fetchCategoryProducts)
     yield takeEvery(POST_NEW_PRODUCT, postNewProduct)
     yield takeEvery(UPDATE_PRODUCT, updateProduct)

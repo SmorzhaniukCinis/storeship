@@ -1,6 +1,6 @@
 import React from "react";
 import {createBrowserRouter} from "react-router-dom";
-import {AppRoot} from "./components/Surfaces/AppRoot";
+import {RootRouter} from "./RootRouter";
 import {AdminPanel} from "./components/AdminPanel/AdminPanel";
 import {ProductsPage} from "./components/ProductsPage/ProductsPage";
 import {UserPage} from "./components/UserPage/UserPage";
@@ -12,7 +12,7 @@ import {CategoryPage} from "./components/CaregoryPage/CategoryPage";
 export const publicRoutes = createBrowserRouter([
     {
         path: "/",
-        element: <AppRoot/>,
+        element: <RootRouter/>,
         errorElement: <ErrorPage/>,
         children: [
             {

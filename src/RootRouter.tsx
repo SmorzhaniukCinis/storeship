@@ -1,10 +1,10 @@
 import React from 'react';
-import {Header} from "./Header";
+import {Header} from "./components/Surfaces/Header";
 import {Outlet} from "react-router-dom";
-import {Footer} from "./Footer";
+import {Footer} from "./components/Surfaces/Footer";
 import {Container} from "@mui/material";
 
-export const AppRoot = () => {
+export const RootRouter = () => {
     return (
         <div>
             <Header/>

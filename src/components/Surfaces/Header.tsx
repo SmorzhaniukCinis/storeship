@@ -11,6 +11,10 @@ import {MobileLogo} from "./MobileLogo";
 import {AppMenu} from "./AppMenu";
 import {AppMenuMobile} from "./AppMenuMobile";
 import {SettingMenu} from "./SettingMenu";
+import {ThemeSwitch} from "./ThemeSwitch";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {appSelectors} from "../../redux/app/appSelectors";
+import {setTheme} from "../../redux/app/appSlise";
 
 
 const pages = [
@@ -21,6 +25,13 @@ const pages = [
 ];
 
 export const Header = () => {
+
+    const isLightTheme = useAppSelector(appSelectors.selectTheme)
+    const dispatch = useAppDispatch()
+
+    const changeTheme = () => {
+        dispatch(setTheme(!isLightTheme))
+    }
 
 
     return (
@@ -36,6 +47,7 @@ export const Header = () => {
                             <AppMenuMobile pages={pages}/>
                             <ShoppingCartIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
                             <MobileLogo/>
+                            <ThemeSwitch sx={{ m: 1 }} onChange={changeTheme} value={isLightTheme}  />
                             <SettingMenu/>
                         </Toolbar>
                     </Container>
@@ -45,3 +57,6 @@ export const Header = () => {
 
     );
 }
+
+
+

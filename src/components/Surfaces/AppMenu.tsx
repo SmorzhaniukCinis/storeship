@@ -8,13 +8,12 @@ type props = {
 }
 
 const activeLink ={
-    opacity: '60%',
-    textDecoration: 'none',
-    color:'inherit'
+    opacity: '70%',
+    color:'inherit',
 }
 const link = {
     textDecoration: 'none',
-    color:'inherit'
+    color:'inherit',
 }
 
 const addActiveStyles = ({isActive}:any)=> isActive? activeLink : link

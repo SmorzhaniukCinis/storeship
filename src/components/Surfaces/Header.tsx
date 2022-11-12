@@ -19,7 +19,7 @@ import {setTheme} from "../../redux/app/appSlise";
 
 const pages = [
     {name: "Electronics", href: 'products/electronics'},
-    {name: "jewelery", href: 'products/jewelery'},
+    {name: "jewelry", href: 'products/jewelery'},
     {name: "men's clothing", href: 'products/men-clothing'},
     {name: "women's clothing", href: 'products/women-clothing'}
 ];

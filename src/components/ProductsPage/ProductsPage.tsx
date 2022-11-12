@@ -51,8 +51,8 @@ export const ProductsPage = () => {
             <Grid container rowSpacing={4} columnSpacing={{md: 2}}>
                 {
                     products.map(product =>
-                        <Grid key={product.id}  xs={12} sm={3}>
-                            <Card elevation={10} sx={{minWidth: 245}}>
+                        <Grid key={product.id} sx={{pb: 3}}  xs={12} sm={3}>
+                            <Card elevation={10} sx={{minWidth: 245,}}>
                                 <ProductCardImage id={product.id} goToProduct={goToProduct} url={product.image}/>
                                 <ProductCardInfo goToProduct={goToProduct} product={product}/>
                                 <ProductCardAction price={product.price}/>

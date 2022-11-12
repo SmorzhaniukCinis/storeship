@@ -8,11 +8,11 @@ const skeletonItem = [1, 2, 3, 4]
 export const ProductsSkeleton = () => {
     return (
         <Box sx={{m: 2}}>
-            <Grid container rowSpacing={4} columnSpacing={{md: 2}}>
+            <Grid container rowSpacing={4}  columnSpacing={{md: 2}}>
                 {
                     skeletonItem.map(item =>
-                        <Grid key={item} xs={12} sm={3}>
-                            <Skeleton variant="rounded" width={265} height={500}/>
+                        <Grid key={item} sx={{pb: 3}} xs={12} sm={3}>
+                            <Skeleton animation="wave" variant="rounded" sx={{minWidth:265}} height={500}/>
                         </Grid>)
                 }
             </Grid>

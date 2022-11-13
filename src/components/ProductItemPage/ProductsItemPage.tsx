@@ -10,6 +10,9 @@ import Grid from "@mui/material/Unstable_Grid2";
 import {ProductCardImage} from "../ProductsPage/ProductCardImage";
 import {ProductCardInfo} from "../ProductsPage/ProductCardInfo";
 import {ProductCardAction} from "../ProductsPage/ProductCardAction";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import {AddRating} from "./AddRating";
 
 export const ProductsItemPage = () => {
 
@@ -28,11 +31,27 @@ export const ProductsItemPage = () => {
                     <img style={{width: '100%'}} src={product?.image} alt={product?.image}/>
                 </Grid>
                 <Grid xs={12} sm={7}>
-                    <Typography>{product?.title}</Typography>
-                    <Typography>{product?.category}</Typography>
-                    <Typography>{product?.rating.count}</Typography>
-                    <Rating name="read-only" value={product?.rating.rate || null} readOnly />
-                    <Typography>{product?.description}</Typography>
+                    <Paper elevation={20} sx={{p:3}}>
+                        <Typography fontSize={30}>{product?.title}</Typography>
+                        <div style={{display: 'flex'}}>
+                            <Typography sx={{mr:2}} fontSize={20} lineHeight={2}>Price:{product?.price}$</Typography>
+                            <Button color='success' variant='outlined'>add to card</Button>
+                        </div>
+                        <div >
+                            <Tooltip followCursor enterDelay={500} title={`Votes: ${product?.rating.count}`}>
+                                <Typography sx={{width:120}}>
+                                    <Rating
+                                        value={product?.rating.rate || null}
+                                        readOnly
+                                    />
+                                </Typography>
+                            </Tooltip>
+                            <AddRating/>
+                        </div>
+
+                        <Typography>{product?.description}</Typography>
+                    </Paper>
+
                 </Grid>
             </Grid>
         </div>

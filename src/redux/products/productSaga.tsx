@@ -33,8 +33,10 @@ function* fetchProducts(action: fetchProductsType) {
 
 function* fetchProductById(action: fetchProductByIdType) {
     try {
+        yield put(setIsProductsLoading(true))
         const product: productType = yield call(productAPI.getProductById, action.productId);
         yield put(setCurrentProduct(product));
+        yield put(setIsProductsLoading(true))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }

@@ -7,6 +7,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {useNavigate} from "react-router-dom";
+import {ThemeSwitch} from "./ThemeSwitch";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {appSelectors} from "../../redux/app/appSelectors";
+import {setTheme} from "../../redux/app/appSlise";
 
 
 export const SettingMenu = () => {
@@ -23,6 +27,12 @@ export const SettingMenu = () => {
     const goToPage = (href: string) => {
         navigate(href)
         setAnchorElUser(null);
+    }
+    const isLightTheme = useAppSelector(appSelectors.selectIsLigthTheme)
+    const dispatch = useAppDispatch()
+
+    const changeTheme = () => {
+        dispatch(setTheme(!isLightTheme))
     }
 
     return (
@@ -57,6 +67,7 @@ export const SettingMenu = () => {
                 <MenuItem onClick={() => goToPage('/auth')}>
                     <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
+                <ThemeSwitch sx={{ m: 1 }} onChange={changeTheme} value={isLightTheme}  />
             </Menu>
         </Box>
     );

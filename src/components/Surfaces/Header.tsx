@@ -15,6 +15,11 @@ import {ThemeSwitch} from "./ThemeSwitch";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {appSelectors} from "../../redux/app/appSelectors";
 import {setTheme} from "../../redux/app/appSlise";
+import ShoppingCartCheckoutRoundedIcon from '@mui/icons-material/ShoppingCartCheckoutRounded';
+import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded';
+import Button from "@mui/material/Button";
+import {useState} from "react";
+import {CartPage} from "../CartPage/CartPage";
 
 
 const pages = [
@@ -26,12 +31,11 @@ const pages = [
 
 export const Header = () => {
 
-    const isLightTheme = useAppSelector(appSelectors.selectIsLigthTheme)
-    const dispatch = useAppDispatch()
+    const [isCartOpen, setIsCartOpen] = useState(true)
 
-    const changeTheme = () => {
-        dispatch(setTheme(!isLightTheme))
-    }
+    const openCart = () => setIsCartOpen(true);
+    const closeCart = () => setIsCartOpen(false);
+
 
 
     return (
@@ -41,13 +45,14 @@ export const Header = () => {
                 <AppBar>
                     <Container maxWidth="xl">
                         <Toolbar disableGutters>
-                            <ShoppingCartIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
+                            <RocketLaunchRoundedIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
                             <Logo/>
                             <AppMenu pages={pages}/>
                             <AppMenuMobile pages={pages}/>
-                            <ShoppingCartIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
+                            <RocketLaunchRoundedIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
                             <MobileLogo/>
-                            <ThemeSwitch sx={{ m: 1 }} onChange={changeTheme} value={isLightTheme}  />
+                            <ShoppingCartIcon onClick={openCart} sx={{mr: 2, fontSize: 30, cursor: 'pointer'}}/>
+                            <CartPage closeCart={closeCart} isOpen={isCartOpen}/>
                             <SettingMenu/>
                         </Toolbar>
                     </Container>

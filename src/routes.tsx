@@ -4,7 +4,6 @@ import {RootRouter} from "./RootRouter";
 import {AdminPanel} from "./components/AdminPanel/AdminPanel";
 import {ProductsPage} from "./components/ProductsPage/ProductsPage";
 import {UserPage} from "./components/UserPage/UserPage";
-import {CartPage} from "./components/CartPage/CartPage";
 import {AuthPage} from "./components/AuthPage/AuthPage";
 import {ErrorPage} from "./components/CommonComponnents/ErrorPage";
 import {CategoryPage} from "./components/CaregoryPage/CategoryPage";
@@ -40,11 +39,6 @@ export const publicRoutes = createBrowserRouter([
             {
                 path: "/profile/:userId",
                 element: <UserPage/>,
-
-            },
-            {
-                path: "/cart",
-                element: <CartPage/>,
 
             },
             {

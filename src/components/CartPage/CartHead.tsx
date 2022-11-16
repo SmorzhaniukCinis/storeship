@@ -11,7 +11,7 @@ export const CartHead = () => {
                 <Typography variant={'h4'} marginRight={4}>Cart</Typography>
                 <Button variant='contained' sx={{fontSize: 17}} color='success'>Pay</Button>
             </Box>
-            <CloseIcon sx={{fontSize: 30, color: '#ad9c9c'}}/>
+            <CloseIcon sx={{fontSize: 30, color: '#ad9c9c', cursor: 'pointer'}}/>
         </Box>
     );
 };

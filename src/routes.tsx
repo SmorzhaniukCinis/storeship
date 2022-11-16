@@ -8,6 +8,7 @@ import {AuthPage} from "./components/AuthPage/AuthPage";
 import {ErrorPage} from "./components/CommonComponnents/ErrorPage";
 import {CategoryPage} from "./components/CaregoryPage/CategoryPage";
 import {ProductsItemPage} from "./components/ProductItemPage/ProductsItemPage";
+import {PaymentPage} from "./components/PaymentPage/PaymentPage";
 
 export const publicRoutes = createBrowserRouter([
     {
@@ -23,6 +24,11 @@ export const publicRoutes = createBrowserRouter([
             {
                 path: 'products/:category',
                 element: <ProductsPage/>,
+
+            },
+            {
+                path: 'payment',
+                element: <PaymentPage/>,
 
             },
             {

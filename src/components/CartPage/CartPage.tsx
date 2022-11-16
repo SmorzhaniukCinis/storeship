@@ -3,8 +3,15 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
-import {Card, CardActionArea, CardContent, CardMedia, Paper} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import {TextField} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import Button from "@mui/material/Button";
+import DeleteIcon from '@mui/icons-material/Delete';
+import {CartHead} from "./CartHead";
+import {CartList} from "./CartList";
+
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -20,24 +27,12 @@ const style = {
 
 };
 
-const ProductsList = {
-    p: '4%',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-    maxHeight: '60vh',
-    '&::-webkit-scrollbar': {
-        width: '3px',
-    },
-    '&::-webkit-scrollbar-thumb': {
-        backgroundColor: 'primary.dark',
-        borderRadius: '2px',
-    }
-}
 
 type props = {
     isOpen: boolean
-    closeCart: (isOpen:boolean) => void
+    closeCart: (isOpen: boolean) => void
 }
+
 
 export const CartPage = ({isOpen, closeCart}: props) => {
 
@@ -50,233 +45,8 @@ export const CartPage = ({isOpen, closeCart}: props) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Box display={'flex'} justifyContent='space-between'>
-                        <Typography sx={{pl: '4%', pt: '1%'}} variant={'h4'}>Cart</Typography>
-                        <CloseIcon sx={{fontSize: 30, color: '#ad9c9c'}}/>
-                    </Box>
-                    <Box sx={ProductsList}>
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid><Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid xs={12} md={4}>
-                                img
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                name
-                            </Grid>
-                            <Grid xs={12} md={4}>
-                                prise
-                            </Grid>
-                        </Grid>
-                    </Box>
+                    <CartHead/>
+                    <CartList/>
                 </Box>
             </Modal>
         </div>

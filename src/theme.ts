@@ -8,6 +8,7 @@ export const darkTheme = createTheme({
         },
         secondary: {
             main: '#2d2a2a',
+            dark: '#ded7d7'
         },
         mode: 'dark',
     },
@@ -21,7 +22,7 @@ export const lightTheme = createTheme({
         },
         secondary: {
             main: '#f6f1f1',
-
+            dark: '#252323'
         },
         mode: 'light',
     },

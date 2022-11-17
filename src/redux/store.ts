@@ -9,6 +9,8 @@ import authReducer from "./app/appSlise";
 import {appSaga} from "./app/appSaga";
 import {UsersSaga} from "./users/usersSaga";
 import {CartsSaga} from "./carts/cartsSaga";
+import novaPoshtaReducer from "./novaPoshta/novaPoshtaSlise";
+import {NovaPoshtaSaga} from "./novaPoshta/novaPoshtaSaga";
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -18,6 +20,7 @@ export const store = configureStore({
     usersData: usersReducer,
     cartsData: cartReducer,
     appData: authReducer,
+    novaPoshtaData: novaPoshtaReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({thunk: false}).concat(sagaMiddleware)
 });
@@ -27,7 +30,8 @@ export default function* rootSaga() {
     productsSaga(),
     appSaga(),
     UsersSaga(),
-    CartsSaga()
+    CartsSaga(),
+    NovaPoshtaSaga()
   ])
 }
 

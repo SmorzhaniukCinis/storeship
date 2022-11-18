@@ -2,12 +2,13 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {productType} from "../../API/types/productsType";
 import {initialStateType} from "./types";
 import {cartType} from "../../API/types/cartsTypes";
-import {settlement} from "../../API/types/novaPoshta";
+import {postDepartment, settlement} from "../../API/types/novaPoshta";
 
 
 
 const initialState: initialStateType = {
     settlements: [],
+    postDepartments: []
 };
 
 
@@ -18,9 +19,12 @@ export const novaPoshtaSlice = createSlice({
         setSettlements: (state, action: PayloadAction<settlement[]>) => {
             state.settlements = action.payload;
         },
+        setPostDepartments: (state, action: PayloadAction<postDepartment[]>) => {
+            state.postDepartments = action.payload;
+        },
     },
 });
 
-export const {setSettlements} = novaPoshtaSlice.actions;
+export const {setSettlements, setPostDepartments} = novaPoshtaSlice.actions;
 
 export default novaPoshtaSlice.reducer;

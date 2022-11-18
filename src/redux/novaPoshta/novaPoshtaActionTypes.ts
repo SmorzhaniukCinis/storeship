@@ -1,4 +1,5 @@
 export const SEARCH_SETTLEMENT = "novaPoshta/SEARCH_SETTLEMENT";
+export const SEARCH_POST_DEPARTMENTS = "novaPoshta/SEARCH_POST_DEPARTMENTS";
 
 
 

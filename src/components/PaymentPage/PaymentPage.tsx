@@ -1,13 +1,11 @@
-import React, {ReactEventHandler, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import {Autocomplete, Paper, TextField} from "@mui/material";
 import {useForm} from "react-hook-form";
-import {instance} from "../../API";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {novaPoshtaSelectors} from "../../redux/novaPoshta/novaPoshtaSelectors";
 import {novaPoshtaSagaActions} from "../../redux/novaPoshta/novaPoshtaSaga";
-import Typography from "@mui/material/Typography";
 import {settlement} from "../../API/types/novaPoshta";
 
 export const PaymentPage = () => {
@@ -29,15 +27,16 @@ export const PaymentPage = () => {
         dispatch(novaPoshtaSagaActions.fetchSettlements(e.target.value))
     }
 
-    const flatProps = {
-        options: settlements.map((option) => {
-            return option.SettlementTypeDescription + ' ' + option.Description + ', ' + option.AreaDescription + ' обл.'
-        }),
-    };
 
     const settlementFormation = (settlement: settlement) => {
         return settlement.SettlementTypeDescription
             + ' ' + settlement.Description + ', ' + settlement.AreaDescription + ' обл.'
+    }
+
+    const getSettlementId = (settlement: string) => {
+
+        const location = settlements.find(item => settlementFormation(item) === settlement)
+        console.log(location)
     }
 
     return (
@@ -52,30 +51,30 @@ export const PaymentPage = () => {
                         <TextField fullWidth={true} label="LAST NAME" {...register("lastName", {required: true})}
                                    variant="outlined"/>
                     </Grid>
-
                     <Grid xs={12}>
                         <Autocomplete
+                            onClose={(e:any)=>setTimeout(()=>getSettlementId(e.target.value || e.target.innerText), 0)}
                             options={settlements}
                             autoHighlight
                             getOptionLabel={settlementFormation}
                             renderOption={(props, option) => (
-                                <Box component="li"  {...props} onClick={()=>console.log(option.Ref)}>
+                                <Box component="li" {...props}>
                                     {settlementFormation(option)}
                                 </Box>
+
                             )}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="SETTLEMENT"
-                                    {...register("location", {
-                                        required: true,
-                                        onChange: searchSettlement
-                                    })}
-                                    inputProps={{
-                                        ...params.inputProps,
-                                    }}
-                                />
-                            )}
+                            renderInput={(params) => (<TextField
+                                {...params}
+                                label="SETTLEMENT"
+                                {...register("location", {
+                                    required: true,
+                                    onChange: searchSettlement
+                                })}
+                                inputProps={{
+                                    ...params.inputProps,
+                                }}
+                            />)
+                            }
                         />
                     </Grid>
                     <Grid xs={12}>

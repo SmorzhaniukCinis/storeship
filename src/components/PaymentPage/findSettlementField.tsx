@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {novaPoshtaSelectors} from "../../redux/novaPoshta/novaPoshtaSelectors";
 import {settlement} from "../../API/types/novaPoshta";
 import {setSettlements} from "../../redux/novaPoshta/novaPoshtaSlise";
+import Typography from "@mui/material/Typography";
 
 type props = {
     register: any
@@ -35,30 +36,36 @@ export const FindSettlementField = ({register}:props) => {
 
 
     return (
-        <Autocomplete
-            onClose={(e:any)=>setTimeout(()=>getSettlementId(e.target.value || e.target.innerText), 0)}
-            options={settlements}
-            autoHighlight
-            getOptionLabel={settlementFormation}
-            renderOption={(props, option) => (
-                <Box component="li" {...props}>
-                    {settlementFormation(option)}
-                </Box>
+        <Box>
+            <Typography sx={{pb: 1}}>
+                Support only Ukrainian language and Ukrainian settlements.
+            </Typography>
+            <Autocomplete
+                onClose={(e:any)=>setTimeout(()=>getSettlementId(e.target.value || e.target.innerText), 0)}
+                options={settlements}
+                autoHighlight
+                getOptionLabel={settlementFormation}
+                renderOption={(props, option) => (
+                    <Box component="li" {...props}>
+                        {settlementFormation(option)}
+                    </Box>
 
-            )}
-            renderInput={(params) => (<TextField
-                {...params}
-                label="SETTLEMENT"
-                {...register("location", {
-                    required: true,
-                    onChange: searchSettlement
-                })}
-                inputProps={{
-                    ...params.inputProps,
-                }}
-            />)
-            }
-        />
+                )}
+                renderInput={(params) => (<TextField
+                    {...params}
+                    label="SETTLEMENT*"
+                    {...register("location", {
+                        required: true,
+                        onChange: searchSettlement
+                    })}
+                    inputProps={{
+                        ...params.inputProps,
+                    }}
+                />)
+                }
+            />
+        </Box>
+
     );
 };
 

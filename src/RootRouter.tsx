@@ -8,7 +8,7 @@ export const RootRouter = () => {
     return (
         <div>
             <Header/>
-            <Container sx={{minHeight: '75vh'}}>
+            <Container  sx={{minHeight: '75vh', p: {sx: 1}  }}>
                 <Outlet/>
             </Container>
             <Footer/>

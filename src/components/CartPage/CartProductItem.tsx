@@ -7,8 +7,8 @@ import AddIcon from "@mui/icons-material/Add";
 import {TextField} from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {CartProductsImg} from "./CartProductsImg";
-import {CartProductName} from "./CartProductName";
+import {CartProductsImg} from "../CommonComponnents/CartProductsImg";
+import {CartProductName} from "../CommonComponnents/CartProductName";
 import {CartProductPrice} from "./CartProductPrice";
 import {CartProductDelete} from "./CartProductDelete";
 

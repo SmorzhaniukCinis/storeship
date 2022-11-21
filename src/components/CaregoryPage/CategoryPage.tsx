@@ -19,7 +19,7 @@ export const CategoryPage = () => {
     return (
         <Box sx={{width: '100%', pt: 7, pb: 5}}>
             <Grid container rowSpacing={4} columnSpacing={{xs: 2, sm: 4, md: 6}}>
-                {categories.map(category => <CategoryItem category={category}/>)}
+                {categories.map(category => <CategoryItem key={category.url} category={category}/>)}
             </Grid>
         </Box>
     );

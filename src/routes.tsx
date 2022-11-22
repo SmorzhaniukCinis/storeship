@@ -52,6 +52,11 @@ export const publicRoutes = createBrowserRouter([
                 element: <AuthPage/>,
 
             },
+            {
+                path: "/registration",
+                element: <AuthPage/>,
+
+            },
         ]
     },
 

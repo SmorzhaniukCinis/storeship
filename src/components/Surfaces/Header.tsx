@@ -20,6 +20,7 @@ import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded';
 import Button from "@mui/material/Button";
 import {useState} from "react";
 import {CartPage} from "../CartPage/CartPage";
+import {LogoutModal} from "./LogoutModal";
 
 
 const pages = [

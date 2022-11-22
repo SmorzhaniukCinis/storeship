@@ -14,11 +14,11 @@ export const PhoneNumberField: React.FC<props> = ({errors, register}: props) => 
                 variant="outlined"
                 fullWidth={true}
                 type="number"
+                label={errors.phoneNumber?.message ? String(errors.phoneNumber?.message) : "Phone number*"}
                 color={errors.phoneNumber && 'error'}
                 InputProps={{
                     startAdornment: <InputAdornment position="start">+380</InputAdornment>,
                 }}
-                label={String(errors.phoneNumber?.message) || "Phone number*"}
                 {...register("phoneNumber", {
                     required: true,
                     minLength: {value: 9, message: "the number is too short"},

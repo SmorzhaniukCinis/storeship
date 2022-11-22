@@ -17,7 +17,7 @@ export const EmailField = ({errors, register}: props) => {
                 color={errors.email && 'error'}
                 type='email'
                 fullWidth={true}
-                label={String(errors.email?.message) || "Email*"}
+                label={errors.email?.message ? String(errors.email?.message) : "Email*"}
                 {...register("email", {
                     required: true,
                     pattern: {value: emailPattern, message: "The email entered is incorrect"}

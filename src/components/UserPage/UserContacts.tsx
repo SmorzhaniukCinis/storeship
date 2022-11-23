@@ -4,22 +4,20 @@ import Grid from "@mui/material/Unstable_Grid2";
 import s from '../../index.module.css'
 
 type props = {
-    name: {
-        firstname: string
-        lastname: string
-    } | undefined
+    email: string | undefined
+    phoneNumber: string | undefined
 }
 
-export const UserName: React.FC<props> = ({name}: props) => {
+export const UserContacts: React.FC<props> = ({email, phoneNumber}: props) => {
     return (
         <Grid xs={12} sx={{borderBottom: '1px solid', borderColor: 'secondary.dark'}}>
             <Typography fontSize={20}>
-                <span className={s.sectionName}>firstName:</span>
-                <span>{name?.firstname}</span>
+                <span className={s.sectionName}>email:</span>
+                <span>{email}</span>
             </Typography>
             <Typography fontSize={20}>
-                <span className={s.sectionName}>lastName:</span>
-                <span>{name?.lastname}</span>
+                <span className={s.sectionName}>phone number:</span>
+                <span>{phoneNumber}</span>
             </Typography>
         </Grid>
     );

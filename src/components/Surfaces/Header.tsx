@@ -32,7 +32,7 @@ const pages = [
 
 export const Header = () => {
 
-    const [isCartOpen, setIsCartOpen] = useState(true)
+    const [isCartOpen, setIsCartOpen] = useState(false)
 
     const openCart = () => setIsCartOpen(true);
     const closeCart = () => setIsCartOpen(false);

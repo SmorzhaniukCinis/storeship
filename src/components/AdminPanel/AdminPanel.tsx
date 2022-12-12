@@ -3,6 +3,8 @@ import {Paper, Tab, Tabs} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {AdminProductsList} from "./AdminProductsList";
+import {AdminCartsList} from "./AdminCartsList";
+import {AdminUserList} from "./AdminUserList";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -46,7 +48,7 @@ export const AdminPanel = () => {
     };
 
     return (
-        <Paper sx={{width: '100%'}}>
+        <Box sx={{width: '100%'}}>
             <Tabs
                 centered
                 value={value}
@@ -54,22 +56,22 @@ export const AdminPanel = () => {
                 textColor="inherit"
                 indicatorColor="primary"
                 aria-label="secondary tabs example"
-                sx={{width: '100%', display: 'flex', justifyContent: 'space-around'}}
+                sx={{width: '100%', display: 'flex', justifyContent: 'space-around', p:0}}
             >
                 <Tab label="Product Actions" {...a11yProps(0)} />
                 <Tab label="Carts" {...a11yProps(1)} />
                 <Tab label="Users" {...a11yProps(2)} />
             </Tabs>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={value} index={0} >
                 <AdminProductsList/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item Two
+                <AdminCartsList/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Three
+                <AdminUserList/>
             </TabPanel>
-        </Paper>
+        </Box>
     );
 };
 

@@ -10,24 +10,21 @@ type props = {
 }
 
 export const SelectProductImage: React.FC<props> = ({control, name}: props) => {
-
-    // @ts-ignore
     return (
-
         <Controller
+            rules={{ required: "image is required" }}
             control={control}
             name={name}
             render={({field: {onChange, onBlur, value, name, ref}}) => <>
-
-                <Typography sx={{color: '#f62b2b'}}>Image is required</Typography>
                 {/*@ts-ignore*/}
                 <Dropzone inputRef={ref} onDrop={onChange}>
                     {
                         ({getRootProps, getInputProps}) => (
                             <>
 
-                                <Paper sx={{p: 1.3, display: 'flex', alignItems: 'center'}} variant={"outlined"} {...getRootProps()}>
-                                    <CloudUpload sx={{m:1}}/>
+                                <Paper sx={{p: 1.3, display: 'flex', alignItems: 'center', cursor: 'pointer'}}
+                                       variant={"outlined"} {...getRootProps()}>
+                                    <CloudUpload sx={{m: 1}}/>
                                     <input {...getInputProps()} name={name} onBlur={onBlur}/>
                                     <Box>
                                         <Typography>Click for choose or drop image</Typography>
@@ -39,7 +36,6 @@ export const SelectProductImage: React.FC<props> = ({control, name}: props) => {
                     }
                 </Dropzone>
                 <List>
-
                     {value?.map((f: any, index: number) => (
                         <ListItem key={index}>
                             <ListItemIcon>

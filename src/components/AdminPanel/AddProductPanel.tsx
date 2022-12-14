@@ -5,7 +5,7 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {Paper} from "@mui/material";
-import {NewProductModal} from "./NewProductModal";
+import {NewProductModal} from "./NewProductModal/NewProductModal";
 
 
 export const AddProductPanel = () => {

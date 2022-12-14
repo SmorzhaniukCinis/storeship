@@ -55,6 +55,7 @@ function* fetchCategoryProducts(action: fetchCategoryProductsType) {
 }
 
 function* postNewProduct(action: postNewProductType) {
+    debugger
     try {
         const product: productType = yield call(productAPI.addNewProduct, action.newProduct);
         yield put(setCurrentProduct(product));

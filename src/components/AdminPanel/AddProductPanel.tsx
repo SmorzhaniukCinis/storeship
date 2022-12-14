@@ -1,16 +1,13 @@
 import React from 'react';
-import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import {Paper} from "@mui/material";
 import {NewProductModal} from "./NewProductModal/NewProductModal";
 
 
 export const AddProductPanel = () => {
 
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const openProductModal = () => setOpen(true);
     const closeProductModal = () => setOpen(false);
 
@@ -34,7 +31,7 @@ export const AddProductPanel = () => {
             >
                 <Fade in={open}>
                     <div>
-                        <NewProductModal/>
+                        <NewProductModal closeProductModal={closeProductModal}/>
                     </div>
                 </Fade>
             </Modal>

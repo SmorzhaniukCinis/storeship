@@ -1,7 +1,7 @@
 import React from 'react';
 import {Controller} from "react-hook-form";
 import Dropzone from "react-dropzone";
-import {List, ListItem, ListItemIcon, ListItemText, Paper, Typography, Box} from "@mui/material";
+import {List, ListItem, ListItemIcon, ListItemText, Paper, Typography} from "@mui/material";
 import {CloudUpload, InsertDriveFile} from "@mui/icons-material";
 
 type props = {
@@ -12,7 +12,7 @@ type props = {
 export const SelectProductImage: React.FC<props> = ({control, name}: props) => {
     return (
         <Controller
-            rules={{ required: "image is required" }}
+            rules={{required: "image is required"}}
             control={control}
             name={name}
             render={({field: {onChange, onBlur, value, name, ref}}) => <>
@@ -26,10 +26,7 @@ export const SelectProductImage: React.FC<props> = ({control, name}: props) => {
                                        variant={"outlined"} {...getRootProps()}>
                                     <CloudUpload sx={{m: 1}}/>
                                     <input {...getInputProps()} name={name} onBlur={onBlur}/>
-                                    <Box>
-                                        <Typography>Click for choose or drop image</Typography>
-                                        <Typography sx={{opacity: '80%'}}>(support only one image)</Typography>
-                                    </Box>
+                                    <Typography>Click for choose or drop image</Typography>
                                 </Paper>
                             </>
                         )

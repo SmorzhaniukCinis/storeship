@@ -2,7 +2,7 @@ import React from 'react';
 import {Paper} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {useForm} from "react-hook-form";
-import {newProduct} from "../../../API/types/productsType";
+import {newProduct, productType} from "../../../API/types/productsType";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import {TitleField} from "./TitleField";
@@ -28,6 +28,7 @@ const style = {
 
 type props = {
     closeProductModal: () => void
+    productForUpdate?: productType
 }
 
 type formData = {
@@ -38,14 +39,14 @@ type formData = {
     title: string
 }
 
-export const NewProductModal:React.FC<props> = ({closeProductModal}: props) => {
+export const ProductModal: React.FC<props> = ({closeProductModal, productForUpdate}: props) => {
 
     const dispatch = useAppDispatch()
 
     const {control, register, handleSubmit, formState: {errors}} = useForm<formData>();
     const onSubmit = handleSubmit(data => {
         console.log(data.image[0].path)
-        dispatch( productsSagaActions.postNewProduct({
+        dispatch(productsSagaActions.postNewProduct({
             image: URL.createObjectURL(data.image[0]),
             description: data.description,
             price: Number(data.price),
@@ -62,29 +63,34 @@ export const NewProductModal:React.FC<props> = ({closeProductModal}: props) => {
         setOpen(true)
         setTimeout(() => {
             setOpen(false)
-        }, 3000)
+            closeProductModal()
+        }, 2000)
+
     }
     const handleClose = () => setOpen(false);
 
     return (
         <Paper sx={style}>
             <Typography variant='h4' textAlign='center' sx={{mb: 2}}>
-                Add new product
+                {productForUpdate ? 'Update Product' : 'Add new product'}
             </Typography>
 
             <form onSubmit={onSubmit}>
                 <Box sx={{display: 'flex', flexDirection: 'column', padding: {md: '10px 150px', xs: 0}}}>
-                    <TitleField register={register} errors={errors}/>
-                    <PriseField register={register} errors={errors}/>
-                    <DescriptionField register={register} errors={errors}/>
-                    <CategoryField register={register} errors={errors}/>
+                    <TitleField defaultValue={productForUpdate?.title} register={register} errors={errors}/>
+                    <PriseField defaultValue={String(productForUpdate?.price)} register={register} errors={errors}/>
+                    <DescriptionField defaultValue={productForUpdate?.description} register={register} errors={errors}/>
+                    <CategoryField defaultValue={productForUpdate?.category} register={register} errors={errors}/>
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         <Typography fontSize={14} sx={{pb: 1}} color='error'>{errors.image?.message}</Typography>
-                        <SelectProductImage control={control} name='image'/>
+                        <SelectProductImage defaultValue={productForUpdate?.image} control={control} name='image'/>
                     </Box>
                     <Box display='flex' justifyContent='space-between'>
-                        <Button sx={{height: 50}} type="submit" variant='contained' color='success'>add product</Button>
-                        <Button sx={{height: 50}} onClick={closeProductModal} variant='contained' color='warning'>cancel</Button>
+                        <Button sx={{height: 50}} type="submit" variant='contained' color='success'>
+                            {productForUpdate ? 'update product' : 'add product'}
+                        </Button>
+                        <Button sx={{height: 50}} onClick={closeProductModal} variant='contained'
+                                color='warning'>cancel</Button>
                     </Box>
 
                     <ProductStatusModal handleClose={handleClose} open={open} isSuccess={isSuccess}/>

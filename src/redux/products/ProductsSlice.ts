@@ -25,9 +25,15 @@ export const productsSlice = createSlice({
         setIsProductsLoading: (state, action: PayloadAction<boolean>) => {
             state.isProductsLoading = action.payload;
         },
+        addNewProduct: (state, action: PayloadAction<productType>) => {
+            state.products.push(action.payload)
+        },
+        deleteProductFromState: (state, action: PayloadAction<{productId: number}>) => {
+            state.products = state.products.filter(product => product.id !== action.payload.productId)
+        },
     },
 });
 
-export const {setProducts, setCurrentProduct, setIsProductsLoading} = productsSlice.actions;
+export const {setProducts, setCurrentProduct, setIsProductsLoading, addNewProduct, deleteProductFromState} = productsSlice.actions;
 
 export default productsSlice.reducer;

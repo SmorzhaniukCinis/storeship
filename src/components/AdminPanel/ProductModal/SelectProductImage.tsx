@@ -7,12 +7,13 @@ import {CloudUpload, InsertDriveFile} from "@mui/icons-material";
 type props = {
     control: any
     name: string
+    defaultValue?: string | undefined
 }
 
-export const SelectProductImage: React.FC<props> = ({control, name}: props) => {
+export const SelectProductImage: React.FC<props> = ({control, name, defaultValue}: props) => {
     return (
         <Controller
-            rules={{required: "image is required"}}
+            rules={{required: defaultValue ? false : "image is required"}}
             control={control}
             name={name}
             render={({field: {onChange, onBlur, value, name, ref}}) => <>
@@ -21,7 +22,6 @@ export const SelectProductImage: React.FC<props> = ({control, name}: props) => {
                     {
                         ({getRootProps, getInputProps}) => (
                             <>
-
                                 <Paper sx={{p: 1.3, display: 'flex', alignItems: 'center', cursor: 'pointer'}}
                                        variant={"outlined"} {...getRootProps()}>
                                     <CloudUpload sx={{m: 1}}/>
@@ -33,6 +33,14 @@ export const SelectProductImage: React.FC<props> = ({control, name}: props) => {
                     }
                 </Dropzone>
                 <List>
+                    {!value && defaultValue
+                        ? <ListItem>
+                            <ListItemIcon>
+                                <InsertDriveFile/>
+                            </ListItemIcon>
+                            <ListItemText primary={defaultValue}/>
+                        </ListItem>
+                        : null}
                     {value?.map((f: any, index: number) => (
                         <ListItem key={index}>
                             <ListItemIcon>

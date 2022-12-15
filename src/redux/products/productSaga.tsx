@@ -1,6 +1,12 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {productAPI} from "../../API/productAPI";
-import {setCurrentProduct, setIsProductsLoading, setProducts} from "./ProductsSlice";
+import {
+    addNewProduct,
+    deleteProductFromState,
+    setCurrentProduct,
+    setIsProductsLoading,
+    setProducts
+} from "./ProductsSlice";
 import {newProduct, productType, sortType} from "../../API/types/productsType";
 import {
     DELETE_PRODUCT,
@@ -18,14 +24,16 @@ import {
     postNewProductType,
     updateProductType
 } from "./types";
-import {setIsLoading, throwSomeError} from "../app/appSlise";
+import {throwSomeError} from "../app/appSlise";
 
 
 function* fetchProducts(action: fetchProductsType) {
     const {portion, sort} = action.params
     try {
+        yield put(setIsProductsLoading(true))
         const products: productType[] = yield call(() => productAPI.getProducts(portion, sort));
         yield put(setProducts(products));
+        yield put(setIsProductsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }
@@ -55,10 +63,9 @@ function* fetchCategoryProducts(action: fetchCategoryProductsType) {
 }
 
 function* postNewProduct(action: postNewProductType) {
-    debugger
     try {
         const product: productType = yield call(productAPI.addNewProduct, action.newProduct);
-        yield put(setCurrentProduct(product));
+        yield put(addNewProduct(product));
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }
@@ -76,8 +83,15 @@ function* updateProduct(action: updateProductType) {
 
 function* deleteProduct(action: deleteProductType) {
     try {
-        const product: productType = yield call(productAPI.deleteProduct, action.productId);
-        yield put(setCurrentProduct(product));
+        yield put(setIsProductsLoading(true))
+        if(action.productId <= 20) {
+            const product: productType = yield call(productAPI.deleteProduct, action.productId);
+            yield put(deleteProductFromState({productId: product.id}));
+        }
+        else {
+            yield put(deleteProductFromState({productId: action.productId}));
+        }
+        yield put(setIsProductsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }

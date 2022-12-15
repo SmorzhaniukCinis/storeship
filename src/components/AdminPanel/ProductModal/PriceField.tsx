@@ -6,13 +6,15 @@ import Box from "@mui/material/Box";
 type props = {
     errors: any
     register: any
+    defaultValue?: string
 }
 
-export const PriseField:React.FC<props> = ({errors, register}:props) => {
+export const PriseField:React.FC<props> = ({errors, register, defaultValue}:props) => {
     return (
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Typography fontSize={14} sx={{pb: 1}} color='error'>{errors.price?.message}</Typography>
             <TextField
+                defaultValue={defaultValue}
                 label='product price'
                 color={errors.price && 'error'}
                 sx={{height: 70}}

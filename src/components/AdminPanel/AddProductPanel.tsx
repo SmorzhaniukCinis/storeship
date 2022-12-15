@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
-import {NewProductModal} from "./NewProductModal/NewProductModal";
+import {ProductModal} from "./ProductModal/ProductModal";
 
 
 export const AddProductPanel = () => {
@@ -31,7 +31,7 @@ export const AddProductPanel = () => {
             >
                 <Fade in={open}>
                     <div>
-                        <NewProductModal closeProductModal={closeProductModal}/>
+                        <ProductModal closeProductModal={closeProductModal}/>
                     </div>
                 </Fade>
             </Modal>

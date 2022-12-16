@@ -1,7 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {productType} from "../../API/types/productsType";
+import {newProduct, productType} from "../../API/types/productsType";
 import {currentCategory, initialStateType} from "./types";
-
 
 
 const initialState: initialStateType = {
@@ -28,12 +27,25 @@ export const productsSlice = createSlice({
         addNewProduct: (state, action: PayloadAction<productType>) => {
             state.products.push(action.payload)
         },
-        deleteProductFromState: (state, action: PayloadAction<{productId: number}>) => {
+        deleteProductFromState: (state, action: PayloadAction<{ productId: number }>) => {
             state.products = state.products.filter(product => product.id !== action.payload.productId)
+        },
+        updateProductFromState: (state, action: PayloadAction<{ productId: number, product: newProduct }>) => {
+            const index = state.products.findIndex(product => product.id === action.payload.productId)
+            const {category, description, image, price, title} = action.payload.product
+            state.products[index] = {...state.products[index], category, description, image, price, title}
         },
     },
 });
 
-export const {setProducts, setCurrentProduct, setIsProductsLoading, addNewProduct, deleteProductFromState} = productsSlice.actions;
+export const {
+    setProducts,
+    setCurrentProduct,
+    setIsProductsLoading,
+    addNewProduct,
+    deleteProductFromState,
+    updateProductFromState
+} = productsSlice.actions;
 
 export default productsSlice.reducer;
+

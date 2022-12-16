@@ -28,19 +28,19 @@ export const CategoryField:React.FC<props> = ({errors, register, defaultValue}:p
             <Typography fontSize={14} sx={{pb: 1}} color='error'>{errors.category?.message}</Typography>
             <FormControl fullWidth sx={{height: 70}}>
                 <InputLabel id="category">category</InputLabel>
-                <NativeSelect
+                <Select
                     color={errors.description && 'error'}
-                    {...register("category", {required: "Category is required field"})}
+                    {...register("category", {required: defaultValue ? false : "Category is required field"})}
                     labelId="category"
                     value={category}
                     label="category"
                     onChange={handleChange}
                 >
                     {categories.map(category =>
-                        <option  key={category} value={category}>
+                        <MenuItem  key={category} value={category}>
                             {category}
-                        </option >)}
-                </NativeSelect>
+                        </MenuItem >)}
+                </Select>
             </FormControl>
         </Box>
     );

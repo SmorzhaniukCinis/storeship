@@ -10,15 +10,19 @@ type props = {
 }
 
 export const PriseField:React.FC<props> = ({errors, register, defaultValue}:props) => {
+    debugger
     return (
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Typography fontSize={14} sx={{pb: 1}} color='error'>{errors.price?.message}</Typography>
             <TextField
-                defaultValue={defaultValue}
+                onKeyPress={(event) => {
+                    if (!/[0-9.]/.test(event.key)) {
+                        event.preventDefault();
+                    }
+                }}
                 label='product price'
                 color={errors.price && 'error'}
                 sx={{height: 70}}
-                type='number'
                 {...register("price", {required: "Product price is required field"})}
                 InputProps={{
                     startAdornment: (

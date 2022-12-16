@@ -5,7 +5,7 @@ import {
     deleteProductFromState,
     setCurrentProduct,
     setIsProductsLoading,
-    setProducts
+    setProducts, updateProductFromState
 } from "./ProductsSlice";
 import {newProduct, productType, sortType} from "../../API/types/productsType";
 import {
@@ -74,8 +74,10 @@ function* postNewProduct(action: postNewProductType) {
 function* updateProduct(action: updateProductType) {
     const {updatedProduct, productId} = action.productData
     try {
+        yield put(setIsProductsLoading(true))
         const product: productType = yield call(() => productAPI.updateProduct(productId, updatedProduct));
-        yield put(setCurrentProduct(product));
+        yield put(updateProductFromState({productId, product}));
+        yield put(setIsProductsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }

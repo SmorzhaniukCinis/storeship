@@ -14,8 +14,12 @@ import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
 import {SortBar} from "./SortBar";
 
+type props = {
+    searchStr: string
+}
 
-export const AdminCartsList = () => {
+
+export const AdminCartsList:React.FC<props> = ({searchStr}:props) => {
 
     return (
         <Box>

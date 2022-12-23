@@ -20,7 +20,7 @@ export const SettingMenu = () => {
 
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const navigate = useNavigate()
-    const isLightTheme = useAppSelector(appSelectors.selectIsLigthTheme)
+    const isLightTheme = useAppSelector(appSelectors.selectIsLightTheme)
     const dispatch = useAppDispatch()
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {

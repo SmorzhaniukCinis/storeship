@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import {AdminProductsList} from "./AdminProductsList";
 import {AdminCartsList} from "./AdminCartsList";
 import {AdminUserList} from "./AdminUserList";
+import {useAppSelector} from "../../redux/hooks";
+import {appSelectors} from "../../redux/app/appSelectors";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -42,6 +44,7 @@ function a11yProps(index: number) {
 
 export const AdminPanel = () => {
     const [value, setValue] = React.useState(0);
+    const searchStr = useAppSelector(appSelectors.selectAdminSearch)
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -63,13 +66,13 @@ export const AdminPanel = () => {
                 <Tab label="Users" {...a11yProps(2)} />
             </Tabs>
             <TabPanel value={value} index={0} >
-                <AdminProductsList/>
+                <AdminProductsList searchStr={searchStr}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <AdminCartsList/>
+                <AdminCartsList searchStr={searchStr}/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <AdminUserList/>
+                <AdminUserList searchStr={searchStr}/>
             </TabPanel>
         </Box>
     );

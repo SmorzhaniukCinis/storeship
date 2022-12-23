@@ -7,7 +7,7 @@ import {darkTheme, lightTheme} from "./theme";
 import {appSelectors} from "./redux/app/appSelectors";
 
 function App() {
-    const isLightTheme = useAppSelector(appSelectors.selectIsLigthTheme)
+    const isLightTheme = useAppSelector(appSelectors.selectIsLightTheme)
     const isLoading = useAppSelector(appSelectors.selectIsLoading)
 
     return (

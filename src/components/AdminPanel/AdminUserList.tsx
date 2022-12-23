@@ -7,7 +7,12 @@ import {SortBar} from "./SortBar";
 import {AdminUserItem} from "./AdminUserItem";
 import {AdminSearchField} from "./AdminSearchField";
 
-export const AdminUserList = () => {
+type props = {
+    searchStr: string
+}
+
+
+export const AdminUserList:React.FC<props> = ({searchStr}:props) => {
     return (
         <Box sx={{p: {md: '0 10%', xs: 0}}}>
             <Box display={{md: 'flex', xs: 'block'}} justifyContent='space-between' alignItems='center'>

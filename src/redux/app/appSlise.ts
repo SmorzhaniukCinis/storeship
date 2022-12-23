@@ -6,7 +6,8 @@ const initialState: initialStateType = {
     token: '',
     errorMessage: '',
     isLightTheme: true,
-    isLoading: false
+    isLoading: false,
+    adminSearch: ''
 };
 
 
@@ -27,10 +28,12 @@ export const authSlice = createSlice({
 
             state.isLoading = action.payload
         },
-
+        setAdminSearch: (state, action: PayloadAction<string>) => {
+            state.adminSearch = action.payload
+        },
     },
 });
 
-export const {setToken, throwSomeError, setTheme, setIsLoading} = authSlice.actions;
+export const {setToken, throwSomeError, setTheme, setIsLoading, setAdminSearch} = authSlice.actions;
 
 export default authSlice.reducer;

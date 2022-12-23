@@ -1,8 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FormControl, InputLabel, OutlinedInput} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {setAdminSearch} from "../../redux/app/appSlise";
+import {appSelectors} from "../../redux/app/appSelectors";
 
 export const AdminSearchField = () => {
+
+    const dispatch = useAppDispatch()
+    const searchStr = useAppSelector(appSelectors.selectAdminSearch)
+
+    useEffect(() => {
+        return () => {
+            dispatch(setAdminSearch(''))
+        }
+    }, [dispatch])
+
+    const search = (event:any) => {
+        dispatch(setAdminSearch(event.target.value))
+    }
+
     return (
         <FormControl sx={{m: {md: '0 10px 15px 10px', xs: '0 0 10px 0'}, width: {xs: '100%', md: 400}}}>
             <InputLabel htmlFor="outlined-adornment-amount">
@@ -10,6 +27,8 @@ export const AdminSearchField = () => {
                 <span style={{position: 'relative', bottom: 8}}>search product</span>
             </InputLabel>
             <OutlinedInput
+                onChange={(event) => search(event)}
+                value={searchStr}
                 size='small'
                 sx={{height: 50}}
                 id="outlined-adornment-amount"

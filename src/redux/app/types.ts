@@ -6,6 +6,7 @@ export type initialStateType = {
     errorMessage:string
     isLightTheme: boolean
     isLoading: boolean
+    adminSearch: string
 }
 
 export type authUserType = {

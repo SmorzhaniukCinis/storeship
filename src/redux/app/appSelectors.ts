@@ -6,4 +6,6 @@ export const appSelectors = {
     selectIsLightTheme: (state: RootState) => state.appData.isLightTheme,
     selectIsLoading: (state: RootState) => state.appData.isLoading,
     selectAdminSearch: (state: RootState) => state.appData.adminSearch,
+    selectSortBy: (state: RootState) => state.appData.sortBy,
+    selectFilter: (state: RootState) => state.appData.filter,
 }

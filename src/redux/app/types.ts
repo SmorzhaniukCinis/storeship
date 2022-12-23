@@ -7,11 +7,9 @@ export type initialStateType = {
     isLightTheme: boolean
     isLoading: boolean
     adminSearch: string
-    sortBy: sortByTypes
     filter: filterTypes
 }
-export type sortByTypes = 'initial' | 'reverse'
-export type filterTypes = 'Title' | 'Desc' | 'Category'
+export type filterTypes = 'Asc' | 'Desc' | 'electronics'| 'jewelery' | "men's clothing" | "women's clothing"
 
 export type authUserType = {
     type: typeof AUTH_USER

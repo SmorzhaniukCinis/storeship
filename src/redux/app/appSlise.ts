@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {filterTypes, initialStateType, sortByTypes} from "./types";
+import {filterTypes, initialStateType} from "./types";
 
 
 const initialState: initialStateType = {
@@ -7,9 +7,8 @@ const initialState: initialStateType = {
     errorMessage: '',
     isLightTheme: true,
     isLoading: false,
-    sortBy: 'initial',
     adminSearch: '',
-    filter: 'Title',
+    filter: 'Asc',
 };
 
 
@@ -33,15 +32,12 @@ export const authSlice = createSlice({
         setAdminSearch: (state, action: PayloadAction<string>) => {
             state.adminSearch = action.payload
         },
-        setSortBy: (state, action: PayloadAction<sortByTypes>) => {
-            state.sortBy = action.payload
-        },
         setFilter: (state, action: PayloadAction<filterTypes>) => {
             state.filter = action.payload
         },
     },
 });
 
-export const {setToken, throwSomeError, setTheme, setIsLoading, setAdminSearch, setSortBy, setFilter} = authSlice.actions;
+export const {setToken, throwSomeError, setTheme, setIsLoading, setAdminSearch, setFilter} = authSlice.actions;
 
 export default authSlice.reducer;

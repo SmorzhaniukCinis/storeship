@@ -1,13 +1,14 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {newProduct, productType} from "../../API/types/productsType";
-import {currentCategory, initialStateType} from "./types";
+import {initialStateType, sortByTypes} from "./types";
 
 
 const initialState: initialStateType = {
     products: [],
     currentProduct: null,
     currentCategory: 'electronics',
-    isProductsLoading: false
+    isProductsLoading: false,
+    sortBy: 'initial',
 };
 
 
@@ -35,6 +36,10 @@ export const productsSlice = createSlice({
             const {category, description, image, price, title} = action.payload.product
             state.products[index] = {...state.products[index], category, description, image, price, title}
         },
+        setSortBy: (state, action: PayloadAction<sortByTypes>) => {
+            state.sortBy = action.payload
+            state.products.reverse()
+        },
     },
 });
 
@@ -44,7 +49,8 @@ export const {
     setIsProductsLoading,
     addNewProduct,
     deleteProductFromState,
-    updateProductFromState
+    updateProductFromState,
+    setSortBy
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

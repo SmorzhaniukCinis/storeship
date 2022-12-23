@@ -1,19 +1,22 @@
 import React from 'react';
-import {ButtonGroup, FormControl, InputLabel, Select, SelectChangeEvent} from "@mui/material";
+import {ButtonGroup, FormControl, InputLabel, ListSubheader, Select, SelectChangeEvent} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import SouthIcon from "@mui/icons-material/South";
 import NorthIcon from "@mui/icons-material/North";
 import Box from "@mui/material/Box";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {filterTypes, sortByTypes} from "../../redux/app/types";
-import {setFilter, setSortBy} from "../../redux/app/appSlise";
+import {filterTypes} from "../../redux/app/types";
+import {setFilter} from "../../redux/app/appSlise";
 import {appSelectors} from "../../redux/app/appSelectors";
+import {productsSelectors} from "../../redux/products/productsSelectors";
+import {sortByTypes} from "../../redux/products/types";
+import {setSortBy} from "../../redux/products/ProductsSlice";
 
 export const SortBar = () => {
 
     const dispatch = useAppDispatch()
-    const sortBy = useAppSelector(appSelectors.selectSortBy)
+    const sortBy = useAppSelector(productsSelectors.selectSortBy)
     const filter = useAppSelector(appSelectors.selectFilter)
 
     const changeFilter = (event: SelectChangeEvent) => {
@@ -25,7 +28,7 @@ export const SortBar = () => {
     }
 
     return (
-        <Box mb={2} display='flex'>
+        <Box mb={2} display='flex' justifyContent='space-between'>
             <FormControl sx={{width: 170, mr: 1}}>
                 <InputLabel>Filter</InputLabel>
                 <Select
@@ -34,9 +37,14 @@ export const SortBar = () => {
                     onChange={changeFilter}
                     sx={{height: 50}}
                 >
-                    <MenuItem value={'Title'}>Title</MenuItem>
+                    <ListSubheader sx={{pl: 1}}>By Position</ListSubheader>
+                    <MenuItem value={'Asc'}>Asc</MenuItem>
                     <MenuItem value={'Desc'}>Desc</MenuItem>
-                    <MenuItem value={'Category'}>Category</MenuItem>
+                    <ListSubheader sx={{pl: 1}}> By Categories</ListSubheader>
+                    <MenuItem value={'electronics'}>Electronics</MenuItem>
+                    <MenuItem value={'jewelery'}>Jewelery</MenuItem>
+                    <MenuItem value={"men's clothing"}>Men's clothing</MenuItem>
+                    <MenuItem value={"women's clothing"}>Women's clothing</MenuItem>
                 </Select>
             </FormControl>
 
@@ -48,7 +56,6 @@ export const SortBar = () => {
                     <NorthIcon/>
                 </Button>
             </ButtonGroup>
-            <Button color='success' variant='contained' sx={{height: 50, ml: 1}}>sort</Button>
         </Box>
     );
 };

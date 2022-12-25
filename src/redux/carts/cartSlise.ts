@@ -6,6 +6,7 @@ import {userType} from "../../API/types/userTypes";
 
 
 const initialState: initialStateType = {
+    isLoading: false,
     carts: [],
     currentCart: null,
     dateRange: {
@@ -20,6 +21,9 @@ export const cartSlice = createSlice({
     name: 'carts',
     initialState,
     reducers: {
+        setIsCartsLoading: (state, action: PayloadAction<boolean>) => {
+            state.isLoading = action.payload;
+        },
         setCarts: (state, action: PayloadAction<cartType[]>) => {
             state.carts = action.payload;
         },
@@ -35,6 +39,6 @@ export const cartSlice = createSlice({
     },
 });
 
-export const {setCarts, setCurrentCart, setDateFilter} = cartSlice.actions;
+export const {setCarts, setCurrentCart, setDateFilter, setIsCartsLoading} = cartSlice.actions;
 
 export default cartSlice.reducer;

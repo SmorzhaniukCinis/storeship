@@ -70,7 +70,7 @@ export const SettingMenu = () => {
                 <MenuItem onClick={() => goToPage('/profile/1')}>
                     <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <MenuItem onClick={() => goToPage('/admin')}>
+                <MenuItem onClick={() => goToPage('/admin/products')}>
                     <Typography textAlign="center">Admin Panel</Typography>
                 </MenuItem>
                 <MenuItem onClick={openModal}>

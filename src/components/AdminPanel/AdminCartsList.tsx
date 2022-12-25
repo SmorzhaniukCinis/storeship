@@ -11,6 +11,8 @@ import {usersSelectors} from "../../redux/users/usersSelectors";
 import {cartType} from "../../API/types/cartsTypes";
 import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween'
+import {AdminPanelLoader} from "./AdminPanelLoader";
+
 dayjs.extend(isBetween)
 
 type props = {
@@ -24,7 +26,9 @@ export const AdminCartsList: React.FC<props> = ({searchStr}: props) => {
     const carts = useAppSelector(cartSelectors.selectCarts)
     const user = useAppSelector(usersSelectors.selectUsers)
     const dateRange = useAppSelector(cartSelectors.selectDateRange)
+    const isLoading = useAppSelector(cartSelectors.selectIsCartLoading)
     const [currentCarts, setCurrentCarts] = useState<cartType[] | null>(null)
+
 
     useEffect(() => {
         dispatch(cartSagaActions.fetchCarts())
@@ -32,28 +36,22 @@ export const AdminCartsList: React.FC<props> = ({searchStr}: props) => {
     }, [dispatch])
 
     useEffect(() => {
-        setCurrentCarts(
-            carts.filter(cart =>
-                dayjs(cart.date).isBetween(dateRange.startDate, dateRange.endDate)
-                )
-        )
-
-
-        console.log(
-            dayjs('2010-10-20').isBetween('2010-10-19', '2010-10-18')
-        )
+        setCurrentCarts(carts.filter(cart => dayjs(cart.date).isBetween(dateRange.startDate, dateRange.endDate)))
     }, [dateRange.endDate, carts, dateRange.startDate])
 
     return (
-        <Box>
+        <Box textAlign='center'>
             <DatePicker/>
-            <Grid container spacing={3}>
-                {currentCarts?.map(cart =>
-                    <AdminCartItem cart={cart}
-                    key={cart.id}
-                    user={user.find(user => user.id === cart.userId)}/>)
-                }
-            </Grid>
+            {isLoading
+                ? <AdminPanelLoader/>
+                : <Grid container spacing={3}>
+                    {currentCarts?.map(cart =>
+                        <AdminCartItem cart={cart}
+                                       key={cart.id}
+                                       user={user.find(user => user.id === cart.userId)}/>)
+                    }
+                </Grid>
+            }
         </Box>
 
     );

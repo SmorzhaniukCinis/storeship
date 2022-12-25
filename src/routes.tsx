@@ -19,43 +19,35 @@ export const publicRoutes = createBrowserRouter([
             {
                 index: true,
                 element: <CategoryPage/>,
-
             },
             {
                 path: 'products/:category',
                 element: <ProductsPage/>,
-
             },
             {
                 path: 'payment',
                 element: <PaymentPage/>,
-
             },
             {
                 path: 'product/:productId',
                 element: <ProductsItemPage/>,
-
             },
             {
-                path: "/admin",
+                path: "/admin/:tab",
                 element: <AdminPanel/>,
-
             },
 
             {
                 path: "/profile/:userId",
                 element: <UserPage/>,
-
             },
             {
                 path: "/auth",
                 element: <AuthPage/>,
-
             },
             {
                 path: "/registration",
                 element: <AuthPage/>,
-
             },
         ]
     },

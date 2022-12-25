@@ -10,7 +10,7 @@ import {
 } from "./types";
 import {cartAPI} from "../../API/cartsAPI";
 import {cartType, newCartType} from "../../API/types/cartsTypes";
-import {setCarts, setCurrentCart} from "./cartSlise";
+import {setCarts, setCurrentCart, setIsCartsLoading} from "./cartSlise";
 import {
     DELETE_CART,
     FETCH_CART_BY_ID,
@@ -19,15 +19,17 @@ import {
     POST_NEW_CART,
     UPDATE_CART
 } from "./cartActionTypes";
-import {throwSomeError} from "../app/appSlise";
+import {setIsLoading, throwSomeError} from "../app/appSlise";
 
 
 function* fetchCarts(action: fetchCartsType) {
     const {portion, sort} = action.params
     try {
+        yield put(setIsCartsLoading(true))
         const carts: cartType[] = yield call(() => cartAPI.getCarts(portion, sort));
         carts.pop()
         yield put(setCarts(carts));
+        yield put(setIsCartsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }

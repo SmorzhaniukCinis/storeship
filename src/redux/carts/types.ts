@@ -10,6 +10,7 @@ import {
 import {sortType} from "../../API/types/productsType";
 
 export type initialStateType = {
+    isLoading: boolean
     carts: cartType[],
     currentCart: cartType | null,
     dateRange: {

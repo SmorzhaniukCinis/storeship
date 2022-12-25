@@ -7,33 +7,25 @@ import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
 import {MobileDatePicker} from '@mui/x-date-pickers/MobileDatePicker';
 import dayjs, {Dayjs} from "dayjs";
 import Box from "@mui/material/Box";
-import {useAppDispatch} from "../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {cartSagaActions} from "../../redux/carts/cartsSaga";
+import {appSelectors} from "../../redux/app/appSelectors";
+import {cartSelectors} from "../../redux/carts/cartsSelectors";
+import {setDateFilter} from "../../redux/carts/cartSlise";
+
+const dateFormat = 'YYYY-MM-DD'
 
 export const DatePicker = () => {
 
-    const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs(new Date('12-12-2000')))
-    const [endDate, setEndDate] = React.useState<Dayjs | null>(dayjs(new Date()))
     const dispatch = useAppDispatch()
+    const {startDate, endDate} = useAppSelector(cartSelectors.selectDateRange)
 
     const changeStartDate = (newValue: Dayjs | null) => {
-        setStartDate(newValue)
-        dispatch(cartSagaActions.fetchCarts(
-            undefined,
-            undefined,
-            newValue?.format('YYYY-MM-DD'),
-            endDate?.format('YYYY-MM-DD')
-        ))
+        dispatch(setDateFilter({startDate: newValue?.format(dateFormat)}))
     }
     const changeEndDate = (newValue: Dayjs | null) => {
-        setEndDate(newValue)
-        dispatch(cartSagaActions.fetchCarts(
-            undefined,
-            undefined,
-            startDate?.format('YYYY-MM-DD'),
-            newValue?.format('YYYY-MM-DD')
-        ))    }
-    dispatch(cartSagaActions.fetchCarts(undefined, undefined, startDate?.format('YYYY-MM-DD')))
+        dispatch(setDateFilter({startDate: undefined, endDate: newValue?.format(dateFormat)}))
+    }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>

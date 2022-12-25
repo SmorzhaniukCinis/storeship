@@ -12,6 +12,11 @@ import {sortType} from "../../API/types/productsType";
 export type initialStateType = {
     carts: cartType[],
     currentCart: cartType | null,
+    dateRange: {
+        startDate: string,
+        endDate: string
+    }
+
 }
 
 export type fetchCartsType = {

@@ -18,14 +18,17 @@ export type initialStateType = {
     }
 
 }
+export type fullCarts<C, U= undefined> = {
+    cart: C,
+    user: U
+}
+
 
 export type fetchCartsType = {
     type: typeof FETCH_CARTS
     params: {
         portion: number | undefined
         sort: sortType | undefined
-        startDate: string | undefined
-        endDate: string | undefined
     }
 }
 export type fetchCartByIdType = {

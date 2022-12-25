@@ -3,9 +3,9 @@ import {instance} from "./index";
 import {cartType, newCartType} from "./types/cartsTypes";
 
 export const cartAPI = {
-    getCarts: async (portion?: number, sort?: sortType, startDate?:string, endDate?:string): Promise<cartType[]> => {
+    getCarts: async (portion?: number, sort?: sortType): Promise<cartType[]> => {
         const {data} = await instance.get<cartType[]>
-        (`carts?limit=${portion}&sort=${sort}&startdate=${startDate}&enddate=${endDate}`)
+        (`carts?limit=${portion}&sort=${sort}`)
         return data
     },
     getCartById: async (cartId: number): Promise<cartType> => {

@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {initialStateType} from "./types";
 import {cartType} from "../../API/types/cartsTypes";
 import dayjs from "dayjs";
+import {userType} from "../../API/types/userTypes";
 
 
 const initialState: initialStateType = {

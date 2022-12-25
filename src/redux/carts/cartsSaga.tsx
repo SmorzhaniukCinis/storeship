@@ -23,10 +23,10 @@ import {throwSomeError} from "../app/appSlise";
 
 
 function* fetchCarts(action: fetchCartsType) {
-    const {portion, sort, startDate, endDate} = action.params
+    const {portion, sort} = action.params
     try {
-        const carts: cartType[] = yield call(() => cartAPI.getCarts(portion, sort, startDate, endDate));
-        debugger
+        const carts: cartType[] = yield call(() => cartAPI.getCarts(portion, sort));
+        carts.pop()
         yield put(setCarts(carts));
     } catch (e: any) {
         yield put(throwSomeError(e.message));
@@ -81,10 +81,7 @@ function* deleteCart(action: deleteCartType) {
 
 
 export const cartSagaActions = {
-    fetchCarts: (portion?: number, sort?: sortType, startDate?: string, endDate?: string): fetchCartsType => ({
-        type: FETCH_CARTS,
-        params: {portion, sort, startDate, endDate}
-    }),
+    fetchCarts: (portion?: number, sort?: sortType): fetchCartsType => ({type: FETCH_CARTS, params: {portion, sort}}),
     fetchCartById: (cartId: number): fetchCartByIdType => ({type: FETCH_CART_BY_ID, cartId}),
     fetchCartByUser: (userId: number): fetchCartByUserType => ({type: FETCH_CART_BY_USER, userId}),
     addNewCart: (newCart: newCartType): addNewCartType => ({type: POST_NEW_CART, newCart}),

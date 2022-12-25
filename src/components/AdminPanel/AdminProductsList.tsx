@@ -77,3 +77,12 @@ export const AdminProductsList: React.FC<props> = ({searchStr}: props) => {
     );
 };
 
+
+
+
+
+
+
+
+
+

@@ -15,7 +15,7 @@ type props = {
 export const AdminCartItem:React.FC<props> = ({isDone = true}: props) => {
     return (
         <Grid xs={12} md={3}>
-            <Card>
+            <Card elevation={10}>
                 <CardContent>
                     <Box display='flex' justifyContent='space-between'>
                         <Typography gutterBottom variant="h5" component="div">

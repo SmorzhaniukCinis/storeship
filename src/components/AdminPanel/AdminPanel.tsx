@@ -8,7 +8,6 @@ import {useAppSelector} from "../../redux/hooks";
 import {appSelectors} from "../../redux/app/appSelectors";
 import TabPanel from "./ProductModal/TabPanelWrapper";
 import {useNavigate, useParams} from "react-router-dom";
-import {AdminPanelLoader} from "./AdminPanelLoader";
 
 function a11yProps(index: number) {
     return {
@@ -58,7 +57,7 @@ export const AdminPanel = () => {
                 <AdminProductsList searchStr={searchStr}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <AdminCartsList searchStr={searchStr}/>
+                <AdminCartsList/>
             </TabPanel>
             <TabPanel value={value} index={2}>
                <AdminUserList searchStr={searchStr}/>

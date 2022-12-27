@@ -16,7 +16,7 @@ export const usersSlice = createSlice({
         setUsers: (state, action: PayloadAction<userType[]>) => {
             state.users = action.payload;
         },
-        setCurrentUser: (state, action: PayloadAction<userType>) => {
+        setCurrentUser: (state, action: PayloadAction<userType | null>) => {
             state.currentUser = action.payload;
         },
     },

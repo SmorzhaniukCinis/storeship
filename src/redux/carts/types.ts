@@ -7,12 +7,13 @@ import {
     POST_NEW_CART,
     UPDATE_CART
 } from "./cartActionTypes";
-import {sortType} from "../../API/types/productsType";
+import {productType, sortType} from "../../API/types/productsType";
 
 export type initialStateType = {
     isLoading: boolean
     carts: cartType[],
     currentCart: cartType | null,
+    cartProducts: productType[],
     dateRange: {
         startDate: string,
         endDate: string

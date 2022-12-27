@@ -25,6 +25,7 @@ import {
     updateProductType
 } from "./types";
 import {throwSomeError} from "../app/appSlise";
+import {setCartProducts} from "../carts/cartSlise";
 
 
 function* fetchProducts(action: fetchProductsType) {
@@ -43,7 +44,11 @@ function* fetchProductById(action: fetchProductByIdType) {
     try {
         yield put(setIsProductsLoading(true))
         const product: productType = yield call(productAPI.getProductById, action.productId);
-        yield put(setCurrentProduct(product));
+        if (action.isForCart) {
+            yield put(setCartProducts(product));
+        } else {
+            yield put(setCurrentProduct(product));
+        }
         yield put(setIsProductsLoading(true))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
@@ -86,11 +91,10 @@ function* updateProduct(action: updateProductType) {
 function* deleteProduct(action: deleteProductType) {
     try {
         yield put(setIsProductsLoading(true))
-        if(action.productId <= 20) {
+        if (action.productId <= 20) {
             const product: productType = yield call(productAPI.deleteProduct, action.productId);
             yield put(deleteProductFromState({productId: product.id}));
-        }
-        else {
+        } else {
             yield put(deleteProductFromState({productId: action.productId}));
         }
         yield put(setIsProductsLoading(false))
@@ -105,7 +109,11 @@ export const productsSagaActions = {
         type: FETCH_PRODUCTS,
         params: {portion, sort}
     }),
-    fetchProductById: (productId: number): fetchProductByIdType => ({type: FETCH_PRODUCT_BY_ID, productId}),
+    fetchProductById: (productId: number, isForCart?: boolean): fetchProductByIdType => ({
+        type: FETCH_PRODUCT_BY_ID,
+        productId,
+        isForCart
+    }),
     fetchCategoryProducts: (category: string, portion?: number, sort?: sortType): fetchCategoryProductsType => ({
         type: FETCH_CATEGORY_PRODUCT,
         params: {category, portion, sort}

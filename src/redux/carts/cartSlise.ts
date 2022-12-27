@@ -2,20 +2,19 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {initialStateType} from "./types";
 import {cartType} from "../../API/types/cartsTypes";
 import dayjs from "dayjs";
-import {userType} from "../../API/types/userTypes";
+import {productType} from "../../API/types/productsType";
 
 
 const initialState: initialStateType = {
     isLoading: false,
     carts: [],
     currentCart: null,
+    cartProducts: [],
     dateRange: {
         startDate: '2000-01-01',
         endDate: dayjs(new Date()).format('YYYY-MM-DD')
     }
-
-};
-
+}
 
 export const cartSlice = createSlice({
     name: 'carts',
@@ -26,6 +25,13 @@ export const cartSlice = createSlice({
         },
         setCarts: (state, action: PayloadAction<cartType[]>) => {
             state.carts = action.payload;
+        },
+        setCartProducts: (state, action: PayloadAction<productType | null>) => {
+            if (action.payload) {
+                state.cartProducts.push(action.payload)
+            } else {
+                state.cartProducts = []
+            }
         },
         setCurrentCart: (state, action: PayloadAction<cartType>) => {
             state.currentCart = action.payload;
@@ -39,6 +45,6 @@ export const cartSlice = createSlice({
     },
 });
 
-export const {setCarts, setCurrentCart, setDateFilter, setIsCartsLoading} = cartSlice.actions;
+export const {setCarts, setCurrentCart, setDateFilter, setIsCartsLoading, setCartProducts} = cartSlice.actions;
 
 export default cartSlice.reducer;

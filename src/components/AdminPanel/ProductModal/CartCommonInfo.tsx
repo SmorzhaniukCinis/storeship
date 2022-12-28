@@ -58,11 +58,6 @@ export const CartCommonInfo:React.FC<props> = ({modalData}:props) => {
         if (modalData) {
             dispatch(usersSagaActions.fetchUserById(modalData.cart.userId))
             dispatch(productsSagaActions.fetchCartProducts(modalData.cart.products.map(product => product.productId)))
-
-            // setTimeout(() => {
-            //     dispatch(setIsProductsLoading(false))
-            // }, 2000)
-
         }
         return function cleanup() {
             dispatch(setCartProducts(null))

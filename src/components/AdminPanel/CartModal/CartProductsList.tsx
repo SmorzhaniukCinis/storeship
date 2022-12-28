@@ -1,10 +1,6 @@
 import React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import {cartModal} from "../AdminCartsList";
 import {useAppSelector} from "../../../redux/hooks";
@@ -15,12 +11,14 @@ import Box from "@mui/material/Box"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Tooltip from "@mui/material/Tooltip";
 import {useNavigate} from "react-router-dom";
-import {Typography} from "@mui/material";
-import {productType} from "../../../API/types/productsType";
-import {cartProduct, cartType} from "../../../API/types/cartsTypes";
+import {cartProduct} from "../../../API/types/cartsTypes";
+import {CartLIstItem} from "./CartLIstItem";
 
 type props = {
     modalData: cartModal | null
+}
+const findQuantity = (cart: cartProduct[] | undefined, productId: number) => {
+    return cart?.find(item => item.productId === productId)?.quantity || 'error'
 }
 
 export const CartProductsList: React.FC<props> = ({modalData}: props) => {
@@ -43,9 +41,6 @@ export const CartProductsList: React.FC<props> = ({modalData}: props) => {
         setChecked(newChecked);
     };
 
-    const findQuantity = (cart: cartProduct[] | undefined, productId: number) => {
-        return cart?.find(item => item.productId === productId)?.quantity || 'error'
-    }
 
 
     if (isProductLoading) return <Box textAlign='center'><AdminPanelLoader/></Box>
@@ -53,6 +48,7 @@ export const CartProductsList: React.FC<props> = ({modalData}: props) => {
         <List sx={{width: '100%', bgcolor: 'background.paper'}}>
             {cartProducts.map((product) => {
                 const labelId = `checkbox-list-label-${product.id}`;
+                const quantity = findQuantity(modalData?.cart.products, product.id)
 
                 return (
                     <ListItem
@@ -67,32 +63,7 @@ export const CartProductsList: React.FC<props> = ({modalData}: props) => {
                         }
                         disablePadding
                     >
-                        <ListItemButton role={undefined} onClick={handleToggle(product.id)} dense>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={checked.indexOf(product.id) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{'aria-labelledby': labelId}}
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={labelId}>
-                                <Box display='flex' justifyContent='space-between'
-                                     flexDirection={{md: 'row', xs: 'column'}} alignItems='center'>
-                                    <Typography width={{md: '70%', xs: '100%'}}>{product.title}</Typography>
-                                    <Box width={{md: '30%', xs: '100%'}} textAlign='center'>
-                                        <Typography component='span' fontWeight='bold'>
-                                            Quantity: {findQuantity(modalData?.cart.products, product.id)}
-                                        </Typography>
-                                        <Typography fontWeight='bold'>
-                                            Total: {product.price*Number(findQuantity(modalData?.cart.products, product.id))} $
-                                        </Typography>
-                                    </Box>
-
-                                </Box>
-                            </ListItemText>
-                        </ListItemButton>
+                        <CartLIstItem checked={checked} handleToggle={handleToggle} labelId={labelId} quantity={quantity} product={product}/>
                     </ListItem>
                 );
             })}

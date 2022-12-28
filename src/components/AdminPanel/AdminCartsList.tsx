@@ -12,7 +12,7 @@ import {cartType} from "../../API/types/cartsTypes";
 import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween'
 import {AdminPanelLoader} from "./AdminPanelLoader";
-import {CartDetailModal} from "./ProductModal/CartDetailModal";
+import {CartDetailModal} from "./CartModal/CartDetailModal";
 import {setCurrentUser} from "../../redux/users/usersSlise";
 
 dayjs.extend(isBetween)

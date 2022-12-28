@@ -5,6 +5,7 @@ import {DELETE_USER, FETCH_USER_BY_ID, FETCH_USERS, POST_NEW_USER, UPDATE_USER} 
 export type initialStateType = {
     users: userType[]
     currentUser: userType | null
+    isLoading: boolean
 }
 
 export type fetchUsersType = {

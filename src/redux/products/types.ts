@@ -1,6 +1,6 @@
 import {newProduct, productType, sortType} from "../../API/types/productsType";
 import {
-    DELETE_PRODUCT,
+    DELETE_PRODUCT, FETCH_CART_PRODUCT,
     FETCH_CATEGORY_PRODUCT,
     FETCH_PRODUCT_BY_ID,
     FETCH_PRODUCTS,
@@ -26,7 +26,10 @@ export type fetchProductsType = {
 export type fetchProductByIdType = {
     type: typeof FETCH_PRODUCT_BY_ID
     productId: number
-    isForCart?: boolean
+}
+export type fetchCartProductType = {
+    type: typeof FETCH_CART_PRODUCT
+    products: number[]
 }
 export type fetchCategoryProductsType = {
     type: typeof FETCH_CATEGORY_PRODUCT

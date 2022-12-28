@@ -7,7 +7,7 @@ const initialState: initialStateType = {
     products: [],
     currentProduct: null,
     currentCategory: 'electronics',
-    isProductsLoading: false,
+    isProductsLoading: true,
     sortBy: 'initial',
 };
 

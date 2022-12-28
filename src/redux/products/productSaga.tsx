@@ -9,7 +9,7 @@ import {
 } from "./ProductsSlice";
 import {newProduct, productType, sortType} from "../../API/types/productsType";
 import {
-    DELETE_PRODUCT,
+    DELETE_PRODUCT, FETCH_CART_PRODUCT,
     FETCH_CATEGORY_PRODUCT,
     FETCH_PRODUCT_BY_ID,
     FETCH_PRODUCTS,
@@ -17,7 +17,7 @@ import {
     UPDATE_PRODUCT
 } from "./productsActionTypes";
 import {
-    deleteProductType,
+    deleteProductType, fetchCartProductType,
     fetchCategoryProductsType,
     fetchProductByIdType,
     fetchProductsType,
@@ -44,12 +44,21 @@ function* fetchProductById(action: fetchProductByIdType) {
     try {
         yield put(setIsProductsLoading(true))
         const product: productType = yield call(productAPI.getProductById, action.productId);
-        if (action.isForCart) {
-            yield put(setCartProducts(product));
-        } else {
-            yield put(setCurrentProduct(product));
-        }
+        yield put(setCurrentProduct(product));
+    } catch (e: any) {
+        yield put(throwSomeError(e.message));
+    }
+}
+
+function* fetchCartProducts(action: fetchCartProductType) {
+    try {
         yield put(setIsProductsLoading(true))
+        const cartProducts: productType[] = []
+        for (let i = 0; i < action.products.length; i++) {
+            cartProducts.push(yield call(productAPI.getProductById, action.products[i]))
+        }
+        yield put(setCartProducts(cartProducts));
+        yield put(setIsProductsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }
@@ -109,10 +118,13 @@ export const productsSagaActions = {
         type: FETCH_PRODUCTS,
         params: {portion, sort}
     }),
-    fetchProductById: (productId: number, isForCart?: boolean): fetchProductByIdType => ({
+    fetchProductById: (productId: number): fetchProductByIdType => ({
         type: FETCH_PRODUCT_BY_ID,
-        productId,
-        isForCart
+        productId
+    }),
+    fetchCartProducts: (products: number[]): fetchCartProductType => ({
+        type: FETCH_CART_PRODUCT,
+        products
     }),
     fetchCategoryProducts: (category: string, portion?: number, sort?: sortType): fetchCategoryProductsType => ({
         type: FETCH_CATEGORY_PRODUCT,
@@ -135,4 +147,5 @@ export function* productsSaga() {
     yield takeEvery(POST_NEW_PRODUCT, postNewProduct)
     yield takeEvery(UPDATE_PRODUCT, updateProduct)
     yield takeEvery(DELETE_PRODUCT, deleteProduct)
+    yield takeEvery(FETCH_CART_PRODUCT, fetchCartProducts)
 }

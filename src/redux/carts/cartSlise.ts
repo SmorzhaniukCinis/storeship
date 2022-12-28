@@ -26,9 +26,13 @@ export const cartSlice = createSlice({
         setCarts: (state, action: PayloadAction<cartType[]>) => {
             state.carts = action.payload;
         },
-        setCartProducts: (state, action: PayloadAction<productType | null>) => {
+        setCartProducts: (state, action: PayloadAction<productType[] | null>) => {
             if (action.payload) {
-                state.cartProducts.push(action.payload)
+                state.cartProducts = action.payload
+
+                // if(!state.cartProducts.find(product => product.id === action.payload?.id)){
+                //     state.cartProducts.push(action.payload)
+                // }
             } else {
                 state.cartProducts = []
             }

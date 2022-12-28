@@ -2,7 +2,6 @@ import React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
-import {cartModal} from "../AdminCartsList";
 import {useAppSelector} from "../../../redux/hooks";
 import {cartSelectors} from "../../../redux/carts/cartsSelectors";
 import {productsSelectors} from "../../../redux/products/productsSelectors";
@@ -11,17 +10,18 @@ import Box from "@mui/material/Box"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Tooltip from "@mui/material/Tooltip";
 import {useNavigate} from "react-router-dom";
-import {cartProduct} from "../../../API/types/cartsTypes";
+import {cartProduct, cartType} from "../../../API/types/cartsTypes";
 import {CartLIstItem} from "./CartLIstItem";
 
 type props = {
-    modalData: cartModal | null
+    cart: cartType | null
 }
+
 const findQuantity = (cart: cartProduct[] | undefined, productId: number) => {
     return cart?.find(item => item.productId === productId)?.quantity || 'error'
 }
 
-export const CartProductsList: React.FC<props> = ({modalData}: props) => {
+export const CartProductsList: React.FC<props> = ({cart}: props) => {
 
     const [checked, setChecked] = React.useState([0]);
     const cartProducts = useAppSelector(cartSelectors.selectCartProducts)
@@ -42,13 +42,12 @@ export const CartProductsList: React.FC<props> = ({modalData}: props) => {
     };
 
 
-
     if (isProductLoading) return <Box textAlign='center'><AdminPanelLoader/></Box>
     return (
         <List sx={{width: '100%', bgcolor: 'background.paper'}}>
             {cartProducts.map((product) => {
                 const labelId = `checkbox-list-label-${product.id}`;
-                const quantity = findQuantity(modalData?.cart.products, product.id)
+                const quantity = findQuantity(cart?.products, product.id)
 
                 return (
                     <ListItem
@@ -63,7 +62,8 @@ export const CartProductsList: React.FC<props> = ({modalData}: props) => {
                         }
                         disablePadding
                     >
-                        <CartLIstItem checked={checked} handleToggle={handleToggle} labelId={labelId} quantity={quantity} product={product}/>
+                        <CartLIstItem checked={checked} handleToggle={handleToggle} labelId={labelId}
+                                      quantity={quantity} product={product}/>
                     </ListItem>
                 );
             })}

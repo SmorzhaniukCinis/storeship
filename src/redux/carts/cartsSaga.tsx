@@ -20,6 +20,7 @@ import {
     UPDATE_CART
 } from "./cartActionTypes";
 import {setIsLoading, throwSomeError} from "../app/appSlise";
+import {setIsUsersLoading} from "../users/usersSlise";
 
 
 function* fetchCarts(action: fetchCartsType) {
@@ -46,8 +47,10 @@ function* fetchCartById(action: fetchCartByIdType) {
 
 function* fetchCartByUser(action: fetchCartByUserType) {
     try {
-        const cart: cartType = yield call(cartAPI.getCartsByUser, action.userId);
-        yield put(setCurrentCart(cart));
+        yield put(setIsUsersLoading(true))
+        const cart: cartType[] = yield call(cartAPI.getCartsByUser, action.userId);
+        yield put(setCarts(cart));
+        yield put(setIsUsersLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }

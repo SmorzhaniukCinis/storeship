@@ -7,6 +7,8 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {usersSagaActions} from "../../redux/users/usersSaga";
 import {usersSelectors} from "../../redux/users/usersSelectors";
 import UserModal from "./UserModal/UserModal";
+import {AdminPanelLoader} from "./AdminPanelLoader";
+import {CartList} from "./UserModal/CartList";
 
 type props = {
     searchStr: string
@@ -18,6 +20,7 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
     const dispatch = useAppDispatch()
     const users = useAppSelector(usersSelectors.selectUsers)
     const [open, setOpen] = React.useState(false);
+    const isLoading = useAppSelector(usersSelectors.selectIsUsersLoading)
 
     const handleOpen = (userId: number) => {
         setOpen(true);
@@ -35,9 +38,13 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
                 <SortBar/>
                 <AdminSearchField/>
             </Box>
-            {users.map(user => <Box key={user.id} onClick={() => handleOpen(user.id)}>
-                <AdminUserItem user={user}/>
-            </Box>)}
+            {!isLoading
+                ? users.map(user =>
+                    <Box key={user.id} onClick={() => handleOpen(user.id)}>
+                        <AdminUserItem user={user}/>
+                    </Box>)
+                : <Box textAlign='center'><AdminPanelLoader/></Box>
+            }
             <UserModal open={open} handleClose={handleClose}/>
         </Box>
     );

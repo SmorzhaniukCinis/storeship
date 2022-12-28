@@ -13,7 +13,6 @@ import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween'
 import {AdminPanelLoader} from "./AdminPanelLoader";
 import {CartDetailModal} from "./CartModal/CartDetailModal";
-import {setCurrentUser} from "../../redux/users/usersSlise";
 
 dayjs.extend(isBetween)
 
@@ -30,16 +29,16 @@ export const AdminCartsList = () => {
     const dateRange = useAppSelector(cartSelectors.selectDateRange)
     const isLoading = useAppSelector(cartSelectors.selectIsCartLoading)
     const [currentCarts, setCurrentCarts] = useState<cartType[] | null>(null)
-    const [modalData, setModalData] = React.useState<cartModal | null>(null);
+    const [cartModalData, setCartModalData] = React.useState<cartType | null>(null);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-    const openModal = ({cart, isDone}:cartModal) => {
+    const openModal = ({cart}:cartModal) => {
         setIsModalOpen(true);
-        setModalData({cart, isDone})
+        setCartModalData(cart)
     }
     const closeModal = useCallback(() => {
         setIsModalOpen(false)
-        setModalData(null)
+        setCartModalData(null)
     }, [])
 
 
@@ -66,7 +65,7 @@ export const AdminCartsList = () => {
                     }
                 </Grid>
             }
-            <CartDetailModal modalData={modalData} isModalOpen={isModalOpen} closeModal={closeModal}/>
+            <CartDetailModal cart={cartModalData} isModalOpen={isModalOpen} closeModal={closeModal}/>
         </Box>
 
     );

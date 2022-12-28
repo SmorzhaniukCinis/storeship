@@ -1,9 +1,9 @@
 import React from 'react';
 import Box from "@mui/material/Box";
-import {userType} from "../../../API/types/userTypes";
 import {Typography} from "@mui/material";
 import {useAppSelector} from "../../../redux/hooks";
 import {usersSelectors} from "../../../redux/users/usersSelectors";
+import {CartList} from "./CartList";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -52,6 +52,7 @@ export const UserData = () => {
                     <Typography component='span' sx={{fontSize: 20}}>№{user?.address.number}</Typography>
                 </Box>
             </Box>
+            <CartList userId={user?.id}/>
         </Box>
     );
 };

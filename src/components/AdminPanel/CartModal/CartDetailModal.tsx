@@ -1,12 +1,12 @@
 import React from 'react';
 import Modal from '@mui/material/Modal';
 import {Paper} from "@mui/material";
-import {cartModal} from "../AdminCartsList";
 import {CartProductsList} from "./CartProductsList";
 import CloseIcon from '@mui/icons-material/Close';
 import Button from "@mui/material/Button";
 import {CartCommonInfo} from "./CartCommonInfo";
 import Box from "@mui/material/Box";
+import {cartType} from "../../../API/types/cartsTypes";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -22,13 +22,12 @@ const style = {
 type props = {
     isModalOpen: boolean
     closeModal: () => void
-    modalData: cartModal | null
+    cart: cartType | null
 }
 
 
 export const CartDetailModal: React.FC<props> = React.memo(
-    ({isModalOpen, closeModal, modalData}: props) => {
-
+    ({isModalOpen, closeModal, cart}: props) => {
         return (
             <div>
                 <Modal open={isModalOpen} onClose={closeModal}>
@@ -37,8 +36,8 @@ export const CartDetailModal: React.FC<props> = React.memo(
                             <CloseIcon sx={{fontSize: 30}}/>
                         </Button>
                         <Box padding={{md: 5, xs: 2}}>
-                            <CartCommonInfo modalData={modalData}/>
-                            <CartProductsList modalData={modalData} />
+                            <CartCommonInfo cart={cart}/>
+                            <CartProductsList cart={cart} />
                         </Box>
                     </Paper>
                 </Modal>

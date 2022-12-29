@@ -38,7 +38,7 @@ export const CartList: React.FC<props> = ({userId, openCartModal}: props) => {
     if(isLoading) return <Box textAlign='center'><AdminPanelLoader/></Box>
     return (
         <Box sx={{borderTop: '1px solid', mt: 1, pt: 1}}>
-            {carts
+            {carts.length
                 ? <Typography variant='h5'>Carts</Typography>
                 : <Typography variant='h5'>No cart</Typography>}
             <List>

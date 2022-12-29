@@ -12,6 +12,7 @@ import {CartDetailModal} from "./CartModal/CartDetailModal";
 import {cartSelectors} from "../../redux/carts/cartsSelectors";
 import {SortButton} from "./SortButton";
 import {setSortBy} from "../../redux/users/usersSlise";
+import {userType} from "../../API/types/userTypes";
 
 type props = {
     searchStr: string
@@ -26,6 +27,7 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
     const isLoading = useAppSelector(usersSelectors.selectIsUsersLoading)
     const sortBy = useAppSelector(usersSelectors.selectSortBy)
     const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
+    const [filterUsers, setFilterUsers] = useState<userType[]>([])
 
     const handleOpen = (userId: number) => {
         setOpen(true);
@@ -46,6 +48,14 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
         dispatch(usersSagaActions.fetchUsers())
     }, [dispatch])
 
+    useEffect(() => {
+        if (searchStr) {
+            setFilterUsers(users.filter(item => item.username.indexOf(searchStr) !== -1))
+        } else {
+            setFilterUsers(users)
+        }
+    }, [searchStr, users])
+
     return (
         <Box sx={{p: {md: '0 10%', xs: 0}}}>
             <Box display={{md: 'flex', xs: 'block'}} justifyContent='space-between' alignItems='center'>
@@ -55,7 +65,7 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
                 <AdminSearchField label={'user'}/>
             </Box>
             {!isLoading
-                ? users.map(user =>
+                ? filterUsers.map(user =>
                     <Box key={user.id} onClick={() => handleOpen(user.id)}>
                         <AdminUserItem user={user}/>
                     </Box>)

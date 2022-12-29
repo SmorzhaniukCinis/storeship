@@ -26,7 +26,6 @@ export const authSlice = createSlice({
             state.isLightTheme = action.payload
         },
         setIsLoading: (state, action: PayloadAction<boolean>) => {
-
             state.isLoading = action.payload
         },
         setAdminSearch: (state, action: PayloadAction<string>) => {

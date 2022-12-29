@@ -16,8 +16,11 @@ const style = {
     boxShadow: 24,
     p: {md: 6, xs: 2},
 }
+type props = {
+    openCartModal: (cartId: number) => void
+}
 
-export const UserData = () => {
+export const UserData:React.FC<props> = ({openCartModal}:props) => {
 
     const user = useAppSelector(usersSelectors.selectCurrentUser)
 
@@ -52,7 +55,7 @@ export const UserData = () => {
                     <Typography component='span' sx={{fontSize: 20}}>№{user?.address.number}</Typography>
                 </Box>
             </Box>
-            <CartList userId={user?.id}/>
+            <CartList userId={user?.id} openCartModal={openCartModal}/>
         </Box>
     );
 };

@@ -9,9 +9,10 @@ import {UserData} from "./UserData";
 type props = {
     open: boolean
     handleClose: () => void
+    openCartModal: (cartId: number) => void
 }
 
-const UserModal:React.FC<props> = ({handleClose, open}:props) => {
+const UserModal:React.FC<props> = ({handleClose, open, openCartModal}:props) => {
 
     const isLoading = useAppSelector(appSelectors.selectIsLoading)
 
@@ -20,7 +21,7 @@ const UserModal:React.FC<props> = ({handleClose, open}:props) => {
         <div>
             <Modal open={open} onClose={handleClose}>
                 <Box>
-                    <UserData/>
+                    <UserData openCartModal={openCartModal}/>
                 </Box>
             </Modal>
         </div>

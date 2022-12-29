@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Box from "@mui/material/Box";
 import {SortBar} from "./SortBar";
 import {AdminUserItem} from "./AdminUserItem";
@@ -9,6 +9,9 @@ import {usersSelectors} from "../../redux/users/usersSelectors";
 import UserModal from "./UserModal/UserModal";
 import {AdminPanelLoader} from "./AdminPanelLoader";
 import {CartList} from "./UserModal/CartList";
+import {cartSagaActions} from "../../redux/carts/cartsSaga";
+import {CartDetailModal} from "./CartModal/CartDetailModal";
+import {cartSelectors} from "../../redux/carts/cartsSelectors";
 
 type props = {
     searchStr: string
@@ -20,6 +23,7 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
     const dispatch = useAppDispatch()
     const users = useAppSelector(usersSelectors.selectUsers)
     const [open, setOpen] = React.useState(false);
+    const currentCart = useAppSelector(cartSelectors.selectCurrentCart)
     const isLoading = useAppSelector(usersSelectors.selectIsUsersLoading)
 
     const handleOpen = (userId: number) => {
@@ -31,6 +35,19 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
     useEffect(() => {
         dispatch(usersSagaActions.fetchUsers())
     }, [dispatch])
+
+
+    const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
+
+    const closeCartModal = useCallback(() => {
+        setIsCartOpen(false)
+    }, [])
+    const openCartModal = (cartId: number) => {
+        handleClose()
+        setIsCartOpen(true)
+        dispatch(cartSagaActions.fetchCartById(cartId))
+    }
+
 
     return (
         <Box sx={{p: {md: '0 10%', xs: 0}}}>
@@ -45,7 +62,8 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
                     </Box>)
                 : <Box textAlign='center'><AdminPanelLoader/></Box>
             }
-            <UserModal open={open} handleClose={handleClose}/>
+            <UserModal open={open} handleClose={handleClose} openCartModal={openCartModal}/>
+            <CartDetailModal isModalOpen={isCartOpen} closeModal={closeCartModal} cart={currentCart}/>
         </Box>
     );
 };

@@ -20,15 +20,11 @@ type props = {
     openCartModal: (cartId: number) => void
 }
 
-
 export const CartList: React.FC<props> = ({userId, openCartModal}: props) => {
 
     const dispatch = useAppDispatch()
     const carts = useAppSelector(cartSelectors.selectCarts)
     const isLoading = useAppSelector(usersSelectors.selectIsUsersLoading)
-
-
-
 
     useEffect(() => {
         if (userId) {

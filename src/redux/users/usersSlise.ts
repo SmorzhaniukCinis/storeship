@@ -1,12 +1,14 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {initialStateType} from "./types";
 import {userType} from "../../API/types/userTypes";
+import {sortByTypes} from "../products/types";
 
 
 const initialState: initialStateType = {
     users: [],
     currentUser: null,
     isLoading: true,
+    sortBy: 'initial',
 };
 
 
@@ -23,9 +25,13 @@ export const usersSlice = createSlice({
         setIsUsersLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload;
         },
+        setSortBy: (state, action: PayloadAction<sortByTypes>) => {
+            state.sortBy = action.payload
+            state.users.reverse()
+        },
     },
 });
 
-export const {setUsers, setCurrentUser, setIsUsersLoading} = usersSlice.actions;
+export const {setUsers, setCurrentUser, setIsUsersLoading, setSortBy} = usersSlice.actions;
 
 export default usersSlice.reducer;

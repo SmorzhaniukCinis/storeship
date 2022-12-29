@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import Box from "@mui/material/Box";
-import {SortBar} from "./SortBar";
 import {AdminUserItem} from "./AdminUserItem";
 import {AdminSearchField} from "./AdminSearchField";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
@@ -8,15 +7,15 @@ import {usersSagaActions} from "../../redux/users/usersSaga";
 import {usersSelectors} from "../../redux/users/usersSelectors";
 import UserModal from "./UserModal/UserModal";
 import {AdminPanelLoader} from "./AdminPanelLoader";
-import {CartList} from "./UserModal/CartList";
 import {cartSagaActions} from "../../redux/carts/cartsSaga";
 import {CartDetailModal} from "./CartModal/CartDetailModal";
 import {cartSelectors} from "../../redux/carts/cartsSelectors";
+import {SortButton} from "./SortButton";
+import {setSortBy} from "../../redux/users/usersSlise";
 
 type props = {
     searchStr: string
 }
-
 
 export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
 
@@ -25,19 +24,14 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
     const [open, setOpen] = React.useState(false);
     const currentCart = useAppSelector(cartSelectors.selectCurrentCart)
     const isLoading = useAppSelector(usersSelectors.selectIsUsersLoading)
+    const sortBy = useAppSelector(usersSelectors.selectSortBy)
+    const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
 
     const handleOpen = (userId: number) => {
         setOpen(true);
         dispatch(usersSagaActions.fetchUserById(userId))
     }
     const handleClose = () => setOpen(false);
-
-    useEffect(() => {
-        dispatch(usersSagaActions.fetchUsers())
-    }, [dispatch])
-
-
-    const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
 
     const closeCartModal = useCallback(() => {
         setIsCartOpen(false)
@@ -48,12 +42,17 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
         dispatch(cartSagaActions.fetchCartById(cartId))
     }
 
+    useEffect(() => {
+        dispatch(usersSagaActions.fetchUsers())
+    }, [dispatch])
 
     return (
         <Box sx={{p: {md: '0 10%', xs: 0}}}>
             <Box display={{md: 'flex', xs: 'block'}} justifyContent='space-between' alignItems='center'>
-                <SortBar/>
-                <AdminSearchField/>
+                <Box sx={{pb: 1}}>
+                    <SortButton setSortBy={setSortBy} sortBy={sortBy}/>
+                </Box>
+                <AdminSearchField label={'user'}/>
             </Box>
             {!isLoading
                 ? users.map(user =>

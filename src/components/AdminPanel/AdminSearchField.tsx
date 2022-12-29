@@ -5,7 +5,11 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {setAdminSearch} from "../../redux/app/appSlise";
 import {appSelectors} from "../../redux/app/appSelectors";
 
-export const AdminSearchField = () => {
+type props = {
+    label?: string
+}
+
+export const AdminSearchField:React.FC<props> = ({label}: props) => {
 
     const dispatch = useAppDispatch()
     const searchStr = useAppSelector(appSelectors.selectAdminSearch)
@@ -24,7 +28,7 @@ export const AdminSearchField = () => {
         <FormControl sx={{m: {md: '0 10px 15px 10px', xs: '0 0 10px 0'}, width: {xs: '100%', md: 400}}}>
             <InputLabel htmlFor="outlined-adornment-amount">
                 <SearchIcon sx={{mr: 1}}/>
-                <span style={{position: 'relative', bottom: 8}}>search product</span>
+                <span style={{position: 'relative', bottom: 8}}>search {label}</span>
             </InputLabel>
             <OutlinedInput
                 onChange={(event) => search(event)}

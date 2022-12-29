@@ -1,11 +1,13 @@
 import {newUserType, userType} from "../../API/types/userTypes";
 import {sortType} from "../../API/types/productsType";
 import {DELETE_USER, FETCH_USER_BY_ID, FETCH_USERS, POST_NEW_USER, UPDATE_USER} from "./usersActionTypes";
+import {sortByTypes} from "../products/types";
 
 export type initialStateType = {
     users: userType[]
     currentUser: userType | null
     isLoading: boolean
+    sortBy: sortByTypes
 }
 
 export type fetchUsersType = {

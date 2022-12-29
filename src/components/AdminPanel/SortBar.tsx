@@ -1,17 +1,14 @@
 import React from 'react';
-import {ButtonGroup, FormControl, InputLabel, ListSubheader, Select, SelectChangeEvent} from "@mui/material";
+import {FormControl, InputLabel, ListSubheader, Select, SelectChangeEvent} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import SouthIcon from "@mui/icons-material/South";
-import NorthIcon from "@mui/icons-material/North";
 import Box from "@mui/material/Box";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {filterTypes} from "../../redux/app/types";
 import {setFilter} from "../../redux/app/appSlise";
 import {appSelectors} from "../../redux/app/appSelectors";
-import {productsSelectors} from "../../redux/products/productsSelectors";
-import {sortByTypes} from "../../redux/products/types";
 import {setSortBy} from "../../redux/products/ProductsSlice";
+import {SortButton} from "./SortButton";
+import {productsSelectors} from "../../redux/products/productsSelectors";
 
 export const SortBar = () => {
 
@@ -23,9 +20,8 @@ export const SortBar = () => {
         dispatch(setFilter(event.target.value as filterTypes))
     };
 
-    const sortItems = (sortBy: sortByTypes) => {
-        dispatch(setSortBy(sortBy))
-    }
+
+
 
     return (
         <Box mb={2} display='flex' justifyContent='space-between'>
@@ -48,14 +44,8 @@ export const SortBar = () => {
                 </Select>
             </FormControl>
 
-            <ButtonGroup variant="contained" >
-                <Button sx={{height: 50}} disabled={sortBy === 'initial'} onClick={()=>sortItems('initial')}>
-                    <SouthIcon/>
-                </Button>
-                <Button sx={{height: 50}} disabled={sortBy === 'reverse'}  onClick={()=>sortItems('reverse')}>
-                    <NorthIcon/>
-                </Button>
-            </ButtonGroup>
+            <SortButton setSortBy={setSortBy} sortBy={sortBy}/>
+
         </Box>
     );
 };

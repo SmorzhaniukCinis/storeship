@@ -58,11 +58,11 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
 
     return (
         <Box sx={{p: {md: '0 10%', xs: 0}}}>
-            <Box display={{md: 'flex', xs: 'block'}} justifyContent='space-between' alignItems='center'>
-                <Box sx={{pb: 1}}>
+            <Box display={{md: 'flex', xs: 'block'}} alignItems='center'>
+                <AdminSearchField label={'user'}/>
+                <Box sx={{pb: 2, mr: 2}}>
                     <SortButton setSortBy={setSortBy} sortBy={sortBy}/>
                 </Box>
-                <AdminSearchField label={'user'}/>
             </Box>
             {!isLoading
                 ? filterUsers.map(user =>

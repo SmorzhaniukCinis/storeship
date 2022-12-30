@@ -1,14 +1,16 @@
 import React from 'react';
-import {FormControl, InputAdornment, InputLabel, OutlinedInput} from "@mui/material";
+import {FormControl, InputAdornment, InputLabel, OutlinedInput, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 type props = {
     register: any
     label: string
+    fieldName: string
+    error: string | undefined
 }
 
-export const PasswordField:React.FC<props> = ({register, label}:props) => {
+export const PasswordField:React.FC<props> = ({register, label, fieldName, error}:props) => {
 
     const [isPasswordVisible, setIsPasswordVisible] = React.useState<boolean>(false);
 
@@ -21,27 +23,31 @@ export const PasswordField:React.FC<props> = ({register, label}:props) => {
     };
 
     return (
-        <FormControl fullWidth variant="outlined" sx={{mt: '10px'}}>
-            <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
-            <OutlinedInput
-                {...register("password")}
-                label={label}
-                id={label}
-                type={isPasswordVisible ? 'text' : 'password'}
-                endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                        >
-                            {isPasswordVisible ? <VisibilityOff/> : <Visibility/>}
-                        </IconButton>
-                    </InputAdornment>
-                }
-            />
-        </FormControl>
+        <>
+            {<Typography sx={{mb: 1, color: '#e84141'}}>{error}</Typography>}
+            <FormControl fullWidth variant="outlined" sx={{mt: '10px'}}>
+                <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
+                <OutlinedInput
+                    {...register(fieldName, {required: 'field is required'})}
+                    label={label}
+                    id={label}
+                    type={isPasswordVisible ? 'text' : 'password'}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                            >
+                                {isPasswordVisible ? <VisibilityOff/> : <Visibility/>}
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                />
+            </FormControl>
+        </>
+
     );
 };
 

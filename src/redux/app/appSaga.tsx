@@ -17,7 +17,7 @@ function* authUser(action: authUserType) {
 
 
 export const appSagaActions = {
-    fetchProducts: (authData: authDataType): authUserType => ({type: AUTH_USER, authData}),
+    authUser: (authData: authDataType): authUserType => ({type: AUTH_USER, authData}),
 }
 
 export function* appSaga() {

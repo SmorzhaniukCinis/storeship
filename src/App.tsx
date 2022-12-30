@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useAppSelector} from "./redux/hooks";
 import {RouterProvider} from "react-router-dom";
 import {publicRoutes} from "./routes";
@@ -9,6 +9,13 @@ import {appSelectors} from "./redux/app/appSelectors";
 function App() {
     const isLightTheme = useAppSelector(appSelectors.selectIsLightTheme)
     const isLoading = useAppSelector(appSelectors.selectIsLoading)
+    const token = useAppSelector(appSelectors.selectToken)
+
+    useEffect(() => {
+        if(token) {
+
+        }
+    }, [])
 
     return (
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>

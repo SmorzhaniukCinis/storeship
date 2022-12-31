@@ -10,7 +10,7 @@ type props = {
     error: string | undefined
 }
 
-export const PasswordField:React.FC<props> = ({register, label, fieldName, error}:props) => {
+export const PasswordField: React.FC<props> = ({register, label, fieldName, error}: props) => {
 
     const [isPasswordVisible, setIsPasswordVisible] = React.useState<boolean>(false);
 
@@ -24,11 +24,15 @@ export const PasswordField:React.FC<props> = ({register, label, fieldName, error
 
     return (
         <>
-            {<Typography sx={{mb: 1, color: '#e84141'}}>{error}</Typography>}
+            {<Typography sx={{color: '#e84141'}}>{error}</Typography>}
             <FormControl fullWidth variant="outlined" sx={{mt: '10px'}}>
                 <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
                 <OutlinedInput
-                    {...register(fieldName, {required: 'field is required'})}
+                    color={error ? "error" : null}
+                    {...register(fieldName, {
+                        required: 'field is required',
+                        minLength: {value: 5, message: 'minimum 5 chars'}
+                    })}
                     label={label}
                     id={label}
                     type={isPasswordVisible ? 'text' : 'password'}

@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {filterTypes, initialStateType} from "./types";
+import {userType} from "../../API/types/userTypes";
 
 
 const initialState: initialStateType = {
@@ -9,6 +10,7 @@ const initialState: initialStateType = {
     isLoading: false,
     adminSearch: '',
     filter: 'Asc',
+    currentUser: null
 };
 
 
@@ -17,7 +19,6 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setToken: (state, action: PayloadAction<string>) => {
-            debugger
             state.token = action.payload;
         },
         throwSomeError: (state, action: PayloadAction<string>) => {
@@ -35,9 +36,12 @@ export const authSlice = createSlice({
         setFilter: (state, action: PayloadAction<filterTypes>) => {
             state.filter = action.payload
         },
+        setCurrentUser: (state, action: PayloadAction<userType | null>) => {
+            state.currentUser = action.payload
+        },
     },
 });
 
-export const {setToken, throwSomeError, setTheme, setIsLoading, setAdminSearch, setFilter} = authSlice.actions;
+export const {setToken, throwSomeError, setTheme, setIsLoading, setAdminSearch, setFilter, setCurrentUser} = authSlice.actions;
 
 export default authSlice.reducer;

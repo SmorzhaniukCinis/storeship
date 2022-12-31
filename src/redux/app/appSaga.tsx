@@ -1,17 +1,28 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
-import {authUserType, throwSomeErrorType} from "./types";
+import {authUserType} from "./types";
 import {authAPI} from "../../API/authAPI";
 import {authDataType} from "../../API/types/authTypes";
-import {AUTH_USER, THROW_SOME_ERROR} from "./appActionTypes";
-import {setToken, throwSomeError} from "./appSlise";
+import {AUTH_USER} from "./appActionTypes";
+import {setCurrentUser, setToken, throwSomeError} from "./appSlise";
+import {userType} from "../../API/types/userTypes";
+import {userAPI} from "../../API/userAPI";
 
 
 function* authUser(action: authUserType) {
     try {
         const token: string = yield call(() => authAPI.authUser(action.authData));
-        yield put(setToken(token));
+        if (token) {
+            yield put(setToken(token));
+            const users: userType[] = yield call(() => userAPI.getUsers());
+            const currentUser = users.find( user => user.username === action.authData.username)
+            if(currentUser) {
+                yield put(setCurrentUser(currentUser));
+            }
+        }
     } catch (e: any) {
-        yield put(throwSomeError(e.message));
+        console.log(e)
+        if(e.response.status === 401)
+        yield put(throwSomeError('Wrong Username or Password'));
     }
 }
 

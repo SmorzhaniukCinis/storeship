@@ -4,8 +4,8 @@ import {userAPI} from "../../API/userAPI";
 import {addNewUserType, deleteUserType, fetchUserByIdType, fetchUsersType, updateUserType} from "./types";
 import {DELETE_USER, FETCH_USER_BY_ID, FETCH_USERS, POST_NEW_USER, UPDATE_USER} from "./usersActionTypes";
 import {newUserType, userType} from "../../API/types/userTypes";
-import {setCurrentUser, setIsUsersLoading, setUsers} from "./usersSlise";
-import {setIsLoading, throwSomeError} from "../app/appSlise";
+import {setIsUsersLoading, setUsers} from "./usersSlise";
+import {setCurrentUser, setIsLoading, throwSomeError} from "../app/appSlise";
 
 
 function* fetchUsers(action: fetchUsersType) {
@@ -32,9 +32,12 @@ function* fetchUserById(action: fetchUserByIdType) {
 }
 
 function* addNewUser(action: addNewUserType) {
+    const {address, email, username, name, phone, password} = action.newUser
     try {
-        const user: userType = yield call(userAPI.addNewUser, action.newUser);
-        yield put(setCurrentUser(user));
+        const userId: { id: number } = yield call(userAPI.addNewUser, action.newUser);
+        yield put(setCurrentUser({
+            address, email, username, name, phone, password, id: Number(userId.id)
+        }));
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }
@@ -61,16 +64,16 @@ function* deleteUser(action: deleteUserType) {
 
 
 export const usersSagaActions = {
-    fetchUsers: (portion?: number, sort?: sortType):fetchUsersType => ({type: FETCH_USERS, params: {portion, sort}}),
-    fetchUserById: (userId: number):fetchUserByIdType => ({type: FETCH_USER_BY_ID, userId}),
-    postNewUser: (newUser: newUserType):addNewUserType => ({type: POST_NEW_USER, newUser}),
-    updateUser: (userId: number, updatedUser: newUserType):updateUserType => ({
+    fetchUsers: (portion?: number, sort?: sortType): fetchUsersType => ({type: FETCH_USERS, params: {portion, sort}}),
+    fetchUserById: (userId: number): fetchUserByIdType => ({type: FETCH_USER_BY_ID, userId}),
+    postNewUser: (newUser: newUserType): addNewUserType => ({type: POST_NEW_USER, newUser}),
+    updateUser: (userId: number, updatedUser: newUserType): updateUserType => ({
         type: UPDATE_USER, userData: {
             userId,
             updatedUser
         }
     }),
-    deleteUser: (userId: number):deleteUserType => ({type: DELETE_USER, userId})
+    deleteUser: (userId: number): deleteUserType => ({type: DELETE_USER, userId})
 }
 
 export function* UsersSaga() {

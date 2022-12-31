@@ -12,8 +12,11 @@ export const PasswordRegistrationFields: React.FC<props> = ({register, errors}: 
         <Box width='100%'>
             <PasswordField error={errors.password?.message} label={'password'} register={register}
                            fieldName='password'/>
-            <PasswordField error={errors.passwordComparison?.message} label={'password comparison'} register={register}
-                           fieldName='passwordComparison'/>
+            <Box mt={1}>
+                <PasswordField error={errors.passwordComparison?.message} label={'password comparison'}
+                               register={register}
+                               fieldName='passwordComparison'/>
+            </Box>
         </Box>
     );
 };

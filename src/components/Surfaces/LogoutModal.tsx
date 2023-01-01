@@ -34,6 +34,7 @@ export const LogoutModal: React.FC<props> = ({isOpen, closeModal}: props) => {
         dispatch(setCurrentUser(null))
         navigate('/auth')
         closeModal()
+        localStorage.clear()
     }
     return (
         <Modal

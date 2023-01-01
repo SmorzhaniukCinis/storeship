@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {initialStateType} from "./types";
-import {cartType} from "../../API/types/cartsTypes";
+import {cartProduct, cartType} from "../../API/types/cartsTypes";
 import dayjs from "dayjs";
 import {productType} from "../../API/types/productsType";
 
@@ -10,6 +10,7 @@ const initialState: initialStateType = {
     carts: [],
     currentCart: null,
     cartProducts: [],
+    userCart: [],
     dateRange: {
         startDate: '2000-01-01',
         endDate: dayjs(new Date()).format('YYYY-MM-DD')
@@ -35,6 +36,20 @@ export const cartSlice = createSlice({
         },
         setCurrentCart: (state, action: PayloadAction<cartType>) => {
             state.currentCart = action.payload;
+        },
+        setProductToCart: (state, action: PayloadAction<cartProduct>) => {
+            state.userCart.push(action.payload)
+        },
+        deleteProductFromCart: (state, action: PayloadAction<{productId: number}>) => {
+            state.userCart.filter(product => product.productId !== action.payload.productId)
+        },
+        setProductQuantity: (state, {payload}: PayloadAction<{productId: number, quantity: number}>) => {
+            state.userCart.map(product => {
+                if (payload.productId === product.productId) {
+                    return {...product, quantity: payload.quantity}
+                }
+                return product
+            })
         },
         setDateFilter: (state, action: PayloadAction<{ startDate?: string, endDate?: string }>) => {
             state.dateRange = {

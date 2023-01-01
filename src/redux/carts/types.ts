@@ -1,4 +1,4 @@
-import {cartType, newCartType} from "../../API/types/cartsTypes";
+import {cartProduct, cartType, newCartType} from "../../API/types/cartsTypes";
 import {
     DELETE_CART,
     FETCH_CART_BY_ID,
@@ -11,6 +11,7 @@ import {productType, sortType} from "../../API/types/productsType";
 
 export type initialStateType = {
     isLoading: boolean
+    userCart: cartProduct[]
     carts: cartType[],
     currentCart: cartType | null,
     cartProducts: productType[],

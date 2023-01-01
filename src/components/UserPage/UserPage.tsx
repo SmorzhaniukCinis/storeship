@@ -13,6 +13,7 @@ import {useForm} from "react-hook-form";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import {appSelectors} from "../../redux/app/appSelectors";
+import {DeleteUserModal} from "./DeleteUserModal";
 
 
 export const UserPage = () => {
@@ -22,10 +23,13 @@ export const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)
     const {register, handleSubmit, formState: {errors}} = useForm();
     const isLoading = useAppSelector(usersSelectors.selectIsUsersLoading)
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const onSubmit = (data: any) => {
         setIsEditing(false)
-        if(user) {
+        if (user) {
             dispatch(usersSagaActions.updateUser(user.id, {
                 phone: data.phoneNumber,
                 email: data.email,
@@ -41,7 +45,7 @@ export const UserPage = () => {
     }
 
     useEffect(() => {
-        if(user?.id){
+        if (user?.id) {
             dispatch(usersSagaActions.fetchUserById(user?.id))
         }
     }, [dispatch, user?.id])
@@ -61,7 +65,10 @@ export const UserPage = () => {
                     {
                         isEditing &&
                         <Box alignItems='center' display='flex' pt={2}>
-                            <Button color='warning' variant='outlined' size='large'>delete account</Button>
+                            <Button onClick={handleOpen} color='warning' variant='outlined' size='large'>
+                                delete account
+                            </Button>
+                            <DeleteUserModal open={open} handleClose={handleClose}/>
                         </Box>
                     }
                 </Grid>

@@ -4,7 +4,7 @@ import {userAPI} from "../../API/userAPI";
 import {addNewUserType, deleteUserType, fetchUserByIdType, fetchUsersType, updateUserType} from "./types";
 import {DELETE_USER, FETCH_USER_BY_ID, FETCH_USERS, POST_NEW_USER, UPDATE_USER} from "./usersActionTypes";
 import {newUserType, userType} from "../../API/types/userTypes";
-import {setIsUsersLoading, setUsers} from "./usersSlise";
+import {setIsUsersLoading, setUser, setUsers} from "./usersSlise";
 import {setCurrentUser, setIsLoading, throwSomeError} from "../app/appSlise";
 
 
@@ -24,7 +24,11 @@ function* fetchUserById(action: fetchUserByIdType) {
     try {
         yield put(setIsLoading(true))
         const users: userType = yield call(userAPI.getUserById, action.userId);
-        yield put(setCurrentUser(users));
+        if(action.forAuth) {
+            yield put(setCurrentUser(users));
+        } else {
+            yield put(setUser(users));
+        }
         yield put(setIsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
@@ -65,7 +69,7 @@ function* deleteUser(action: deleteUserType) {
 
 export const usersSagaActions = {
     fetchUsers: (portion?: number, sort?: sortType): fetchUsersType => ({type: FETCH_USERS, params: {portion, sort}}),
-    fetchUserById: (userId: number): fetchUserByIdType => ({type: FETCH_USER_BY_ID, userId}),
+    fetchUserById: (userId: number, forAuth?:boolean): fetchUserByIdType => ({type: FETCH_USER_BY_ID, userId, forAuth}),
     postNewUser: (newUser: newUserType): addNewUserType => ({type: POST_NEW_USER, newUser}),
     updateUser: (userId: number, updatedUser: newUserType): updateUserType => ({
         type: UPDATE_USER, userData: {

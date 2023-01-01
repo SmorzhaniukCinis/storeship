@@ -17,6 +17,7 @@ function* authUser(action: authUserType) {
             const users: userType[] = yield call(() => userAPI.getUsers());
             const currentUser = users.find( user => user.username === action.authData.username)
             if(currentUser) {
+                localStorage.setItem('currentUserId', String(currentUser.id))
                 yield put(setCurrentUser(currentUser));
             }
         }

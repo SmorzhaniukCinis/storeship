@@ -12,19 +12,22 @@ import {UserPageSkeleton} from "./UserPageSkeleton";
 import {useForm} from "react-hook-form";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import {appSelectors} from "../../redux/app/appSelectors";
 
 
 export const UserPage = () => {
 
     const dispatch = useAppDispatch()
-    const user = useAppSelector(usersSelectors.selectCurrentUser)
-    const [isEditing, setIsEditing] = useState(true)
+    const user = useAppSelector(appSelectors.selectCurrentUser)
+    const [isEditing, setIsEditing] = useState(false)
     const {register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = (data: any) => console.log(data);
 
     useEffect(() => {
-        dispatch(usersSagaActions.fetchUserById(1))
-    }, [])
+        if(user?.id){
+            dispatch(usersSagaActions.fetchUserById(user?.id))
+        }
+    }, [dispatch, user?.id])
 
     if (false) return <UserPageSkeleton/>
     return (

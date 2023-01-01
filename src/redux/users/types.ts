@@ -17,6 +17,7 @@ export type fetchUsersType = {
 export type fetchUserByIdType = {
     type: typeof FETCH_USER_BY_ID
     userId: number
+    forAuth?: boolean
 }
 export type addNewUserType = {
     type: typeof POST_NEW_USER

@@ -58,7 +58,7 @@ export const AuthPage = () => {
                 username
             }))
         } else {
-            if(password === passwordComparison) {
+            if(password === passwordComparison && !isAuthPath) {
                 openModal({
                     password,
                     passwordComparison,
@@ -66,6 +66,9 @@ export const AuthPage = () => {
                 })
             } else {
                 dispatch(throwSomeError('Password must be identical'))
+                setTimeout(() => {
+                    dispatch(throwSomeError(''))
+                }, 5000)
             }
 
         }

@@ -19,7 +19,7 @@ export const usersSlice = createSlice({
         setUsers: (state, action: PayloadAction<userType[]>) => {
             state.users = action.payload;
         },
-        setCurrentUser: (state, action: PayloadAction<userType | null>) => {
+        setUser: (state, action: PayloadAction<userType | null>) => {
             state.currentUser = action.payload;
         },
         setIsUsersLoading: (state, action: PayloadAction<boolean>) => {
@@ -32,6 +32,6 @@ export const usersSlice = createSlice({
     },
 });
 
-export const {setUsers, setCurrentUser, setIsUsersLoading, setSortBy} = usersSlice.actions;
+export const {setUsers, setUser, setIsUsersLoading, setSortBy} = usersSlice.actions;
 
 export default usersSlice.reducer;

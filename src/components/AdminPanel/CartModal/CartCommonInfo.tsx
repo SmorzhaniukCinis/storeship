@@ -7,7 +7,7 @@ import {productType} from "../../../API/types/productsType";
 import {usersSagaActions} from "../../../redux/users/usersSaga";
 import {productsSagaActions} from "../../../redux/products/productSaga";
 import {setCartProducts} from "../../../redux/carts/cartSlise";
-import {setCurrentUser} from "../../../redux/users/usersSlise";
+import {setUser} from "../../../redux/users/usersSlise";
 import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 import {usersSelectors} from "../../../redux/users/usersSelectors";
 import {cartSelectors} from "../../../redux/carts/cartsSelectors";
@@ -62,7 +62,7 @@ export const CartCommonInfo:React.FC<props> = ({cart}:props) => {
         }
         return function cleanup() {
             dispatch(setCartProducts(null))
-            dispatch(setCurrentUser(null))
+            dispatch(setUser(null))
             setTotalSum(0)
         }
     }, [dispatch, cart])

@@ -50,8 +50,10 @@ function* addNewUser(action: addNewUserType) {
 function* updateUser(action: updateUserType) {
     const {userId, updatedUser} = action.userData
     try {
+        yield put(setIsUsersLoading(true));
         const user: userType = yield call(() => userAPI.updateUser(userId, updatedUser));
         yield put(setCurrentUser(user));
+        yield put(setIsUsersLoading(false));
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }

@@ -21,7 +21,24 @@ export const UserPage = () => {
     const user = useAppSelector(appSelectors.selectCurrentUser)
     const [isEditing, setIsEditing] = useState(false)
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const onSubmit = (data: any) => console.log(data);
+    const isLoading = useAppSelector(usersSelectors.selectIsUsersLoading)
+
+    const onSubmit = (data: any) => {
+        setIsEditing(false)
+        if(user) {
+            dispatch(usersSagaActions.updateUser(user.id, {
+                phone: data.phoneNumber,
+                email: data.email,
+                username: data.userName,
+                name: {
+                    firstname: data.firstname,
+                    lastname: data.lastname
+                },
+                password: user.password,
+                address: user.address
+            }))
+        }
+    }
 
     useEffect(() => {
         if(user?.id){
@@ -29,7 +46,7 @@ export const UserPage = () => {
         }
     }, [dispatch, user?.id])
 
-    if (false) return <UserPageSkeleton/>
+    if (isLoading) return <UserPageSkeleton/>
     return (
         <Paper sx={{p: {md: '50px 200px', xs: 2}}}>
             <form onSubmit={handleSubmit(onSubmit)}>

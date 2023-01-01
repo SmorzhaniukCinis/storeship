@@ -7,7 +7,7 @@ import {sortByTypes} from "../products/types";
 const initialState: initialStateType = {
     users: [],
     currentUser: null,
-    isLoading: true,
+    isLoading: false,
     sortBy: 'initial',
 };
 

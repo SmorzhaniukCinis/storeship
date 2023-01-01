@@ -12,7 +12,7 @@ type props = {
     register: any
 }
 
-export const UserContacts: React.FC<props> = ({email, phoneNumber = '12312312', register, isEditing}: props) => {
+export const UserContacts: React.FC<props> = ({email, phoneNumber, register, isEditing}: props) => {
     return (
         <Grid xs={12} sx={{borderBottom: '1px solid', borderColor: 'secondary.dark'}}>
             <Box fontSize={20}>
@@ -26,7 +26,8 @@ export const UserContacts: React.FC<props> = ({email, phoneNumber = '12312312', 
                 <span className={s.sectionName}>phone number:</span>
                 {isEditing
                     ?
-                    <TextField sx={{width: {xs: '130px'}}}  defaultValue={phoneNumber} variant='standard' {...register('phoneNumber')} size='small'/>
+                    <TextField sx={{width: {xs: '130px'}}} defaultValue={phoneNumber}
+                               variant='standard' {...register('phoneNumber')} size='small'/>
                     : <span>{phoneNumber}</span>
                 }
             </Box>

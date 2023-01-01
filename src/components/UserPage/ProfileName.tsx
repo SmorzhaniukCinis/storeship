@@ -15,7 +15,7 @@ type props = {
     setIsEditing: (isEditing: boolean) => void
 }
 
-export const ProfileName: React.FC<props> = ({userName = 'dsffsd', register, isEditing, setIsEditing}: props) => {
+export const ProfileName: React.FC<props> = ({userName, register, isEditing, setIsEditing}: props) => {
 
     return (
         <Grid xs={12}>
@@ -29,8 +29,8 @@ export const ProfileName: React.FC<props> = ({userName = 'dsffsd', register, isE
                     ? <Tooltip title="EditProfile" sx={{position: 'relative', top: -10}}>
                         <Button size={'large'}
                                 color='success'
-                                variant='outlined'
-                                onClick={() => setIsEditing(false)}>
+                                type='submit'
+                                variant='outlined'>
                             save
                         </Button>
                     </Tooltip>

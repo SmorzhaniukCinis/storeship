@@ -3,13 +3,14 @@ import {authUserType} from "./types";
 import {authAPI} from "../../API/authAPI";
 import {authDataType} from "../../API/types/authTypes";
 import {AUTH_USER} from "./appActionTypes";
-import {setCurrentUser, setToken, throwSomeError} from "./appSlise";
+import {setCurrentUser, setIsLoading, setToken, throwSomeError} from "./appSlise";
 import {userType} from "../../API/types/userTypes";
 import {userAPI} from "../../API/userAPI";
 
 
 function* authUser(action: authUserType) {
     try {
+        yield put(setIsLoading(true))
         const token: string = yield call(() => authAPI.authUser(action.authData));
         if (token) {
             yield put(setToken(token));
@@ -19,8 +20,8 @@ function* authUser(action: authUserType) {
                 yield put(setCurrentUser(currentUser));
             }
         }
+        yield put(setIsLoading(false))
     } catch (e: any) {
-        console.log(e)
         if(e.response.status === 401)
         yield put(throwSomeError('Wrong Username or Password'));
     }

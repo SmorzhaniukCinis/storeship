@@ -15,7 +15,7 @@ export const AuthRouterLink = ({isAuthPath}: props) => {
             <span style={{paddingRight: 5}}>
                 {isAuthPath ? 'Not have account?' : 'Have account?'}
             </span>
-            <Link to={isAuthPath ? '/registration' : '/auth'}>
+            <Link style={{color: 'inherit'}} to={isAuthPath ? '/registration' : '/auth'}>
                 {isAuthPath ? 'Registration' : 'Authorization' }
             </Link>
         </Typography>

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Paper, Typography} from "@mui/material";
 import {useForm} from "react-hook-form";
 import {AuthTitle} from "./AuthTitle";
 import {UserNameField} from "./UserNameField";
 import {PasswordField} from "./PasswordField";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {AuthRouterLink} from "./AuthRouterLink";
 import {PasswordRegistrationFields} from "./PasswordRegistrationFields";
 import Button from "@mui/material/Button";
@@ -13,6 +13,7 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {appSelectors} from "../../redux/app/appSelectors";
 import ErrorIcon from '@mui/icons-material/Error';
 import {NewUserModal} from "./NewUserModal";
+import {throwSomeError} from "../../redux/app/appSlise";
 
 
 export type FormData = {
@@ -34,7 +35,9 @@ export const AuthPage = () => {
     const {pathname} = useLocation();
     const isAuthPath = pathname === '/auth'
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const errorMessage = useAppSelector(appSelectors.selectErrorMessage)
+    const currentUser = useAppSelector(appSelectors.selectCurrentUser)
     const {register, handleSubmit, formState: {errors}} = useForm<FormData>({
         defaultValues: {
             username: 'johnd',
@@ -43,9 +46,7 @@ export const AuthPage = () => {
         }
     })
     const [isModalOpen, setIsModalOpen] = React.useState(false);
-    const [newUserData, setNewUserData] = React.useState<FormData | null>(null);
     const openModal = (data: FormData) => {
-        setNewUserData(data)
         setIsModalOpen(true);
     }
     const closeModal = () => setIsModalOpen(false);
@@ -57,13 +58,24 @@ export const AuthPage = () => {
                 username
             }))
         } else {
-            openModal({
-                password,
-                passwordComparison,
-                username
-            })
+            if(password === passwordComparison) {
+                openModal({
+                    password,
+                    passwordComparison,
+                    username
+                })
+            } else {
+                dispatch(throwSomeError('Password must be identical'))
+            }
+
         }
     });
+    
+    useEffect(() => {
+        if (currentUser) {
+            navigate(`/profile/${currentUser.id}`)
+        }
+    }, [currentUser, navigate])
 
 
     return (
@@ -83,7 +95,7 @@ export const AuthPage = () => {
                 <Button sx={{p: 1}} color='success' variant='outlined' type='submit'>Submit</Button>
                 <AuthRouterLink isAuthPath={isAuthPath}/>
             </Paper>
-            <NewUserModal closeModal={closeModal} isModalOpen={isModalOpen} newUserData={newUserData}/>
+            <NewUserModal closeModal={closeModal} isModalOpen={isModalOpen}/>
         </form>
     );
 };

@@ -7,4 +7,5 @@ export const appSelectors = {
     selectIsLoading: (state: RootState) => state.appData.isLoading,
     selectAdminSearch: (state: RootState) => state.appData.adminSearch,
     selectFilter: (state: RootState) => state.appData.filter,
+    selectCurrentUser: (state: RootState) => state.appData.currentUser,
 }

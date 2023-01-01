@@ -5,6 +5,8 @@ import Modal from "@mui/material/Modal";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import {setCurrentUser} from "../../redux/app/appSlise";
+import {useAppDispatch} from "../../redux/hooks";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -26,8 +28,10 @@ type props = {
 export const LogoutModal: React.FC<props> = ({isOpen, closeModal}: props) => {
 
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
     const logout = () => {
+        dispatch(setCurrentUser(null))
         navigate('/auth')
         closeModal()
     }

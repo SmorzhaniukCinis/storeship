@@ -9,12 +9,11 @@ import {usersSagaActions} from "../../redux/users/usersSaga";
 import {useAppDispatch} from "../../redux/hooks";
 import {NewUserField} from "./NewUserField";
 import CloseIcon from '@mui/icons-material/Close';
+import {appSagaActions} from "../../redux/app/appSaga";
 
 type props = {
     closeModal: () => void
     isModalOpen: boolean
-    newUserData: FormData | null
-
 }
 
 const style = {
@@ -45,7 +44,7 @@ type newUserForm = {
 }
 
 
-export const NewUserModal: React.FC<props> = ({closeModal, isModalOpen, newUserData}: props) => {
+export const NewUserModal: React.FC<props> = ({closeModal, isModalOpen}: props) => {
 
     const dispatch = useAppDispatch()
     const {register, handleSubmit, formState: {errors}} = useForm<newUserForm>({
@@ -60,26 +59,11 @@ export const NewUserModal: React.FC<props> = ({closeModal, isModalOpen, newUserD
         }
     });
     const onSubmit = handleSubmit((data) => {
-        dispatch(usersSagaActions.postNewUser({
-            username: newUserData?.username || 'some',
-            password: newUserData?.password || 'error',
-            email: data.email,
-            phone: data.phone,
-            name: {
-                firstname: data.firstname,
-                lastname: data.lastname
-            },
-            address: {
-                city: data.city,
-                number: Number(data.number),
-                street: data.street,
-                geolocation: {
-                    lat: '0',
-                    long: '0'
-                },
-                zipcode: '0'
-            }
+        dispatch(appSagaActions.authUser({
+            password:  'm38rmF$',
+            username: 'johnd'
         }))
+        closeModal()
     })
 
 
@@ -87,7 +71,8 @@ export const NewUserModal: React.FC<props> = ({closeModal, isModalOpen, newUserD
         <Modal open={isModalOpen} onClose={closeModal}>
             <form onSubmit={onSubmit}>
                 <Box sx={style}>
-                    <CloseIcon sx={{position: 'inherit', right: 15, top: 10, cursor: 'pointer', fontSize: 30}}/>
+                    <CloseIcon onClick={closeModal}
+                               sx={{position: 'inherit', right: 15, top: 10, cursor: 'pointer', fontSize: 30}}/>
                     <Typography textAlign='center' sx={{pb: 2, pt: 4}} variant='h5'>Enter your data</Typography>
 
                     <NewUserField error={errors.email} label='*Email' name='email' register={register} isRequired={true}

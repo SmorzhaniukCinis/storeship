@@ -40,10 +40,10 @@ export const cartSlice = createSlice({
         setProductToCart: (state, action: PayloadAction<cartProduct>) => {
             state.userCart.push(action.payload)
         },
-        deleteProductFromCart: (state, action: PayloadAction<{productId: number}>) => {
+        deleteProductFromCart: (state, action: PayloadAction<{ productId: number }>) => {
             state.userCart.filter(product => product.productId !== action.payload.productId)
         },
-        setProductQuantity: (state, {payload}: PayloadAction<{productId: number, quantity: number}>) => {
+        setProductQuantity: (state, {payload}: PayloadAction<{ productId: number, quantity: number }>) => {
             state.userCart.map(product => {
                 if (payload.productId === product.productId) {
                     return {...product, quantity: payload.quantity}
@@ -60,6 +60,15 @@ export const cartSlice = createSlice({
     },
 });
 
-export const {setCarts, setCurrentCart, setDateFilter, setIsCartsLoading, setCartProducts} = cartSlice.actions;
+export const {
+    setCarts,
+    setCurrentCart,
+    setDateFilter,
+    setIsCartsLoading,
+    setCartProducts,
+    setProductToCart,
+    deleteProductFromCart,
+    setProductQuantity
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

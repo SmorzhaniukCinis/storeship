@@ -13,6 +13,12 @@ export interface initialStateType {
     currentCategory: currentCategory
     isProductsLoading: boolean,
     sortBy: sortByTypes
+    productFeedback: productFeedbackType[]
+}
+export type productFeedbackType = {
+    username: 'Philip J. Fry',
+    feedback: 'Shut up and take my money!'
+    rating: number
 }
 
 export type sortByTypes = 'initial' | 'reverse'

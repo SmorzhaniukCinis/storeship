@@ -55,7 +55,7 @@ export const ProductsPage = () => {
                             <Card elevation={10} sx={{minWidth: 245,}}>
                                 <ProductCardImage id={product.id} goToProduct={goToProduct} url={product.image}/>
                                 <ProductCardInfo goToProduct={goToProduct} product={product}/>
-                                <ProductCardAction price={product.price}/>
+                                <ProductCardAction productId={product.id} price={product.price}/>
                             </Card>
                         </Grid>)
                 }

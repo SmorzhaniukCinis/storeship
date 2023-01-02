@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {newProduct, productType} from "../../API/types/productsType";
-import {initialStateType, sortByTypes} from "./types";
+import {initialStateType, productFeedbackType, sortByTypes} from "./types";
 
 
 const initialState: initialStateType = {
@@ -9,6 +9,13 @@ const initialState: initialStateType = {
     currentCategory: 'electronics',
     isProductsLoading: true,
     sortBy: 'initial',
+    productFeedback: [
+        {
+            username: 'Philip J. Fry',
+            feedback: 'Shut up and take my money!',
+            rating: 5
+        }
+    ],
 };
 
 
@@ -39,6 +46,9 @@ export const productsSlice = createSlice({
         setSortBy: (state, action: PayloadAction<sortByTypes>) => {
             state.sortBy = action.payload
             state.products.reverse()
+        },
+        setProductFeedback: (state, action: PayloadAction<productFeedbackType>) => {
+            state.productFeedback.push(action.payload)
         },
     },
 });

@@ -5,4 +5,5 @@ export const productsSelectors = {
     selectProducts: (state: RootState) => state.productsData.products,
     selectIsProductsLoading: (state: RootState) => state.productsData.isProductsLoading,
     selectSortBy: (state: RootState) => state.productsData.sortBy,
+    selectProductFeedback: (state: RootState) => state.productsData.productFeedback,
 }

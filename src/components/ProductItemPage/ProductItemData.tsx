@@ -4,18 +4,29 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import {DisabledRating} from "./DisabledRating";
 import {productType} from "../../API/types/productsType";
+import {useAppDispatch} from "../../redux/hooks";
+import {setProductToCart} from "../../redux/carts/cartSlise";
 
 type props = {
     product: productType | null
 }
 
 export const ProductItemData:React.FC<props> = ({product}:props) => {
+
+    const dispatch = useAppDispatch()
+
+    const addToCart = () => {
+        if(product) {
+            dispatch(setProductToCart({productId: product.id, quantity: 1}))
+        }
+    }
+
     return (
         <div>
             <Typography fontSize={30}>{product?.title}</Typography>
             <div style={{display: 'flex', marginTop: 10}}>
                 <Typography sx={{mr: 2}} fontSize={20} lineHeight={2}>Price:{product?.price}$</Typography>
-                <Button color='success' variant='outlined'>add to card</Button>
+                <Button color='success' onClick={addToCart} variant='outlined'>add to card</Button>
             </div>
             <div style={{maxWidth: 210, display: 'flex', justifyContent: 'space-between'}}>
                 <Tooltip followCursor enterDelay={500} title={`Votes: ${product?.rating.count}`}>

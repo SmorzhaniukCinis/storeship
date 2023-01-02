@@ -48,7 +48,7 @@ export const productsSlice = createSlice({
             state.products.reverse()
         },
         setProductFeedback: (state, action: PayloadAction<productFeedbackType>) => {
-            state.productFeedback.push(action.payload)
+            state.productFeedback.unshift(action.payload)
         },
     },
 });
@@ -60,7 +60,8 @@ export const {
     addNewProduct,
     deleteProductFromState,
     updateProductFromState,
-    setSortBy
+    setSortBy,
+    setProductFeedback
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

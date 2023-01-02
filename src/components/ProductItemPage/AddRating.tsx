@@ -12,11 +12,21 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import AddIcon from '@mui/icons-material/Add';
 import {Popover, Rating} from "@mui/material";
 import Typography from "@mui/material/Typography";
+import {UseFormSetValue} from "react-hook-form";
+import {productFeedbackType} from "../../redux/products/types";
 
+type props = {
+    setValue: UseFormSetValue<productFeedbackType>
+}
 
-export const AddRating = () => {
+export const AddRating:React.FC<props> = ({setValue}: props) => {
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+    const [rating, setRating] = React.useState<number | null>(null);
+
+
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -26,17 +36,12 @@ export const AddRating = () => {
         setAnchorEl(null);
     };
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-
-    const [value, setValue] = React.useState<number | null>(2);
-
     return (
         <div>
             <Button color='success' variant='outlined' aria-describedby={id} onClick={handleClick}>
                 <AddIcon sx={{color: '#E5D046FF', position: 'relative', right: -9}}/>
                 <StarBorderIcon sx={{color: '#E5D046FF'}} fontSize="large"/>
-                <Typography p={0.5} fontSize={20}>5</Typography>
+                <Typography p={0.5} fontSize={20}>{rating}</Typography>
             </Button>
             <Popover
                 id={id}
@@ -55,9 +60,11 @@ export const AddRating = () => {
                     <Rating
                         sx={{color: '#E5D046FF'}}
                         name="simple-controlled"
-                        value={value}
+                        value={rating}
                         onChange={(event, newValue) => {
-                            setValue(newValue);
+                            setRating(newValue);
+                            // @ts-ignore
+                            setValue('rating', newValue)
                         }}
                     />
                 </Box>

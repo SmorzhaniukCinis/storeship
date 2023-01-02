@@ -16,8 +16,8 @@ export interface initialStateType {
     productFeedback: productFeedbackType[]
 }
 export type productFeedbackType = {
-    username: 'Philip J. Fry',
-    feedback: 'Shut up and take my money!'
+    username: string
+    feedback: string
     rating: number
 }
 

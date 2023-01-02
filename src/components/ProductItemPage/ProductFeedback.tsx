@@ -22,8 +22,8 @@ export const ProductFeedback: React.FC<props> = ({product}: props) => {
                 <Typography sx={{fontSize: 30,}}>Feedbacks</Typography>
             </div>
 
-            {productFeedback.map(feedback =>
-                <Paper elevation={3} sx={{bgcolor: 'secondary.main', p: 2}}>
+            {productFeedback.map((feedback, index) =>
+                <Paper key={index} elevation={3} sx={{bgcolor: 'secondary.main', p: 2, mt: 2}}>
                     <Box display='flex' sx={{pb: 1}}>
                         <Avatar sx={{mt: 0.5}} alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
                         <Box sx={{ml: 1}}>

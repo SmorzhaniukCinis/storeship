@@ -7,7 +7,7 @@ import {productsSelectors} from "../../redux/products/productsSelectors";
 import {Paper} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import {ProductItemData} from "./ProductItemData";
-import {ProductAddingRating} from "./ProductAddingRating";
+import {ProductAddingFeedback} from "./ProductAddingFeedback";
 import {ProductFeedback} from "./ProductFeedback";
 
 export const ProductsItemPage = () => {
@@ -20,6 +20,8 @@ export const ProductsItemPage = () => {
         dispatch(productsSagaActions.fetchProductById(Number(productId)))
     }, [dispatch, productId])
 
+
+
     return (
         <div style={{padding: '20px 0'}}>
             <Grid container rowSpacing={4} columnSpacing={{md: 2}}>
@@ -29,7 +31,7 @@ export const ProductsItemPage = () => {
                 <Grid xs={12} sm={7}>
                     <Paper elevation={20} sx={{p: 3}}>
                         <ProductItemData product={product}/>
-                        <ProductAddingRating/>
+                        <ProductAddingFeedback />
                         <ProductFeedback product={product}/>
                     </Paper>
                 </Grid>

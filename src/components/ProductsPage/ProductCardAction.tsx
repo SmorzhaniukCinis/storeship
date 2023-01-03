@@ -2,11 +2,11 @@ import React from 'react';
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {CardActions} from "@mui/material";
-import {setProductToCart} from "../../redux/carts/cartSlise";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import {cartSelectors} from "../../redux/carts/cartsSelectors";
+import {updateCart} from "../../redux/persist/persistSlise";
+import {persistSelectors} from "../../redux/persist/persistSelectors";
 
 type props = {
     price: number
@@ -16,10 +16,10 @@ type props = {
 export const ProductCardAction:React.FC<props> = ({price, productId}: props) => {
 
     const dispatch = useAppDispatch()
-    const userCart = useAppSelector(cartSelectors.selectUserCart)
+    const userCart = useAppSelector(persistSelectors.selectCart)
 
     const addToCart = (productId: number) => {
-        dispatch(setProductToCart({
+        dispatch(updateCart({
             productId,
             quantity: 1
         }))

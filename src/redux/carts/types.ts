@@ -11,7 +11,6 @@ import {productType, sortType} from "../../API/types/productsType";
 
 export type initialStateType = {
     isLoading: boolean
-    userCart: cartProduct[]
     carts: cartType[],
     currentCart: cartType | null,
     cartProducts: productType[],

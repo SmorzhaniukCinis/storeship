@@ -10,7 +10,6 @@ const initialState: initialStateType = {
     carts: [],
     currentCart: null,
     cartProducts: [],
-    userCart: [],
     dateRange: {
         startDate: '2000-01-01',
         endDate: dayjs(new Date()).format('YYYY-MM-DD')
@@ -37,26 +36,6 @@ export const cartSlice = createSlice({
         setCurrentCart: (state, action: PayloadAction<cartType>) => {
             state.currentCart = action.payload;
         },
-        setProductToCart: (state, {payload}: PayloadAction<cartProduct>) => {
-            if(!state.userCart.find(product => product.productId === payload.productId)) {
-                state.userCart.push(payload)
-            } else {
-                state.userCart.forEach(function(el, i) {
-                    if (el.productId === payload.productId) {
-                        state.userCart.splice(i, 1)
-                    }
-                })
-            }
-        },
-
-        setProductQuantity: (state, {payload}: PayloadAction<{ productId: number, quantity: number }>) => {
-            state.userCart.map(product => {
-                if (payload.productId === product.productId) {
-                    return {...product, quantity: payload.quantity}
-                }
-                return product
-            })
-        },
         setDateFilter: (state, action: PayloadAction<{ startDate?: string, endDate?: string }>) => {
             state.dateRange = {
                 startDate: action.payload.startDate || state.dateRange.startDate,
@@ -72,8 +51,6 @@ export const {
     setDateFilter,
     setIsCartsLoading,
     setCartProducts,
-    setProductToCart,
-    setProductQuantity
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

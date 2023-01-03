@@ -5,10 +5,10 @@ import Tooltip from "@mui/material/Tooltip";
 import {DisabledRating} from "./DisabledRating";
 import {productType} from "../../API/types/productsType";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {setProductToCart} from "../../redux/carts/cartSlise";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import RemoveShoppingCartOutlinedIcon from '@mui/icons-material/RemoveShoppingCartOutlined';
-import {cartSelectors} from "../../redux/carts/cartsSelectors";
+import {persistSelectors} from "../../redux/persist/persistSelectors";
+import {updateCart} from "../../redux/persist/persistSlise";
 
 type props = {
     product: productType | null
@@ -17,11 +17,11 @@ type props = {
 export const ProductItemData: React.FC<props> = ({product}: props) => {
 
     const dispatch = useAppDispatch()
-    const userCart = useAppSelector(cartSelectors.selectUserCart)
+    const userCart = useAppSelector(persistSelectors.selectCart)
 
-    const updateCart = () => {
+    const updateUserCart = () => {
         if (product) {
-            dispatch(setProductToCart({productId: product.id, quantity: 1}))
+            dispatch(updateCart({productId: product.id, quantity: 1}))
         }
     }
 
@@ -31,11 +31,11 @@ export const ProductItemData: React.FC<props> = ({product}: props) => {
             <div style={{display: 'flex', marginTop: 10}}>
                 <Typography sx={{mr: 2}} fontSize={20} lineHeight={2}>Price:{product?.price}$</Typography>
                 {userCart.find(productItem => productItem.productId === product?.id)
-                    ? <Button color='warning' onClick={updateCart} variant='outlined'>
+                    ? <Button color='warning' onClick={updateUserCart} variant='outlined'>
                         <RemoveShoppingCartOutlinedIcon sx={{mr: 1}}/>
                         cancel adding
                     </Button>
-                    : <Button color='success' onClick={updateCart} variant='outlined'>
+                    : <Button color='success' onClick={updateUserCart} variant='outlined'>
                         <AddShoppingCartIcon sx={{mr: 1}}/>
                         add to card
                     </Button>

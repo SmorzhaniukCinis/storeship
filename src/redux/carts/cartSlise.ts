@@ -40,11 +40,15 @@ export const cartSlice = createSlice({
         setProductToCart: (state, {payload}: PayloadAction<cartProduct>) => {
             if(!state.userCart.find(product => product.productId === payload.productId)) {
                 state.userCart.push(payload)
+            } else {
+                state.userCart.forEach(function(el, i) {
+                    if (el.productId === payload.productId) {
+                        state.userCart.splice(i, 1)
+                    }
+                })
             }
         },
-        deleteProductFromCart: (state, action: PayloadAction<{ productId: number }>) => {
-            state.userCart.filter(product => product.productId !== action.payload.productId)
-        },
+
         setProductQuantity: (state, {payload}: PayloadAction<{ productId: number, quantity: number }>) => {
             state.userCart.map(product => {
                 if (payload.productId === product.productId) {
@@ -69,7 +73,6 @@ export const {
     setIsCartsLoading,
     setCartProducts,
     setProductToCart,
-    deleteProductFromCart,
     setProductQuantity
 } = cartSlice.actions;
 

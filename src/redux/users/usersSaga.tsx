@@ -26,6 +26,7 @@ function* fetchUserById(action: fetchUserByIdType) {
         yield put(setIsLoading(true))
         const users: userType = yield call(userAPI.getUserById, action.userId);
         if(action.forAuth) {
+            debugger
             yield put(setCurrentUser(users));
         } else {
             yield put(setUser(users));
@@ -53,7 +54,7 @@ function* updateUser(action: updateUserType) {
     try {
         yield put(setIsUsersLoading(true));
         const user: userType = yield call(() => userAPI.updateUser(userId, updatedUser));
-        yield put(setCurrentUser(user));
+        yield put(setCurrentUser({...user, id: userId}));
         yield put(setIsUsersLoading(false));
     } catch (e: any) {
         yield put(throwSomeError(e.message));

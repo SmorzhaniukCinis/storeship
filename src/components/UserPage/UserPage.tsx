@@ -15,34 +15,45 @@ import Box from "@mui/material/Box";
 import {DeleteUserModal} from "./DeleteUserModal";
 import {persistSelectors} from "../../redux/persist/persistSelectors";
 
+type formData = {
+    username: string
+    firstname: string
+    lastname: string
+    email: string
+    phoneNumber: string
+    city: string
+    street: string
+    number: string
+}
 
 export const UserPage = () => {
 
     const dispatch = useAppDispatch()
     const user = useAppSelector(persistSelectors.selectCurrentUser)
     const [isEditing, setIsEditing] = useState(false)
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm<formData>()
     const isLoading = useAppSelector(usersSelectors.selectIsUsersLoading)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const onSubmit = (data: any) => {
-        setIsEditing(false)
-        if (user) {
-            dispatch(usersSagaActions.updateUser(user.id, {
-                phone: data.phoneNumber,
-                email: data.email,
-                username: data.userName,
-                name: {
-                    firstname: data.firstname,
-                    lastname: data.lastname
-                },
-                password: user.password,
-                address: user.address
-            }))
+    const onSubmit = handleSubmit((data) => {
+            setIsEditing(false)
+            if (user) {
+                dispatch(usersSagaActions.updateUser(user.id, {
+                    phone: data.phoneNumber,
+                    email: data.email,
+                    username: data.username,
+                    name: {
+                        firstname: data.firstname,
+                        lastname: data.lastname
+                    },
+                    password: user.password,
+                    address: user.address
+                }))
+            }
         }
-    }
+    )
 
     useEffect(() => {
         if (user?.id) {
@@ -53,12 +64,12 @@ export const UserPage = () => {
     if (isLoading) return <UserPageSkeleton/>
     return (
         <Paper sx={{p: {md: '50px 200px', xs: 2}}}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={onSubmit}>
                 <Grid container spacing={2} paddingBottom={{xs: 4}}>
                     <ProfileName setIsEditing={setIsEditing} register={register}
-                                 userName={user?.username}
+                                 username={user?.username} errors={errors}
                                  isEditing={isEditing}/>
-                    <UserName register={register} name={user?.name} isEditing={isEditing}/>
+                    <UserName errors={errors} register={register} name={user?.name} isEditing={isEditing}/>
                     <UserContacts register={register} email={user?.email} phoneNumber={user?.phone}
                                   isEditing={isEditing}/>
                     <UserAddress register={register} address={user?.address} isEditing={isEditing}/>

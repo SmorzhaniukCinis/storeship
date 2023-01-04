@@ -12,14 +12,15 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import AddIcon from '@mui/icons-material/Add';
 import {Popover, Rating} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {UseFormSetValue} from "react-hook-form";
+import {UseFormClearErrors, UseFormSetValue} from "react-hook-form";
 import {productFeedbackType} from "../../redux/products/types";
 
 type props = {
     setValue: UseFormSetValue<productFeedbackType>
+    clearErrors: UseFormClearErrors<productFeedbackType>
 }
 
-export const AddRating:React.FC<props> = ({setValue}: props) => {
+export const AddRating:React.FC<props> = ({setValue, clearErrors}: props) => {
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const open = Boolean(anchorEl);
@@ -65,6 +66,7 @@ export const AddRating:React.FC<props> = ({setValue}: props) => {
                             setRating(newValue);
                             // @ts-ignore
                             setValue('rating', newValue)
+                            clearErrors('rating')
                         }}
                     />
                 </Box>

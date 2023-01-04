@@ -26,7 +26,7 @@ export const productsSlice = createSlice({
         setProducts: (state, action: PayloadAction<productType[]>) => {
             state.products = action.payload;
         },
-        setCurrentProduct: (state, action: PayloadAction<productType>) => {
+        setCurrentProduct: (state, action: PayloadAction<productType | null>) => {
             state.currentProduct = action.payload;
         },
         setIsProductsLoading: (state, action: PayloadAction<boolean>) => {

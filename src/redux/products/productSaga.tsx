@@ -45,6 +45,7 @@ function* fetchProductById(action: fetchProductByIdType) {
         yield put(setIsProductsLoading(true))
         const product: productType = yield call(productAPI.getProductById, action.productId);
         yield put(setCurrentProduct(product));
+        yield put(setIsProductsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }

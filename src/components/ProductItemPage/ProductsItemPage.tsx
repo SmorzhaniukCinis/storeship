@@ -9,19 +9,24 @@ import Grid from "@mui/material/Unstable_Grid2";
 import {ProductItemData} from "./ProductItemData";
 import {ProductAddingFeedback} from "./ProductAddingFeedback";
 import {ProductFeedback} from "./ProductFeedback";
+import {ProductItemSkeleton} from "./ProductItemSkeleton";
+import {setCurrentProduct} from "../../redux/products/ProductsSlice";
 
 export const ProductsItemPage = () => {
 
     const {productId} = useParams()
     const dispatch = useDispatch()
     const product = useAppSelector(productsSelectors.selectCurrentProduct)
+    const isLoading = useAppSelector(productsSelectors.selectIsProductsLoading)
 
     useEffect(() => {
         dispatch(productsSagaActions.fetchProductById(Number(productId)))
+        return function cleanup () {
+            dispatch(setCurrentProduct(null))
+        }
     }, [dispatch, productId])
 
-
-
+    if(isLoading) return <ProductItemSkeleton/>
     return (
         <div style={{padding: '20px 0'}}>
             <Grid container rowSpacing={4} columnSpacing={{md: 2}}>

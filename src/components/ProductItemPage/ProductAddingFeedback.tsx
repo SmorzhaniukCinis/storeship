@@ -46,7 +46,6 @@ export const ProductAddingFeedback = () => {
             setValue('username', user?.username)
     }, [setValue, user])
 
-    console.log(errors)
     return (
         <form onSubmit={onSubmit}>
             <TextField
@@ -58,7 +57,6 @@ export const ProductAddingFeedback = () => {
                 maxRows={4}
                 variant="standard"
             />
-
             {errors.feedback?.type === 'unregistered'
                 ? <Typography sx={{fontSize: 16, color: '#e14141'}}>
                     Only

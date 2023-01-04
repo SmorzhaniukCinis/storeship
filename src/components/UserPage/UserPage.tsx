@@ -12,14 +12,14 @@ import {UserPageSkeleton} from "./UserPageSkeleton";
 import {useForm} from "react-hook-form";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import {appSelectors} from "../../redux/app/appSelectors";
 import {DeleteUserModal} from "./DeleteUserModal";
+import {persistSelectors} from "../../redux/persist/persistSelectors";
 
 
 export const UserPage = () => {
 
     const dispatch = useAppDispatch()
-    const user = useAppSelector(appSelectors.selectCurrentUser)
+    const user = useAppSelector(persistSelectors.selectCurrentUser)
     const [isEditing, setIsEditing] = useState(false)
     const {register, handleSubmit, formState: {errors}} = useForm();
     const isLoading = useAppSelector(usersSelectors.selectIsUsersLoading)
@@ -62,8 +62,7 @@ export const UserPage = () => {
                     <UserContacts register={register} email={user?.email} phoneNumber={user?.phone}
                                   isEditing={isEditing}/>
                     <UserAddress register={register} address={user?.address} isEditing={isEditing}/>
-                    {
-                        isEditing &&
+                    {isEditing &&
                         <Box alignItems='center' display='flex' pt={2}>
                             <Button onClick={handleOpen} color='warning' variant='outlined' size='large'>
                                 delete account

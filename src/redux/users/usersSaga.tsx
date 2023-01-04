@@ -5,7 +5,8 @@ import {addNewUserType, deleteUserType, fetchUserByIdType, fetchUsersType, updat
 import {DELETE_USER, FETCH_USER_BY_ID, FETCH_USERS, POST_NEW_USER, UPDATE_USER} from "./usersActionTypes";
 import {newUserType, userType} from "../../API/types/userTypes";
 import {setIsUsersLoading, setUser, setUsers} from "./usersSlise";
-import {setCurrentUser, setIsLoading, throwSomeError} from "../app/appSlise";
+import {setIsLoading, throwSomeError} from "../app/appSlise";
+import {setCurrentUser} from "../persist/persistSlise";
 
 
 function* fetchUsers(action: fetchUsersType) {

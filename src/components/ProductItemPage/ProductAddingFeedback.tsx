@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -6,14 +6,14 @@ import {AddRating} from "./AddRating";
 import {productFeedbackType} from "../../redux/products/types";
 import {useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {appSelectors} from "../../redux/app/appSelectors";
 import Typography from "@mui/material/Typography";
 import {setProductFeedback} from "../../redux/products/ProductsSlice";
+import {persistSelectors} from "../../redux/persist/persistSelectors";
 
 
 export const ProductAddingFeedback = () => {
 
-    const user = useAppSelector(appSelectors.selectCurrentUser)
+    const user = useAppSelector(persistSelectors.selectCurrentUser)
     const dispatch = useAppDispatch()
     const {register, setValue, setError, handleSubmit, formState: {errors}} = useForm<productFeedbackType>({
         defaultValues: {

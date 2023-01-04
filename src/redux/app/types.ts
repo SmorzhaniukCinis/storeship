@@ -9,7 +9,6 @@ export type initialStateType = {
     isLoading: boolean
     adminSearch: string
     filter: filterTypes
-    currentUser: userType | null
 }
 export type filterTypes = 'Asc' | 'Desc' | 'electronics'| 'jewelery' | "men's clothing" | "women's clothing"
 

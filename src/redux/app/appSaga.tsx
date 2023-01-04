@@ -3,9 +3,10 @@ import {authUserType} from "./types";
 import {authAPI} from "../../API/authAPI";
 import {authDataType} from "../../API/types/authTypes";
 import {AUTH_USER} from "./appActionTypes";
-import {setCurrentUser, setIsLoading, setToken, throwSomeError} from "./appSlise";
+import {setIsLoading, setToken, throwSomeError} from "./appSlise";
 import {userType} from "../../API/types/userTypes";
 import {userAPI} from "../../API/userAPI";
+import {setCurrentUser} from "../persist/persistSlise";
 
 
 function* authUser(action: authUserType) {
@@ -17,7 +18,6 @@ function* authUser(action: authUserType) {
             const users: userType[] = yield call(() => userAPI.getUsers());
             const currentUser = users.find( user => user.username === action.authData.username)
             if(currentUser) {
-                localStorage.setItem('currentUserId', String(currentUser.id))
                 yield put(setCurrentUser(currentUser));
             }
         }

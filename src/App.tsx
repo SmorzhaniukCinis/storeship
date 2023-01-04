@@ -10,14 +10,6 @@ import {usersSagaActions} from "./redux/users/usersSaga";
 function App() {
     const isLightTheme = useAppSelector(appSelectors.selectIsLightTheme)
     const isLoading = useAppSelector(appSelectors.selectIsLoading)
-    const dispatch = useAppDispatch()
-    const currentUserId = localStorage.getItem('currentUserId')
-
-    useEffect(() => {
-        if(currentUserId) {
-            dispatch(usersSagaActions.fetchUserById(Number(currentUserId), true))
-        }
-    }, [currentUserId, dispatch])
 
     return (
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>

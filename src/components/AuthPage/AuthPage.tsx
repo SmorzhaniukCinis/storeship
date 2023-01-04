@@ -14,6 +14,7 @@ import {appSelectors} from "../../redux/app/appSelectors";
 import ErrorIcon from '@mui/icons-material/Error';
 import {NewUserModal} from "./NewUserModal";
 import {throwSomeError} from "../../redux/app/appSlise";
+import {persistSelectors} from "../../redux/persist/persistSelectors";
 
 
 export type FormData = {
@@ -37,7 +38,7 @@ export const AuthPage = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const errorMessage = useAppSelector(appSelectors.selectErrorMessage)
-    const currentUser = useAppSelector(appSelectors.selectCurrentUser)
+    const currentUser = useAppSelector(persistSelectors.selectCurrentUser)
     const {register, handleSubmit, formState: {errors}} = useForm<FormData>({
         defaultValues: {
             username: 'johnd',
@@ -46,7 +47,7 @@ export const AuthPage = () => {
         }
     })
     const [isModalOpen, setIsModalOpen] = React.useState(false);
-    const openModal = (data: FormData) => {
+    const openModal = () => {
         setIsModalOpen(true);
     }
     const closeModal = () => setIsModalOpen(false);
@@ -58,12 +59,8 @@ export const AuthPage = () => {
                 username
             }))
         } else {
-            if(password === passwordComparison && !isAuthPath) {
-                openModal({
-                    password,
-                    passwordComparison,
-                    username
-                })
+            if (password === passwordComparison && !isAuthPath) {
+                openModal()
             } else {
                 dispatch(throwSomeError('Password must be identical'))
                 setTimeout(() => {
@@ -73,7 +70,7 @@ export const AuthPage = () => {
 
         }
     });
-    
+
     useEffect(() => {
         if (currentUser) {
             navigate(`/profile/${currentUser.id}`)

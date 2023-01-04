@@ -5,8 +5,8 @@ import Modal from "@mui/material/Modal";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import {setCurrentUser} from "../../redux/app/appSlise";
 import {useAppDispatch} from "../../redux/hooks";
+import {setCurrentUser} from "../../redux/persist/persistSlise";
 
 const style = {
     position: 'absolute' as 'absolute',

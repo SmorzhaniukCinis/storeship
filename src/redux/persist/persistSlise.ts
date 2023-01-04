@@ -1,10 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {initialStateType} from "./types";
 import {cartProduct} from "../../API/types/cartsTypes";
+import {userType} from "../../API/types/userTypes";
 
 
 const initialState: initialStateType = {
-    cart: []
+    cart: [],
+    currentUser: null
 }
 
 export const persistSlice = createSlice({
@@ -22,7 +24,6 @@ export const persistSlice = createSlice({
                 })
             }
         },
-
         setProductQuantity: (state, {payload}: PayloadAction<{ productId: number, quantity: number }>) => {
             state.cart.map(product => {
                 if (payload.productId === product.productId) {
@@ -31,9 +32,12 @@ export const persistSlice = createSlice({
                 return product
             })
         },
+        setCurrentUser: (state, action: PayloadAction<userType | null>) => {
+            state.currentUser = action.payload
+        },
     },
 });
 
-export const {updateCart, setProductQuantity} = persistSlice.actions;
+export const {updateCart, setProductQuantity, setCurrentUser} = persistSlice.actions;
 
 export default persistSlice.reducer;

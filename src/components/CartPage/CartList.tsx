@@ -36,7 +36,7 @@ export const CartList = memo(() => {
 
     return (
         <Box sx={ProductsList}>
-            {cartWithProduct.length
+            {cartWithProduct.length === cart.length
                 ? cartWithProduct.map(item => <CartProductItem key={item.product.id} item={item}/>)
                 : <Box textAlign={'center'}><SmallLoader/></Box>
             }

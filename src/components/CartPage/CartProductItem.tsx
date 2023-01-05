@@ -24,7 +24,7 @@ export const CartProductItem: React.FC<props> = React.memo(({item}: props) => {
             <CartProductsImg image={item.product.image}/>
             <CartProductName title={item.product.title}/>
             <CartProductPrice quantity={item.quantity} prise={item.product.price} productId={item.product.id}/>
-            <CartProductDelete/>
+            <CartProductDelete productId={item.product.id}/>
         </Grid>
     )
 })

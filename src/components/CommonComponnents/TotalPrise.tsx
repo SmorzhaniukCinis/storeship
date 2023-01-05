@@ -1,16 +1,20 @@
-import React from 'react';
-import Box from "@mui/material/Box";
+import React, {FC} from 'react';
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 
-export const TotalPrise = () => {
+type props = {
+    quantity: number
+    price: number
+}
+
+export const TotalPrise:FC<props> = ({quantity, price}:props) => {
     return (
         <Grid xs={12} md={3} sx={{textAlign: 'center'}}>
             <Typography fontSize={25}>
-                Count: 2
+                Quantity: {quantity}
             </Typography>
             <Typography fontSize={25}>
-                Prise:1200$
+                Prise:{price}$
             </Typography>
         </Grid>
     );

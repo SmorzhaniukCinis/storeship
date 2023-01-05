@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from "@mui/material/Unstable_Grid2";
 import {InputAdornment, Paper, SelectChangeEvent, TextField} from "@mui/material";
 import {useForm} from "react-hook-form";
@@ -16,19 +16,30 @@ import {EmailField} from "./EmailField";
 import {FirstNameField} from "./FirstNameField";
 import LastNameField from "./LastNameField";
 import {SubmitButton} from "./SubmitButton";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {cartSelectors} from "../../redux/carts/cartsSelectors";
+import {persistSelectors} from "../../redux/persist/persistSelectors";
+import {productsSagaActions} from "../../redux/products/productSaga";
+import Box from "@mui/material/Box";
+import {SmallLoader} from "../AdminPanel/SmallLoader";
 
 
 export const PaymentPage = () => {
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const [paymentMethod, setPaymentMethod] = useState('cash')
+    const cart = useAppSelector(persistSelectors.selectCart)
+    const cartWithProduct = useAppSelector(cartSelectors.selectCartWithProducts)
+    const dispatch = useAppDispatch()
 
     const onSubmit = (data: any) => console.log(data);
-
-    const [paymentMethod, setPaymentMethod] = useState('cash')
     const changePaymentMethod = (event: SelectChangeEvent) => {
         setPaymentMethod(event.target.value)
     }
 
+    useEffect(() => {
+        dispatch(productsSagaActions.fetchProductForCart(cart))
+    }, [cart, dispatch])
 
     return (
         <Paper elevation={20} sx={{width: {md: '100%'}, p: {xs: 1, md: 15}, m: {xs: 1}}}>
@@ -43,10 +54,11 @@ export const PaymentPage = () => {
                     <PaymentMethod paymentMethod={paymentMethod}
                                    changePaymentMethod={changePaymentMethod}
                                    register={register}/>
-                    {
-                        paymentMethod === 'card' && <AddCard errors={errors} register={register}/>
+                    {paymentMethod === 'card' && <AddCard errors={errors} register={register}/>}
+                    {cartWithProduct
+                        ? cartWithProduct.map(cartItem => <PriceProductItem key={cartItem.product.id} cartItem={cartItem}/>)
+                        : <Box textAlign='center'><SmallLoader/></Box>
                     }
-                    <PriceProductItem/>
                     <SubmitButton/>
                 </Grid>
             </form>

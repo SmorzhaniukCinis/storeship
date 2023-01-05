@@ -1,11 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {memo, useEffect} from 'react';
 import Box from "@mui/material/Box";
 import {CartProductItem} from "./CartProductItem";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {persistSelectors} from "../../redux/persist/persistSelectors";
 import {productsSagaActions} from "../../redux/products/productSaga";
 import {cartSelectors} from "../../redux/carts/cartsSelectors";
-import {productsSelectors} from "../../redux/products/productsSelectors";
 import {SmallLoader} from "../AdminPanel/SmallLoader";
 
 
@@ -25,7 +24,7 @@ const ProductsList = {
 }
 
 
-export const CartList = () => {
+export const CartList = memo(() => {
 
     const cart = useAppSelector(persistSelectors.selectCart)
     const cartWithProduct = useAppSelector(cartSelectors.selectCartWithProducts)
@@ -42,5 +41,5 @@ export const CartList = () => {
                 : <Box textAlign={'center'}><SmallLoader/></Box>
             }
         </Box>
-    );
-};
+    )
+})

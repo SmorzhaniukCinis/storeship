@@ -6,13 +6,13 @@ type props = {
     title: string
 }
 
-export const CartProductName:React.FC<props> = ({title}: props) => {
+export const CartProductName:React.FC<props> = React.memo( ({title}: props) => {
     return (
         <Grid overflow='hidden' textAlign={{xs: 'center', md: 'start'}} xs={12} md={5}>
             <Typography fontSize={28} height={{sx: '300px', md: 80}} textOverflow='hidden'>
                 {title}
             </Typography>
         </Grid>
-    );
-};
+    )
+})
 

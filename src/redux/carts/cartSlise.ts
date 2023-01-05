@@ -46,6 +46,15 @@ export const cartSlice = createSlice({
         setCartWithProducts: (state, {payload}: PayloadAction<cartWithProductType>) => {
             state.cartWithProducts = payload
         },
+        updateQuantityInCart: (state, {payload}: PayloadAction<{quantity: number, productId: number}>) => {
+            state.cartWithProducts = state.cartWithProducts.map((cartItem) => {
+                if (payload.productId === cartItem.product.id) {
+                    return {...cartItem,  quantity: payload.quantity}
+                } else {
+                    return cartItem
+                }
+            })
+        },
     },
 });
 
@@ -56,6 +65,7 @@ export const {
     setIsCartsLoading,
     setCartProducts,
     setCartWithProducts,
+    updateQuantityInCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Grid from "@mui/material/Unstable_Grid2";
 import {CartProductsImg} from "../CommonComponnents/CartProductsImg";
 import {CartProductName} from "../CommonComponnents/CartProductName";
@@ -15,6 +15,7 @@ type props = {
 
 export const CartProductItem: React.FC<props> = React.memo(({item}: props) => {
 
+    const [productQuantity, setProductQuantity] = useState<number>(item.quantity)
 
     return (
         <Grid container rowSpacing={1} columnSpacing={{md: 4}} paddingBottom={{md: 2}}

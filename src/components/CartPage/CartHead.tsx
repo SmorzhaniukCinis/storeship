@@ -4,16 +4,20 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import {useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {cartSelectors} from "../../redux/carts/cartsSelectors";
+import {setProductQuantity} from "../../redux/persist/persistSlise";
 
 type props = {
     closeCart: () => void
 }
 
-export const CartHead = ({closeCart}:props) => {
+export const CartHead = ({closeCart}: props) => {
 
     const navigate = useNavigate()
 
     const goToPayment = () => {
+        closeCart()
         navigate('/payment')
     }
 

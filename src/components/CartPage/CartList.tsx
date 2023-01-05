@@ -1,15 +1,10 @@
-import React from 'react';
-import Grid from "@mui/material/Unstable_Grid2";
-import Typography from "@mui/material/Typography";
+import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-import {TextField} from "@mui/material";
-import RemoveIcon from "@mui/icons-material/Remove";
-import DeleteIcon from "@mui/icons-material/Delete";
 import {CartProductItem} from "./CartProductItem";
-
-
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {persistSelectors} from "../../redux/persist/persistSelectors";
+import {productsSagaActions} from "../../redux/products/productSaga";
+import {cartSelectors} from "../../redux/carts/cartsSelectors";
 
 
 const ProductsList = {
@@ -27,12 +22,22 @@ const ProductsList = {
     }
 }
 
-const test = [1, 2, 3 , 4, 5]
 
 export const CartList = () => {
+
+    const cart = useAppSelector(persistSelectors.selectCart)
+    const cartWithProduct = useAppSelector(cartSelectors.selectCartWithProducts)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        for (let i = 1; i <= cart.length; i++) {
+            dispatch(productsSagaActions.fetchProductForCart(cart))
+        }
+    }, [cart, dispatch])
+
     return (
         <Box sx={ProductsList}>
-            {test.map(product => <CartProductItem key={product}/>)}
+            {cartWithProduct.map(item => <CartProductItem key={item.product.id} product={item}/>)}
         </Box>
     );
 };

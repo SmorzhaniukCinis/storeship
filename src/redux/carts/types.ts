@@ -18,8 +18,13 @@ export type initialStateType = {
         startDate: string,
         endDate: string
     }
-
+    cartWithProducts: cartWithProductType
 }
+
+export type  cartWithProductType = Array<{
+    product: productType,
+    quantity: number
+}>
 export type fullCarts<C, U= undefined> = {
     cart: C,
     user: U

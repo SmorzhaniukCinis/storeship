@@ -2,10 +2,11 @@ import {newProduct, productType, sortType} from "../../API/types/productsType";
 import {
     DELETE_PRODUCT, FETCH_CART_PRODUCT,
     FETCH_CATEGORY_PRODUCT,
-    FETCH_PRODUCT_BY_ID,
+    FETCH_PRODUCT_BY_ID, FETCH_PRODUCT_FOR_CART,
     FETCH_PRODUCTS,
     POST_NEW_PRODUCT, UPDATE_PRODUCT
 } from "./productsActionTypes";
+import {cartProduct} from "../../API/types/cartsTypes";
 
 export interface initialStateType {
     products: productType[]
@@ -32,6 +33,10 @@ export type fetchProductsType = {
 export type fetchProductByIdType = {
     type: typeof FETCH_PRODUCT_BY_ID
     productId: number
+}
+export type fetchProductByForCart = {
+    type: typeof FETCH_PRODUCT_FOR_CART
+    cart: cartProduct[]
 }
 export type fetchCartProductType = {
     type: typeof FETCH_CART_PRODUCT

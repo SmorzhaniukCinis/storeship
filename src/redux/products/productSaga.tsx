@@ -5,27 +5,34 @@ import {
     deleteProductFromState,
     setCurrentProduct,
     setIsProductsLoading,
-    setProducts, updateProductFromState
+    setProducts,
+    updateProductFromState
 } from "./ProductsSlice";
 import {newProduct, productType, sortType} from "../../API/types/productsType";
 import {
-    DELETE_PRODUCT, FETCH_CART_PRODUCT,
+    DELETE_PRODUCT,
+    FETCH_CART_PRODUCT,
     FETCH_CATEGORY_PRODUCT,
     FETCH_PRODUCT_BY_ID,
+    FETCH_PRODUCT_FOR_CART,
     FETCH_PRODUCTS,
     POST_NEW_PRODUCT,
     UPDATE_PRODUCT
 } from "./productsActionTypes";
 import {
-    deleteProductType, fetchCartProductType,
+    deleteProductType,
+    fetchCartProductType,
     fetchCategoryProductsType,
+    fetchProductByForCart,
     fetchProductByIdType,
     fetchProductsType,
     postNewProductType,
     updateProductType
 } from "./types";
 import {throwSomeError} from "../app/appSlise";
-import {setCartProducts} from "../carts/cartSlise";
+import {setCartProducts, setCartWithProducts} from "../carts/cartSlise";
+import {cartWithProductType} from "../carts/types";
+import {cartProduct} from "../../API/types/cartsTypes";
 
 
 function* fetchProducts(action: fetchProductsType) {
@@ -45,6 +52,24 @@ function* fetchProductById(action: fetchProductByIdType) {
         yield put(setIsProductsLoading(true))
         const product: productType = yield call(productAPI.getProductById, action.productId);
         yield put(setCurrentProduct(product));
+        yield put(setIsProductsLoading(false))
+    } catch (e: any) {
+        yield put(throwSomeError(e.message));
+    }
+}
+
+function* fetchProductForCart({cart}: fetchProductByForCart) {
+    try {
+        yield put(setIsProductsLoading(true))
+        const cartWithProducts: cartWithProductType = []
+        for (let i = 0; i < cart.length; i++) {
+            cartWithProducts.push({
+                    product: yield call(productAPI.getProductById, cart[i].productId),
+                    quantity: cart[i].quantity
+                }
+            )
+        }
+        yield put(setCartWithProducts(cartWithProducts));
         yield put(setIsProductsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
@@ -123,6 +148,10 @@ export const productsSagaActions = {
         type: FETCH_PRODUCT_BY_ID,
         productId
     }),
+    fetchProductForCart: (cart: cartProduct[]): fetchProductByForCart => ({
+        type: FETCH_PRODUCT_FOR_CART,
+        cart
+    }),
     fetchCartProducts: (products: number[]): fetchCartProductType => ({
         type: FETCH_CART_PRODUCT,
         products
@@ -149,4 +178,5 @@ export function* productsSaga() {
     yield takeEvery(UPDATE_PRODUCT, updateProduct)
     yield takeEvery(DELETE_PRODUCT, deleteProduct)
     yield takeEvery(FETCH_CART_PRODUCT, fetchCartProducts)
+    yield takeEvery(FETCH_PRODUCT_FOR_CART, fetchProductForCart)
 }

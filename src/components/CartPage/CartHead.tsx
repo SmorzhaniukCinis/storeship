@@ -5,7 +5,11 @@ import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import {useNavigate} from "react-router-dom";
 
-export const CartHead = () => {
+type props = {
+    closeCart: () => void
+}
+
+export const CartHead = ({closeCart}:props) => {
 
     const navigate = useNavigate()
 
@@ -19,7 +23,7 @@ export const CartHead = () => {
                 <Typography variant={'h4'} marginRight={4}>Cart</Typography>
                 <Button variant='contained' onClick={goToPayment} sx={{fontSize: 17}} color='success'>Pay</Button>
             </Box>
-            <CloseIcon sx={{fontSize: 30, color: '#ad9c9c', cursor: 'pointer'}}/>
+            <CloseIcon onClick={closeCart} sx={{fontSize: 30, color: '#ad9c9c', cursor: 'pointer'}}/>
         </Box>
     );
 };

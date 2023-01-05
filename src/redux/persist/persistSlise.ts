@@ -25,11 +25,12 @@ export const persistSlice = createSlice({
             }
         },
         setProductQuantity: (state, {payload}: PayloadAction<{ productId: number, quantity: number }>) => {
-            state.cart.map(product => {
+            state.cart = state.cart.map(product => {
                 if (payload.productId === product.productId) {
                     return {...product, quantity: payload.quantity}
+                } else {
+                    return product
                 }
-                return product
             })
         },
         setCurrentUser: (state, action: PayloadAction<userType | null>) => {

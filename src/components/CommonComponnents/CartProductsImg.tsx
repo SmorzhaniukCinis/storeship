@@ -1,12 +1,14 @@
 import React from 'react';
 import Grid from "@mui/material/Unstable_Grid2";
 
-const te = 'https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg'
+type props = {
+    image: string
+}
 
-export const CartProductsImg = () => {
+export const CartProductsImg:React.FC<props> = ({image}:props) => {
     return (
         <Grid xs={12} md={3} textAlign='center'>
-            <img style={{maxWidth: '100%', height: 80}} src={te} alt=""/>
+            <img style={{maxWidth: '100%', height: 80}} src={image} alt=""/>
         </Grid>
     );
 };

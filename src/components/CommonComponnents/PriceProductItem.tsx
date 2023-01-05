@@ -10,8 +10,8 @@ export const PriceProductItem = () => {
         <Grid xs={12} pt={2}>
             <Paper sx={{bgcolor: 'secondary.main', mt: 2}}>
                 <Grid container columns={11} sx={{p: '5px 0 0 0 '}}>
-                    <CartProductsImg/>
-                    <CartProductName/>
+                    <CartProductsImg image={'df'}/>
+                    <CartProductName title='d'/>
                     <TotalPrise/>
                 </Grid>
             </Paper>

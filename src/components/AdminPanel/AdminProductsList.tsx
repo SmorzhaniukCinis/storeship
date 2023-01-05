@@ -5,7 +5,7 @@ import {AdminProductsActions} from "./AdminProductsActions";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {productsSagaActions} from "../../redux/products/productSaga";
 import {productsSelectors} from "../../redux/products/productsSelectors";
-import {AdminPanelLoader} from "./AdminPanelLoader";
+import {SmallLoader} from "./SmallLoader";
 import {productType} from "../../API/types/productsType";
 import ProductModalContainer from "./ProductModal/ProductModalContainer";
 import {appSelectors} from "../../redux/app/appSelectors";
@@ -64,7 +64,7 @@ export const AdminProductsList: React.FC<props> = ({searchStr}: props) => {
             <AdminProductsActions/>
             {
                 isLoading
-                    ? <AdminPanelLoader/>
+                    ? <SmallLoader/>
                     : filterProducts?.map(product => <AdminProductItem
                         openProductModal={openProductModal}
                         key={product.id}

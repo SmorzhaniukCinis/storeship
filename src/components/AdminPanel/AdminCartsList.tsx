@@ -11,7 +11,7 @@ import {usersSelectors} from "../../redux/users/usersSelectors";
 import {cartType} from "../../API/types/cartsTypes";
 import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween'
-import {AdminPanelLoader} from "./AdminPanelLoader";
+import {SmallLoader} from "./SmallLoader";
 import {CartDetailModal} from "./CartModal/CartDetailModal";
 
 dayjs.extend(isBetween)
@@ -55,7 +55,7 @@ export const AdminCartsList = () => {
         <Box textAlign='center'>
             <DatePicker/>
             {isLoading
-                ? <AdminPanelLoader/>
+                ? <SmallLoader/>
                 : <Grid container spacing={3} textAlign='start'>
                     {currentCarts?.map(cart =>
                         <AdminCartItem cart={cart}

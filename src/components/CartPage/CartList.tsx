@@ -5,6 +5,8 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {persistSelectors} from "../../redux/persist/persistSelectors";
 import {productsSagaActions} from "../../redux/products/productSaga";
 import {cartSelectors} from "../../redux/carts/cartsSelectors";
+import {productsSelectors} from "../../redux/products/productsSelectors";
+import {SmallLoader} from "../AdminPanel/SmallLoader";
 
 
 const ProductsList = {
@@ -30,14 +32,15 @@ export const CartList = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        for (let i = 1; i <= cart.length; i++) {
-            dispatch(productsSagaActions.fetchProductForCart(cart))
-        }
+        dispatch(productsSagaActions.fetchProductForCart(cart))
     }, [cart, dispatch])
 
     return (
         <Box sx={ProductsList}>
-            {cartWithProduct.map(item => <CartProductItem key={item.product.id} product={item}/>)}
+            {cartWithProduct.length
+                ? cartWithProduct.map(item => <CartProductItem key={item.product.id} item={item}/>)
+                : <Box textAlign={'center'}><SmallLoader/></Box>
+            }
         </Box>
     );
 };

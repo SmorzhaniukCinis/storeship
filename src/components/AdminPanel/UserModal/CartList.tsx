@@ -12,7 +12,7 @@ import {cartSagaActions} from "../../../redux/carts/cartsSaga";
 import {cartSelectors} from "../../../redux/carts/cartsSelectors";
 import dayjs from "dayjs";
 import {setCarts} from "../../../redux/carts/cartSlise";
-import {AdminPanelLoader} from "../AdminPanelLoader";
+import {SmallLoader} from "../SmallLoader";
 import {usersSelectors} from "../../../redux/users/usersSelectors";
 
 type props = {
@@ -35,7 +35,7 @@ export const CartList: React.FC<props> = ({userId, openCartModal}: props) => {
         }
     }, [userId, dispatch])
 
-    if(isLoading) return <Box textAlign='center'><AdminPanelLoader/></Box>
+    if(isLoading) return <Box textAlign='center'><SmallLoader/></Box>
     return (
         <Box sx={{borderTop: '1px solid', mt: 1, pt: 1}}>
             {carts.length

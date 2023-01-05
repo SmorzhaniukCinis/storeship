@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import {useAppSelector} from "../../../redux/hooks";
 import {cartSelectors} from "../../../redux/carts/cartsSelectors";
 import {productsSelectors} from "../../../redux/products/productsSelectors";
-import {AdminPanelLoader} from "../AdminPanelLoader";
+import {SmallLoader} from "../SmallLoader";
 import Box from "@mui/material/Box"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Tooltip from "@mui/material/Tooltip";
@@ -42,7 +42,7 @@ export const CartProductsList: React.FC<props> = ({cart}: props) => {
     };
 
 
-    if (isProductLoading) return <Box textAlign='center'><AdminPanelLoader/></Box>
+    if (isProductLoading) return <Box textAlign='center'><SmallLoader/></Box>
     return (
         <List sx={{width: '100%', bgcolor: 'background.paper'}}>
             {cartProducts.map((product) => {

@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {usersSagaActions} from "../../redux/users/usersSaga";
 import {usersSelectors} from "../../redux/users/usersSelectors";
 import UserModal from "./UserModal/UserModal";
-import {AdminPanelLoader} from "./AdminPanelLoader";
+import {SmallLoader} from "./SmallLoader";
 import {cartSagaActions} from "../../redux/carts/cartsSaga";
 import {CartDetailModal} from "./CartModal/CartDetailModal";
 import {cartSelectors} from "../../redux/carts/cartsSelectors";
@@ -69,7 +69,7 @@ export const AdminUserList: React.FC<props> = ({searchStr}: props) => {
                     <Box key={user.id} onClick={() => handleOpen(user.id)}>
                         <AdminUserItem user={user}/>
                     </Box>)
-                : <Box textAlign='center'><AdminPanelLoader/></Box>
+                : <Box textAlign='center'><SmallLoader/></Box>
             }
             <UserModal open={open} handleClose={handleClose} openCartModal={openCartModal}/>
             <CartDetailModal isModalOpen={isCartOpen} closeModal={closeCartModal} cart={currentCart}/>

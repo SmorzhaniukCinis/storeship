@@ -29,8 +29,6 @@ export type fullCarts<C, U= undefined> = {
     cart: C,
     user: U
 }
-
-
 export type fetchCartsType = {
     type: typeof FETCH_CARTS
     params: {

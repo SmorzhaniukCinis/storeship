@@ -60,7 +60,6 @@ function* fetchProductById(action: fetchProductByIdType) {
 
 function* fetchProductForCart({cart}: fetchProductByForCart) {
     try {
-        yield put(setIsProductsLoading(true))
         const cartWithProducts: cartWithProductType = []
         for (let i = 0; i < cart.length; i++) {
             cartWithProducts.push({
@@ -70,7 +69,6 @@ function* fetchProductForCart({cart}: fetchProductByForCart) {
             )
         }
         yield put(setCartWithProducts(cartWithProducts));
-        yield put(setIsProductsLoading(false))
     } catch (e: any) {
         yield put(throwSomeError(e.message));
     }

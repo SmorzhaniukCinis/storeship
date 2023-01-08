@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {cartSelectors} from "../../redux/carts/cartsSelectors";
 import {setProductQuantity} from "../../redux/persist/persistSlise";
+import {persistSelectors} from "../../redux/persist/persistSelectors";
 
 type props = {
     closeCart: () => void
@@ -15,6 +16,7 @@ type props = {
 export const CartHead = ({closeCart}: props) => {
 
     const navigate = useNavigate()
+    const cart = useAppSelector(persistSelectors.selectCart)
 
     const goToPayment = () => {
         closeCart()
@@ -25,7 +27,10 @@ export const CartHead = ({closeCart}: props) => {
         <Box display={'flex'} justifyContent='space-between'>
             <Box sx={{pl: '2%', pt: '1%', display: 'flex'}}>
                 <Typography variant={'h4'} marginRight={4}>Cart</Typography>
-                <Button variant='contained' onClick={goToPayment} sx={{fontSize: 17}} color='success'>Pay</Button>
+                {cart.length
+                    ? <Button variant='contained' onClick={goToPayment} sx={{fontSize: 17}} color='success'>Pay</Button>
+                    : null
+                }
             </Box>
             <CloseIcon onClick={closeCart} sx={{fontSize: 30, color: '#ad9c9c', cursor: 'pointer'}}/>
         </Box>

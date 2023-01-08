@@ -6,6 +6,7 @@ import {persistSelectors} from "../../redux/persist/persistSelectors";
 import {productsSagaActions} from "../../redux/products/productSaga";
 import {cartSelectors} from "../../redux/carts/cartsSelectors";
 import {SmallLoader} from "../AdminPanel/SmallLoader";
+import Typography from "@mui/material/Typography";
 
 
 const ProductsList = {
@@ -40,6 +41,7 @@ export const CartList = memo(() => {
                 ? cartWithProduct.map(item => <CartProductItem key={item.product.id} item={item}/>)
                 : <Box textAlign={'center'}><SmallLoader/></Box>
             }
+            {!cart.length && <Typography sx={{textAlign: 'center', fontSize: 40}}>Cart is empty</Typography>}
         </Box>
     )
 })

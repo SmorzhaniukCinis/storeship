@@ -14,7 +14,7 @@ export const TotalPrise:FC<props> = ({quantity, price}:props) => {
                 Quantity: {quantity}
             </Typography>
             <Typography fontSize={25}>
-                Prise:{price}$
+                Price:{(price * quantity).toFixed(2)}$
             </Typography>
         </Grid>
     );

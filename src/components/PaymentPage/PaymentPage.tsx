@@ -1,15 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Grid from "@mui/material/Unstable_Grid2";
-import {InputAdornment, Paper, SelectChangeEvent, TextField} from "@mui/material";
+import {Paper, SelectChangeEvent} from "@mui/material";
 import {useForm} from "react-hook-form";
 import {FindSettlementField} from "./FindSettlementField";
 import {FindPostDepartmentField} from "./FindPostDepartmentField";
 import {AddCard} from "./AddCard";
 import {PaymentMethod} from "./PaymentMethod";
-import Button from "@mui/material/Button";
-import {CartProductsImg} from "../CommonComponnents/CartProductsImg";
-import {CartProductName} from "../CommonComponnents/CartProductName";
-import {TotalPrise} from "../CommonComponnents/TotalPrise";
 import {PriceProductItem} from "../CommonComponnents/PriceProductItem";
 import {PhoneNumberField} from "./PhoneNumberField";
 import {EmailField} from "./EmailField";
@@ -22,17 +18,43 @@ import {persistSelectors} from "../../redux/persist/persistSelectors";
 import {productsSagaActions} from "../../redux/products/productSaga";
 import Box from "@mui/material/Box";
 import {SmallLoader} from "../AdminPanel/SmallLoader";
+import {SuccessModal} from "./SuccessModal";
 
+type formData = {
+    firstName: string
+    lastName: string
+    phoneNumber: string
+    email: string
+    location: string
+    postDepartment: string
+    paymentMethod: string
+    CVVNumber?: string
+    cardNumber?: string
+    firstCardDate?: string
+    secondCardDate?: string
+}
 
 export const PaymentPage = () => {
 
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+
     const [paymentMethod, setPaymentMethod] = useState('cash')
     const cart = useAppSelector(persistSelectors.selectCart)
     const cartWithProduct = useAppSelector(cartSelectors.selectCartWithProducts)
+    const customer = useAppSelector(persistSelectors.selectCurrentUser)
     const dispatch = useAppDispatch()
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const {register, handleSubmit, watch, formState: {errors}} = useForm<formData>({
+        defaultValues: {
+            email: customer?.email || '',
+            firstName: customer?.name.firstname || '',
+            lastName: customer?.name.lastname || '',
+        }
+    });
 
-    const onSubmit = (data: any) => console.log(data);
+
+    const onSubmit = handleSubmit ((data) => {
+        setIsModalOpen(true)
+    })
     const changePaymentMethod = (event: SelectChangeEvent) => {
         setPaymentMethod(event.target.value)
     }
@@ -43,7 +65,7 @@ export const PaymentPage = () => {
 
     return (
         <Paper elevation={20} sx={{width: {md: '100%'}, p: {xs: 1, md: 15}, m: {xs: 1}}}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={onSubmit}>
                 <Grid container spacing={{xs: 2, md: 3}}>
                     <FirstNameField register={register} errors={errors}/>
                     <LastNameField register={register} errors={errors}/>
@@ -60,6 +82,7 @@ export const PaymentPage = () => {
                         : <Box textAlign='center'><SmallLoader/></Box>
                     }
                     <SubmitButton/>
+                    <SuccessModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
                 </Grid>
             </form>
         </Paper>

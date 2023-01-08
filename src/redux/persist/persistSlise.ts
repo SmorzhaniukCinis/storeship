@@ -36,9 +36,12 @@ export const persistSlice = createSlice({
         setCurrentUser: (state, action: PayloadAction<userType | null>) => {
             state.currentUser = action.payload
         },
+        cleanCart: (state) => {
+            state.cart = []
+        }
     },
 });
 
-export const {updateCart, setProductQuantity, setCurrentUser} = persistSlice.actions;
+export const {updateCart, setProductQuantity, setCurrentUser, cleanCart} = persistSlice.actions;
 
 export default persistSlice.reducer;

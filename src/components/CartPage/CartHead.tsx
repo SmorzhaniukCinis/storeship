@@ -4,9 +4,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import {useNavigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {cartSelectors} from "../../redux/carts/cartsSelectors";
-import {setProductQuantity} from "../../redux/persist/persistSlise";
+import {useAppSelector} from "../../redux/hooks";
 import {persistSelectors} from "../../redux/persist/persistSelectors";
 
 type props = {
